@@ -1,0 +1,6 @@
+# 개인 정보 — 절대 커밋하지 않습니다
+private.js
+docs/*.pdf
+CLAUDE.md
+
+.DS_Store
