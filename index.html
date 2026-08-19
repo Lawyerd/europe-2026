@@ -91,6 +91,28 @@ const TRIP = {
       channel: "Booking.com",
       doc: "docs/a&o슈투트가르트_예약확인서.pdf",
       cancelDeadline: "2026-09-16T23:59"
+    },
+    {
+      id: "train-stu-muc",
+      type: "train",
+      status: "confirmed",
+      docSubmitted: true,
+      title: "슈투트가르트 → 뮌헨",
+      sub: "ICE 691 · 직행 · 1시간 58분",
+      date: "2026-09-19",
+      rows: [
+        { k: "출발", v: "19:17  Stuttgart Hbf · 15번 승강장" },
+        { k: "도착", v: "21:15  München Hbf · 15번 승강장" },
+        { k: "좌석", v: "3호차 98번 · 조용한 구역(Ruhebereich)" },
+        { k: "주문번호", sk: "db1.order", copy: true },
+        { k: "좌석예약", sk: "db1.seatres", copy: true },
+        { k: "티켓코드", sk: "db1.code", copy: true }
+      ],
+      breakdown: "좌석 예약 €5.50 · 2026-08-19 결제",
+      note: "좌석 예약은 취소되지 않습니다. 승강장은 당일 바뀔 수 있으니 앱에서 다시 확인하세요. 조용한 구역이라 통화는 자제해야 합니다.",
+      channel: "DB Navigator",
+      doc: "docs/DB_ICE691_슈투트가르트-뮌헨_좌석예약.pdf",
+      pendingTicket: true
     }
   ],
 
@@ -113,8 +135,8 @@ const TRIP = {
 
     { date: "2026-09-19", dow: "토", city: "이동", label: "슈투트가르트 → 뮌헨",
       move: "train", stay: "뮌헨",
-      items: ["10:00 체크아웃 후 프런트에 짐 보관", "AMB 2026 관람 (전시 마지막 날)", "짐 회수", "18~19시대 ICE로 뮌헨 이동"],
-      tip: "옥토버페스트 개막일이라 열차가 만석입니다. 좌석 지정(€5.50)을 반드시 하세요." },
+      items: ["10:00 체크아웃 후 프런트에 짐 보관", "AMB 2026 관람 (전시 마지막 날)", "짐 회수 → 중앙역 (메세에서 S-Bahn 약 30분)", "19:17 ICE 691 출발 (15번 승강장 · 3호차 98번)", "21:15 München Hbf 도착 → 숙소 체크인"],
+      tip: "좌석 예약 완료. 슈투트가르트 중앙역은 공사 중이라 ICE 승강장까지 걸어 들어가는 시간 10분을 두세요. 승강장은 당일 앱에서 재확인." },
 
     { date: "2026-09-20", dow: "일", city: "뮌헨", label: "옥토버페스트",
       stay: "뮌헨",
@@ -180,8 +202,8 @@ const TRIP = {
       why: "일요일은 극혼잡. 시간지정 온라인 예매로 오전 첫 슬롯을 권합니다." },
     { id: "t7",  rank: 7, type: "train",  title: "포르투 → 리스본 기차", when: "9/26",
       why: "알파 펜둘라르. CP 홈페이지에서 보통 출발 60일 전 오픈합니다." },
-    { id: "t8",  rank: 8, type: "train",  title: "슈투트가르트 → 뮌헨 ICE", when: "9/19",
-      why: "옥토버페스트 개막일이라 만석입니다. 좌석 지정(€5.50)이 필요합니다." },
+    { id: "t8",  rank: 8, type: "train",  title: "슈투트가르트 → 뮌헨 ICE", when: "9/19", done: true,
+      why: "ICE 691 19:17 → 21:15, 3호차 98번 좌석 예약 완료. 승차권 PDF 확인 필요." },
     { id: "t9",  rank: 9, type: "train",  title: "프랑크푸르트 공항 → 슈투트가르트 열차", when: "9/18",
       why: "16:50 도착. 18:50 이후 출발하는 ICE로 잡으세요. 공항역(Frankfurt Flughafen Fernbf)에서 직통입니다." },
     { id: "t10", rank: 10, type: "post", title: "유랑 동행 모집글 게시", when: "상시",
@@ -217,7 +239,8 @@ const TRIP = {
     { id: "doc4", label: "뮌헨→포르투 항공권 e-티켓", need: "예약 후", done: false },
     { id: "doc5", label: "포르투 / 리스본 숙소 확인서", need: "예약 후", done: false },
     { id: "doc6", label: "도루 밸리 바우처 · 신트라 티켓", need: "예약 후", done: false },
-    { id: "doc7", label: "기차표 (DB, CP) 확인 링크 또는 PDF", need: "예약 후", done: false }
+    { id: "doc7", label: "DB ICE 691 좌석 예약 (9/19)", need: "확인 완료 · 승차권 PDF는 별도 확인 필요", done: true, file: "docs/DB_ICE691_슈투트가르트-뮌헨_좌석예약.pdf" },
+    { id: "doc8", label: "기차표 (DB 9/18, CP 9/26)", need: "예약 후", done: false }
   ]
 };
 </script>
@@ -475,7 +498,7 @@ function renderHome(){
   const root=$('#tab-home'); root.innerHTML='';
   const dLeft = dayDiff(parse(TRIP.startDate), TODAY);
   const totalTodo = TRIP.todos.length;
-  const doneTodo = TRIP.todos.filter(t=>state[t.id]).length;
+  const doneTodo = TRIP.todos.filter(t=>t.done||state[t.id]).length;
   const pct = Math.round(doneTodo/totalTodo*100);
 
   root.appendChild(el(`
@@ -512,7 +535,7 @@ function renderHome(){
   root.appendChild(dlCard);
 
   /* 가장 급한 일 */
-  const next = TRIP.todos.filter(t=>!state[t.id]).slice(0,3);
+  const next = TRIP.todos.filter(t=>!(t.done||state[t.id])).slice(0,3);
   root.appendChild(el('<div class="sec-title">지금 할 일</div>'));
   if(next.length===0){
     root.appendChild(el('<div class="card"><div class="card-pad muted">남은 예약이 없어요.</div></div>'));
@@ -652,6 +675,7 @@ function renderBook(){
           ${b.breakdown?`<div class="muted" style="margin-top:6px">${esc(b.breakdown)}</div>`:''}
           ${b.channel?`<div class="muted" style="margin-top:6px">예약처 ${esc(b.channel)}</div>`:''}
           ${!b.docSubmitted?'<div style="margin-top:12px"><span class="chip red">확인서 미제출</span></div>':''}
+          ${b.pendingTicket?'<div style="margin-top:12px"><span class="chip orange">승차권 확인 필요</span> <span class="muted">좌석 예약서만 받았어요. 승차권 PDF가 따로 있는지 확인하세요.</span></div>':''}
         </div>
         ${b.note?`<div class="note">${esc(b.note)}</div>`:''}
         ${(b.map||(b.doc && hasSecrets()))?`<div class="btn-row" style="padding-top:16px">
@@ -670,10 +694,10 @@ function renderBook(){
   TRIP.todos.forEach(t=>{
     const okey='td.'+t.id;
     const node = el(`
-      <div class="td ${state[t.id]?'done':''} ${state[okey]?'open':''}">
+      <div class="td ${(t.done||state[t.id])?'done':''} ${state[okey]?'open':''}">
         <div class="td-head">
           ${icon(t.type)}
-          <div class="tt"><b>${esc(t.title)}</b><small>${esc(t.when)} · ${TYPE_LABEL[t.type]||''}${t.urgent && !state[t.id]?' · <span class="chip red" style="padding:2px 6px;font-size:11px">최우선</span>':''}</small></div>
+          <div class="tt"><b>${esc(t.title)}</b><small>${esc(t.when)} · ${TYPE_LABEL[t.type]||''}${t.urgent && !(t.done||state[t.id])?' · <span class="chip red" style="padding:2px 6px;font-size:11px">최우선</span>':''}</small></div>
           <div class="box" data-id="${t.id}">${checkSvg()}</div>
         </div>
         ${t.why?`<div class="td-body">${esc(t.why)}</div>`:''}
@@ -683,7 +707,7 @@ function renderBook(){
       if(!t.why) return;
       state[okey]=!state[okey]; save(); node.classList.toggle('open');
     });
-    node.querySelector('.box').addEventListener('click',e=>{ e.stopPropagation(); toggle(t.id); });
+    node.querySelector('.box').addEventListener('click',e=>{ e.stopPropagation(); if(t.done){ toast('확정된 항목이에요'); return; } toggle(t.id); });
     c.appendChild(node);
   });
   root.appendChild(c);
