@@ -122,7 +122,7 @@ const TRIP = {
       desc: "9/17 00:00부터는 숙박 요금 전액이 청구됩니다." },
     { id: "d-depart", label: "출국", date: "2026-09-18T09:50", tone: "blue",
       desc: "TW403 · 인천공항 제1여객터미널. 3시간 전 도착 권장." },
-    { id: "d-cp",     label: "포르투→리스본 기차 예매 오픈", date: "2026-07-28T00:00", tone: "gray", estimate: true,
+    { id: "d-cp",     label: "포르투→리스본 기차 예매 오픈", date: "2026-07-27T00:00", tone: "gray", estimate: true,
       desc: "CP는 보통 출발 60일 전에 열립니다. 추정일이며 실제 오픈 여부는 CP 홈페이지 확인이 필요합니다." }
   ],
 
@@ -144,36 +144,34 @@ const TRIP = {
 
     { date: "2026-09-21", dow: "월", city: "뮌헨", label: "유연한 날",
       stay: "뮌헨", flexible: true,
-      items: ["시내 관광 또는 근교 당일치기 중 선택"],
+      items: ["당일 컨디션 보고 결정. 예약 필요 없음"],
       options: [
-        "노이슈반슈타인 성 — 퓌센행 지역열차 2시간 10분 + 73/78번 버스 10분. 온라인 사전 예약 필수",
-        "레겐스부르크 (기차 1시간 30분)",
-        "뉘른베르크 (기차 1시간)",
-        "다하우 (30분)",
-        "뮌헨 시내 — 마리엔광장, 레지덴츠, 님펜부르크 궁전, BMW 벨트, 도이체스 무제움"
+        "뉘른베르크 당일치기 — ICE 1시간, 30분 간격. 중세 구시가지·카이저부르크·소시지. 반나절이면 충분",
+        "뮌헨 시내 — 마리엔광장, 레지덴츠, 님펜부르크 궁전, 영국정원, BMW 벨트"
       ],
-      tip: "옥토버페스트 다음 날이라 체력 소모가 클 수 있습니다. 당일 컨디션에 따라 바꿀 수 있게 열어두세요." },
+      tip: "옥토버페스트 다음 날입니다. 노이슈반슈타인은 왕복 5시간이라 제외했습니다. 뉘른베르크는 아침에 바이에른 티켓(€29)이나 Flexpreis로 사면 되니 전날 정하지 않아도 됩니다." },
 
-    { date: "2026-09-22", dow: "화", city: "뮌헨", label: "옥토버페스트",
-      stay: "뮌헨",
-      items: ["옥토버페스트 (동행 약속 있음)"] },
-
-    { date: "2026-09-23", dow: "수", city: "이동", label: "뮌헨 → 포르투",
+    { date: "2026-09-22", dow: "화", city: "이동", label: "뮌헨 → 포르투",
       move: "flight", stay: "포르투",
       items: ["항공 이동, 오후 도착", "히베이라 지구", "동 루이스 1세 다리 야경"] },
 
-    { date: "2026-09-24", dow: "목", city: "포르투", label: "포르투 시내",
+    { date: "2026-09-23", dow: "수", city: "포르투", label: "포르투 시내",
       stay: "포르투",
       items: ["렐루 서점", "클레리구스 탑", "상 벤투 역", "빌라 노바 드 가이아 포트와인 셀러"] },
 
-    { date: "2026-09-25", dow: "금", city: "포르투", label: "도루 밸리 당일치기",
+    { date: "2026-09-24", dow: "목", city: "포르투", label: "도루 밸리 당일치기",
       stay: "포르투",
       items: ["도루 밸리 투어 (예약 필요)"],
       tip: "포도 수확철(빈디마)이라 투어가 일찍 마감됩니다." },
 
-    { date: "2026-09-26", dow: "토", city: "이동", label: "포르투 → 리스본",
+    { date: "2026-09-25", dow: "금", city: "이동", label: "포르투 → 리스본",
       move: "train", stay: "리스본",
       items: ["오전 알파 펜둘라르 기차 (약 3시간)", "오후 알파마 지구", "바이샤 지구"] },
+
+    { date: "2026-09-26", dow: "토", city: "리스본", label: "리스본 시내",
+      stay: "리스본",
+      items: ["벨렝 지구 (제로니무스 수도원, 벨렝 탑, 파스테이스 드 벨렝)", "LX 팩토리", "카이스 두 소드레 · 타임아웃 마켓"],
+      tip: "신트라를 일요일 혼잡을 피해 이날로 당기는 것도 가능합니다. 그 경우 시내는 27(일)로." },
 
     { date: "2026-09-27", dow: "일", city: "리스본", label: "신트라 당일치기",
       stay: "리스본",
@@ -182,7 +180,7 @@ const TRIP = {
 
     { date: "2026-09-28", dow: "월", city: "리스본", label: "리스본 → 귀국",
       move: "flight", stay: "기내",
-      items: ["벨렝 지구", "22:15 리스본 출발"] },
+      items: ["오전 여유 일정 (못 본 곳 보충)", "22:15 리스본 출발"] },
 
     { date: "2026-09-29", dow: "화", city: "이동", label: "인천 도착",
       items: ["19:15 인천공항 제2여객터미널 도착"] }
@@ -190,17 +188,17 @@ const TRIP = {
 
   // ── 미확정 / 할 일 (우선순위 순) ───────────────────────────
   todos: [
-    { id: "t1",  rank: 1, type: "stay",  title: "뮌헨 숙소 4박 예약", when: "9/19~23",
+    { id: "t1",  rank: 1, type: "stay",  title: "뮌헨 숙소 3박 예약", when: "9/19~22",
       why: "옥토버페스트 개막 주말이 포함되어 가격이 급등 중입니다. 가장 급합니다.", urgent: true },
-    { id: "t2",  rank: 2, type: "flight",  title: "뮌헨 → 포르투 항공권", when: "9/23",
+    { id: "t2",  rank: 2, type: "flight",  title: "뮌헨 → 포르투 항공권", when: "9/22",
       why: "TAP 직항 또는 경유. 빠를수록 저렴합니다." },
-    { id: "t3",  rank: 3, type: "stay",  title: "포르투 숙소 3박 예약", when: "9/23~26", why: "" },
-    { id: "t4",  rank: 4, type: "stay",  title: "리스본 숙소 2박 예약", when: "9/26~28", why: "" },
-    { id: "t5",  rank: 5, type: "tour",  title: "도루 밸리 투어 예약", when: "9/25",
+    { id: "t3",  rank: 3, type: "stay",  title: "포르투 숙소 3박 예약", when: "9/22~25", why: "" },
+    { id: "t4",  rank: 4, type: "stay",  title: "리스본 숙소 3박 예약", when: "9/25~28", why: "" },
+    { id: "t5",  rank: 5, type: "tour",  title: "도루 밸리 투어 예약", when: "9/24",
       why: "포도 수확철이라 조기 마감됩니다." },
     { id: "t6",  rank: 6, type: "ticket",  title: "신트라 페나 성 티켓", when: "9/27",
       why: "일요일은 극혼잡. 시간지정 온라인 예매로 오전 첫 슬롯을 권합니다." },
-    { id: "t7",  rank: 7, type: "train",  title: "포르투 → 리스본 기차", when: "9/26",
+    { id: "t7",  rank: 7, type: "train",  title: "포르투 → 리스본 기차", when: "9/25",
       why: "알파 펜둘라르. CP 홈페이지에서 보통 출발 60일 전 오픈합니다." },
     { id: "t8",  rank: 8, type: "train",  title: "슈투트가르트 → 뮌헨 ICE", when: "9/19", done: true,
       why: "ICE 691 19:17 → 21:15. 승차권(€19.99)과 좌석 3호차 98번(€5.50) 모두 예약 완료." },
@@ -219,7 +217,7 @@ const TRIP = {
     { name: "Jaeger's Munich",            rating: 3.7, note: "도미토리에 에어컨과 실내 화장실. 가성비" },
     { name: "a&o München Hauptbahnhof",   rating: null, note: "대형 체인. 축제장에서 가장 가까움. 늦게 잡을 때 유리" }
   ],
-  munichRule: "주말 2박과 평일 2박을 나눠 잡는 안을 검토 중입니다. 차액이 6만원 미만이면 한 곳에서 4박, 10만원 이상이면 분리합니다. 분리할 경우 도착 직후이자 축제 다음 날인 주말에 더 좋은 숙소를 배정합니다.",
+  munichRule: "3박(토·일·월)입니다. 한 곳에서 3박이 기본이고, 사용자 선호는 Wombat's. 개막 주말이라 가격이 높으니 무료취소 조건과 총액을 같이 봅니다.",
 
   // ── 리스크 ─────────────────────────────────────────────────
   risks: [
@@ -635,9 +633,9 @@ function renderPlan(){
   root.appendChild(el(`
     <div class="card"><div class="card-pad">
       <div class="kv"><div class="k">슈투트가르트</div><div class="v">1박 · 9/18 <span class="chip green">확정</span></div></div>
-      <div class="kv"><div class="k">뮌헨</div><div class="v">4박 · 9/19~23 <span class="chip red">미정</span></div></div>
-      <div class="kv"><div class="k">포르투</div><div class="v">3박 · 9/23~26 <span class="chip red">미정</span></div></div>
-      <div class="kv"><div class="k">리스본</div><div class="v">2박 · 9/26~28 <span class="chip red">미정</span></div></div>
+      <div class="kv"><div class="k">뮌헨</div><div class="v">3박 · 9/19~22 <span class="chip red">미정</span></div></div>
+      <div class="kv"><div class="k">포르투</div><div class="v">3박 · 9/22~25 <span class="chip red">미정</span></div></div>
+      <div class="kv"><div class="k">리스본</div><div class="v">3박 · 9/25~28 <span class="chip red">미정</span></div></div>
       <div class="kv"><div class="k">기내</div><div class="v">1박 · 9/28</div></div>
     </div></div>`));
 
@@ -767,14 +765,14 @@ function renderInfo(){
   root.appendChild(el(`
     <div class="card">
       <div class="row"><div class="rt"><b>AMB 2026</b><small>국제 금속가공 전시회 · 2026/09/15~19 · Messe Stuttgart (공항 옆)</small></div><div class="rv">9/19 관람</div></div>
-      <div class="row"><div class="rt"><b>옥토버페스트</b><small>2026/09/19~10/04 · Theresienwiese, 뮌헨</small></div><div class="rv">9/20·22</div></div>
+      <div class="row"><div class="rt"><b>옥토버페스트</b><small>2026/09/19~10/04 · Theresienwiese, 뮌헨</small></div><div class="rv">9/20</div></div>
     </div>`));
 
   root.appendChild(el('<div class="sec-title">동행</div>'));
   root.appendChild(el(`
     <div class="card">
       <div class="card-pad">
-        <div class="kv"><div class="k">대상</div><div class="v">뮌헨 9/19~23 · 포르투 9/23~26 · 리스본 9/26~28</div></div>
+        <div class="kv"><div class="k">대상</div><div class="v">뮌헨 9/19~22 · 포르투 9/22~25 · 리스본 9/25~28</div></div>
         <div class="kv"><div class="k">모집처</div><div class="v">네이버 카페 유랑</div></div>
         <div class="kv"><div class="k">비고</div><div class="v">슈투트가르트 제외 · 부분 동행 환영</div></div>
       </div>
