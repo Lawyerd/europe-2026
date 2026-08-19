@@ -113,6 +113,28 @@ const TRIP = {
       channel: "DB Navigator",
       doc: "docs/DB_ICE691_슈투트가르트-뮌헨_승차권.pdf",
       doc2: "docs/DB_ICE691_슈투트가르트-뮌헨_좌석예약.pdf"
+    },
+    {
+      id: "stay-munich",
+      type: "stay",
+      status: "confirmed",
+      docSubmitted: true,
+      title: "Wombat's City Hostel 뮌헨 중앙역",
+      sub: "6인 QUIET 믹스드 도미토리 · 전용 욕실 · 귀마개 포함",
+      date: "2026-09-19",
+      rows: [
+        { k: "체크인",  v: "09/19(토) 14:00 ~ · 21:30 전후 도착 예정" },
+        { k: "체크아웃", v: "09/22(화) 10:00까지" },
+        { k: "주소",    v: "Senefelderstraße 1, 80336 München" },
+        { k: "확인번호", sk: "wom.res", copy: true },
+        { k: "요금",    v: "€530.44 (₩867,317) · 3박 · 현장 결제" }
+      ],
+      breakdown: "Fully Flexible Oktoberfest Rate · 1박 €176.81 · 세금 포함 · 선결제 없음",
+      map: "https://www.google.com/maps/search/?api=1&query=Wombat%27s+City+Hostel+Munich+Hauptbahnhof+Senefelderstra%C3%9Fe+1",
+      note: "중앙역 도보 3분, 테레지엔비제 도보 12~15분. 체크인 시 여권 필요. 결제는 현장에서 카드 또는 현금(유로). 취소·변경은 bookmunich@wombats.eu 로 메일. 수건 미포함(대여 €1.5). 온라인 체크인 링크가 확인 메일에 있습니다.",
+      channel: "Wombat's 공식 사이트 (직접 예약)",
+      doc: "docs/Wombats뮌헨_예약확인메일.pdf",
+      cancelDeadline: "2026-09-16T21:15"
     }
   ],
 
@@ -120,6 +142,8 @@ const TRIP = {
   deadlines: [
     { id: "d-cancel", label: "a&o 슈투트가르트 무료취소 마감", date: "2026-09-16T23:59", tone: "red",
       desc: "9/17 00:00부터는 숙박 요금 전액이 청구됩니다." },
+    { id: "d-wom", label: "Wombat's 뮌헨 무료취소 마감", date: "2026-09-16T21:15", tone: "red",
+      desc: "도착 72시간 전까지 무료 취소·변경. 이후 노쇼 시 첫날 밤 요금 청구." },
     { id: "d-depart", label: "출국", date: "2026-09-18T09:50", tone: "blue",
       desc: "TW403 · 인천공항 제1여객터미널. 3시간 전 도착 권장." },
     { id: "d-cp",     label: "포르투→리스본 기차 예매 오픈", date: "2026-07-27T00:00", tone: "gray", estimate: true,
@@ -134,16 +158,16 @@ const TRIP = {
       tip: "입국심사와 수하물 수취를 감안해 18:50 이후 출발하는 열차로 잡는 편이 안전합니다. a&o는 24시간 리셉션이라 늦은 체크인도 가능합니다." },
 
     { date: "2026-09-19", dow: "토", city: "이동", label: "슈투트가르트 → 뮌헨",
-      move: "train", stay: "뮌헨",
-      items: ["10:00 체크아웃 후 프런트에 짐 보관", "AMB 2026 관람 (전시 마지막 날)", "짐 회수 → 중앙역 (메세에서 S-Bahn 약 30분)", "19:17 ICE 691 출발 (15번 승강장 · 3호차 98번)", "21:15 München Hbf 도착 → 숙소 체크인"],
+      move: "train", stay: "뮌헨", stayFixed: true,
+      items: ["10:00 체크아웃 후 프런트에 짐 보관", "AMB 2026 관람 (전시 마지막 날)", "짐 회수 → 중앙역 (메세에서 S-Bahn 약 30분)", "19:17 ICE 691 출발 (15번 승강장 · 3호차 98번)", "21:15 München Hbf 도착 → Wombat's 체크인 (도보 3분)"],
       tip: "좌석 예약 완료. 슈투트가르트 중앙역은 공사 중이라 ICE 승강장까지 걸어 들어가는 시간 10분을 두세요. 승강장은 당일 앱에서 재확인." },
 
     { date: "2026-09-20", dow: "일", city: "뮌헨", label: "옥토버페스트",
-      stay: "뮌헨",
+      stay: "뮌헨", stayFixed: true,
       items: ["오전 — 전통 의상 퍼레이드", "오후 — 테레지엔비제 옥토버페스트"] },
 
     { date: "2026-09-21", dow: "월", city: "뮌헨", label: "유연한 날",
-      stay: "뮌헨", flexible: true,
+      stay: "뮌헨", stayFixed: true, flexible: true,
       items: ["당일 컨디션 보고 결정. 예약 필요 없음"],
       options: [
         "뉘른베르크 당일치기 — ICE 1시간, 30분 간격. 중세 구시가지·카이저부르크·소시지. 반나절이면 충분",
@@ -188,10 +212,10 @@ const TRIP = {
 
   // ── 미확정 / 할 일 (우선순위 순) ───────────────────────────
   todos: [
-    { id: "t1",  rank: 1, type: "stay",  title: "뮌헨 숙소 3박 예약", when: "9/19~22",
-      why: "옥토버페스트 개막 주말이 포함되어 가격이 급등 중입니다. 가장 급합니다.", urgent: true },
-    { id: "t2",  rank: 2, type: "flight",  title: "뮌헨 → 포르투 항공권", when: "9/22",
-      why: "TAP 직항 또는 경유. 빠를수록 저렴합니다." },
+    { id: "t1",  rank: 1, type: "stay",  title: "뮌헨 숙소 3박 예약", when: "9/19~22", done: true,
+      why: "Wombat's 중앙역 6인 QUIET 도미토리, €530.44, 무료취소 요금으로 예약 완료." },
+    { id: "t2",  rank: 2, type: "flight",  title: "뮌헨 → 포르투 항공권", when: "9/22", urgent: true,
+      why: "TAP 직항 또는 경유. 빠를수록 저렴합니다. 숙소가 확정됐으니 이제 가장 급합니다." },
     { id: "t3",  rank: 3, type: "stay",  title: "포르투 숙소 3박 예약", when: "9/22~25", why: "" },
     { id: "t4",  rank: 4, type: "stay",  title: "리스본 숙소 3박 예약", when: "9/25~28", why: "" },
     { id: "t5",  rank: 5, type: "tour",  title: "도루 밸리 투어 예약", when: "9/24",
@@ -217,7 +241,7 @@ const TRIP = {
     { name: "Jaeger's Munich",            rating: 3.7, note: "도미토리에 에어컨과 실내 화장실. 가성비" },
     { name: "a&o München Hauptbahnhof",   rating: null, note: "대형 체인. 축제장에서 가장 가까움. 늦게 잡을 때 유리" }
   ],
-  munichRule: "3박(토·일·월)입니다. 한 곳에서 3박이 기본이고, 사용자 선호는 Wombat's. 개막 주말이라 가격이 높으니 무료취소 조건과 총액을 같이 봅니다.",
+  munichRule: "Wombat's 중앙역으로 확정했습니다(2026-08-19). 비교 당시 3박 기준: Euro Youth 10인실 ₩59만 / Wombat's Werksviertel ₩63만 / Jaeger's ₩78~91만 / Wombat's 중앙역 ₩83~87만. 단독 숙소는 축제장 1.5km 내 싱글룸 ₩133만부터.",
 
   // ── 리스크 ─────────────────────────────────────────────────
   risks: [
@@ -233,7 +257,7 @@ const TRIP = {
     { id: "doc1", label: "귀국편 e-티켓 (KE8922)", need: "확인 완료", done: true, file: "docs/KE8922_리스본-인천_e티켓.pdf" },
     { id: "doc1b", label: "출국편 e-티켓 (TW403)", need: "화면 캡처로 확인. PDF는 미보관", done: true },
     { id: "doc2", label: "a&o 슈투트가르트 예약 확인서", need: "확인 완료", done: true, file: "docs/a&o슈투트가르트_예약확인서.pdf" },
-    { id: "doc3", label: "뮌헨 숙소 예약 확인서", need: "예약 후", done: false },
+    { id: "doc3", label: "Wombat's 뮌헨 예약 확인 메일", need: "확인 완료", done: true, file: "docs/Wombats뮌헨_예약확인메일.pdf" },
     { id: "doc4", label: "뮌헨→포르투 항공권 e-티켓", need: "예약 후", done: false },
     { id: "doc5", label: "포르투 / 리스본 숙소 확인서", need: "예약 후", done: false },
     { id: "doc6", label: "도루 밸리 바우처 · 신트라 티켓", need: "예약 후", done: false },
@@ -633,7 +657,7 @@ function renderPlan(){
   root.appendChild(el(`
     <div class="card"><div class="card-pad">
       <div class="kv"><div class="k">슈투트가르트</div><div class="v">1박 · 9/18 <span class="chip green">확정</span></div></div>
-      <div class="kv"><div class="k">뮌헨</div><div class="v">3박 · 9/19~22 <span class="chip red">미정</span></div></div>
+      <div class="kv"><div class="k">뮌헨</div><div class="v">3박 · 9/19~22 <span class="chip green">확정</span></div></div>
       <div class="kv"><div class="k">포르투</div><div class="v">3박 · 9/22~25 <span class="chip red">미정</span></div></div>
       <div class="kv"><div class="k">리스본</div><div class="v">3박 · 9/25~28 <span class="chip red">미정</span></div></div>
       <div class="kv"><div class="k">기내</div><div class="v">1박 · 9/28</div></div>
