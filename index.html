@@ -168,25 +168,25 @@ const TRIP = {
 
   // ── 미확정 / 할 일 (우선순위 순) ───────────────────────────
   todos: [
-    { id: "t1",  rank: 1,  title: "뮌헨 숙소 4박 예약", when: "9/19~23",
+    { id: "t1",  rank: 1, type: "stay",  title: "뮌헨 숙소 4박 예약", when: "9/19~23",
       why: "옥토버페스트 개막 주말이 포함되어 가격이 급등 중입니다. 가장 급합니다.", urgent: true },
-    { id: "t2",  rank: 2,  title: "뮌헨 → 포르투 항공권", when: "9/23",
+    { id: "t2",  rank: 2, type: "flight",  title: "뮌헨 → 포르투 항공권", when: "9/23",
       why: "TAP 직항 또는 경유. 빠를수록 저렴합니다." },
-    { id: "t3",  rank: 3,  title: "포르투 숙소 3박 예약", when: "9/23~26", why: "" },
-    { id: "t4",  rank: 4,  title: "리스본 숙소 2박 예약", when: "9/26~28", why: "" },
-    { id: "t5",  rank: 5,  title: "도루 밸리 투어 예약", when: "9/25",
+    { id: "t3",  rank: 3, type: "stay",  title: "포르투 숙소 3박 예약", when: "9/23~26", why: "" },
+    { id: "t4",  rank: 4, type: "stay",  title: "리스본 숙소 2박 예약", when: "9/26~28", why: "" },
+    { id: "t5",  rank: 5, type: "tour",  title: "도루 밸리 투어 예약", when: "9/25",
       why: "포도 수확철이라 조기 마감됩니다." },
-    { id: "t6",  rank: 6,  title: "신트라 페나 성 티켓", when: "9/27",
+    { id: "t6",  rank: 6, type: "ticket",  title: "신트라 페나 성 티켓", when: "9/27",
       why: "일요일은 극혼잡. 시간지정 온라인 예매로 오전 첫 슬롯을 권합니다." },
-    { id: "t7",  rank: 7,  title: "포르투 → 리스본 기차", when: "9/26",
+    { id: "t7",  rank: 7, type: "train",  title: "포르투 → 리스본 기차", when: "9/26",
       why: "알파 펜둘라르. CP 홈페이지에서 보통 출발 60일 전 오픈합니다." },
-    { id: "t8",  rank: 8,  title: "슈투트가르트 → 뮌헨 ICE", when: "9/19",
+    { id: "t8",  rank: 8, type: "train",  title: "슈투트가르트 → 뮌헨 ICE", when: "9/19",
       why: "옥토버페스트 개막일이라 만석입니다. 좌석 지정(€5.50)이 필요합니다." },
-    { id: "t9",  rank: 9,  title: "프랑크푸르트 공항 → 슈투트가르트 열차", when: "9/18",
+    { id: "t9",  rank: 9, type: "train",  title: "프랑크푸르트 공항 → 슈투트가르트 열차", when: "9/18",
       why: "16:50 도착. 18:50 이후 출발하는 ICE로 잡으세요. 공항역(Frankfurt Flughafen Fernbf)에서 직통입니다." },
-    { id: "t10", rank: 10, title: "유랑 동행 모집글 게시", when: "상시",
+    { id: "t10", rank: 10, type: "post", title: "유랑 동행 모집글 게시", when: "상시",
       why: "확정본 작성 완료. notes/유랑-동행-모집글.md 에서 복사해 게시하면 됩니다." },
-    { id: "t11", rank: 11, title: "TW403 좌석 사전 지정", when: "9/18",
+    { id: "t11", rank: 11, type: "seat", title: "TW403 좌석 사전 지정", when: "9/18",
       why: "14시간 비행인데 아직 미지정입니다. 티웨이 홈페이지에서 지정하세요." }
   ],
 
@@ -232,7 +232,7 @@ const TRIP = {
   --red:#F04452;  --red-bg:#FFEBEE;
   --green:#00B26D;--green-bg:#E5F8F0;
   --orange:#FF8A00;--orange-bg:#FFF3E0;
-  --purple:#8B5CF6;
+  --purple:#8B5CF6;--purple-bg:#F1ECFE;
   --shadow:0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
   --r-lg:20px; --r-md:14px; --r-sm:8px;
   --safe-b: env(safe-area-inset-bottom, 0px);
@@ -242,7 +242,7 @@ const TRIP = {
     --bg:#101114; --card:#1B1D22; --card-sub:#232630;
     --t1:#EDEFF3; --t2:#B0B8C1; --t3:#8B95A1; --t4:#6B7684;
     --line:#2A2E37; --line-strong:#3A3F4A;
-    --blue-bg:#152742; --red-bg:#3A1A20; --green-bg:#0E2B22; --orange-bg:#3A2A12;
+    --blue-bg:#152742; --red-bg:#3A1A20; --green-bg:#0E2B22; --orange-bg:#3A2A12; --purple-bg:#261C3F;
     --shadow:none;
   }
 }
@@ -278,6 +278,46 @@ header h1{margin:2px 0 0;font-size:26px;font-weight:800;letter-spacing:-.04em}
 .kv .k{width:62px;flex:none;color:var(--t3);font-weight:500}
 .kv .v{flex:1;color:var(--t1);font-weight:600;word-break:break-word}
 .kv .v.warn{color:var(--red)}
+
+/* ── Type icon (Toss style: 둥근 사각 바탕 + 단색 픽토그램) ── */
+.ic{width:40px;height:40px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--card-sub);color:var(--t3)}
+.ic svg{width:22px;height:22px;fill:currentColor}
+.ic.flight{background:var(--blue-bg);color:var(--blue)}
+.ic.seat{background:var(--blue-bg);color:var(--blue)}
+.ic.train{background:var(--green-bg);color:var(--green)}
+.ic.tour{background:var(--green-bg);color:var(--green)}
+.ic.stay{background:var(--orange-bg);color:var(--orange)}
+.ic.ticket{background:var(--purple-bg);color:var(--purple)}
+.ic.sm{width:34px;height:34px;border-radius:11px}
+.ic.sm svg{width:19px;height:19px}
+
+/* ── Collapsible booking card ─────────────────────────── */
+.bk .bk-head{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer}
+.bk .bk-head .bt{flex:1;min-width:0}
+.bk .bk-head .bt b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-.03em}
+.bk .bk-head .bt small{display:block;font-size:13px;color:var(--t3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk .bk-head .chev{width:20px;height:20px;flex:none;color:var(--t4);transition:transform .18s}
+.bk .bk-head .chev svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.bk.open .bk-head .chev{transform:rotate(180deg)}
+.bk .bk-body{display:none;border-top:1px solid var(--line)}
+.bk.open .bk-body{display:block}
+.bk .bk-body .card-pad{padding-top:14px}
+
+/* ── Todo row (expandable) ─────────────────────────────── */
+.td{border-top:1px solid var(--line)}
+.td:first-child{border-top:none}
+.td .td-head{display:flex;align-items:center;gap:12px;padding:13px 20px;cursor:pointer}
+.td .td-head .tt{flex:1;min-width:0}
+.td .td-head .tt b{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.03em}
+.td .td-head .tt small{display:block;font-size:12.5px;color:var(--t3);margin-top:2px}
+.td.done .td-head .tt b{color:var(--t4);text-decoration:line-through}
+.td.done .ic{background:var(--card-sub);color:var(--t4)}
+.td .box{width:22px;height:22px;flex:none;border-radius:7px;border:2px solid var(--line-strong);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.td .box svg{opacity:0;width:12px;height:12px}
+.td.done .box{background:var(--blue);border-color:var(--blue)}
+.td.done .box svg{opacity:1}
+.td .td-body{display:none;padding:0 20px 14px 72px;font-size:13.5px;color:var(--t2);line-height:1.55}
+.td.open .td-body{display:block}
 
 /* ── Chips / Badges ─────────────────────────────────────── */
 .chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:4px 8px;border-radius:var(--r-sm);background:var(--card-sub);color:var(--t2)}
@@ -481,9 +521,10 @@ function renderHome(){
     next.forEach(t=>{
       c.appendChild(el(`
         <div class="chk" data-id="${t.id}">
-          <div class="box">${checkSvg()}</div>
+          ${icon(t.type,true)}
           <div class="ct"><b>${esc(t.title)}</b><small>${esc(t.when)}${t.why?' · '+esc(t.why):''}</small></div>
           ${t.urgent?'<span class="chip red">최우선</span>':''}
+          <div class="box">${checkSvg()}</div>
         </div>`));
     });
     root.appendChild(c);
@@ -495,6 +536,7 @@ function renderHome(){
   TRIP.bookings.forEach(b=>{
     cc.appendChild(el(`
       <div class="row">
+        ${icon(b.type,true)}
         <div class="rt"><b>${esc(b.title)}</b><small>${esc(b.sub)}</small></div>
         <div class="rv">${fmtMD(b.date)}</div>
       </div>`));
@@ -506,6 +548,23 @@ function renderHome(){
 function checkSvg(){
   return '<svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2l2.6 2.6L10 3.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 }
+/* 항목 유형 아이콘 — 인라인 SVG (이모지 대신) */
+const ICONS = {
+  flight: '<path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/>',
+  train:  '<path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-7H6V6h5v4zm2 0V6h5v4h-5zm3.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>',
+  stay:   '<path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/>',
+  ticket: '<path d="M22 10V6c0-1.11-.9-2-2-2H4c-1.1 0-1.99.89-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2zm-9 7.5h-2v-2h2v2zm0-4.5h-2v-2h2v2zm0-4.5h-2v-2h2v2z"/>',
+  tour:   '<path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"/>',
+  seat:   '<path d="M7.59 5.41c-.78-.78-.78-2.05 0-2.83.78-.78 2.05-.78 2.83 0 .78.78.78 2.05 0 2.83-.79.79-2.05.79-2.83 0zM6 16V7H4v9c0 2.76 2.24 5 5 5h6v-2H9c-1.66 0-3-1.34-3-3zm14 4.07L14.93 15H11.5v-3.68c1.4 1.15 3.6 2.16 5.5 2.16v-2.16c-1.66.02-3.61-.87-4.67-2.04l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.29-.14-.62-.23-.96-.23h-.03C8.01 7 7 8.01 7 9.25V15c0 1.66 1.34 3 3 3h5.07l3.5 3.5L20 20.07z"/>',
+  post:   '<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>'
+};
+const TYPE_LABEL = { flight:'항공', train:'기차', stay:'숙소', ticket:'입장권', tour:'투어', seat:'좌석', post:'게시' };
+function icon(type, small){
+  const t = ICONS[type] ? type : 'post';
+  return `<div class="ic ${t} ${small?'sm':''}" aria-label="${TYPE_LABEL[t]}"><svg viewBox="0 0 24 24">${ICONS[t]}</svg></div>`;
+}
+const chevSvg = '<span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>';
+
 function moveIcon(type){
   if(type==='flight') return '<span class="chip blue">항공</span>';
   if(type==='train')  return '<span class="chip green">기차</span>';
@@ -569,50 +628,63 @@ function renderBook(){
   const root=$('#tab-book'); root.innerHTML='';
 
   root.appendChild(el('<div class="sec-title">확정 예약</div>'));
+  root.appendChild(el('<div class="sec-desc">항목을 누르면 상세가 열립니다.</div>'));
   if(!hasSecrets()){
     root.appendChild(el('<div class="card"><div class="note">예약번호와 PIN은 이 화면에 저장돼 있지 않아요. 내 컴퓨터의 private.js 가 있는 환경에서만 보입니다. 현장에서는 Booking.com 앱이나 항공사 앱에서 확인하세요.</div></div>'));
   }
   TRIP.bookings.forEach(b=>{
-    const card = el(`<div class="card"><div class="card-pad">
-      <div style="display:flex;align-items:flex-start;gap:8px">
-        <div style="flex:1">
-          <div style="font-size:18px;font-weight:800;letter-spacing:-.03em">${esc(b.title)}</div>
-          <div style="font-size:13.5px;color:var(--t3);margin-top:3px">${esc(b.sub)}</div>
-        </div>
+    const key='bk.'+b.id, open=!!state[key];
+    const card = el(`<div class="card bk ${open?'open':''}" data-key="${key}">
+      <div class="bk-head">
+        ${icon(b.type)}
+        <div class="bt"><b>${esc(b.title)}</b><small>${fmtMD(b.date)} · ${esc(b.sub)}</small></div>
         <span class="chip green">확정</span>
+        ${chevSvg}
       </div>
-      <div style="margin-top:12px">
-        ${b.rows.map(r=>{
-          const sv = r.sk ? secret(r.sk) : null;
-          const v  = r.sk ? (sv ?? '비공개') : r.v;
-          const hidden = r.sk && sv === null;
-          return `<div class="kv"><div class="k">${esc(r.k)}</div><div class="v ${r.warn?'warn':''}">${esc(v)}${(r.copy && !hidden)?` <button class="chip blue" data-copy="${esc(v)}" style="border:none;cursor:pointer;font-family:inherit">복사</button>`:''}${hidden?' <span class="chip">내 기기에서만</span>':''}</div></div>`;
-        }).join('')}
+      <div class="bk-body">
+        <div class="card-pad">
+          ${b.rows.map(r=>{
+            const sv = r.sk ? secret(r.sk) : null;
+            const v  = r.sk ? (sv ?? '비공개') : r.v;
+            const hidden = r.sk && sv === null;
+            return `<div class="kv"><div class="k">${esc(r.k)}</div><div class="v ${r.warn?'warn':''}">${esc(v)}${(r.copy && !hidden)?` <button class="chip blue" data-copy="${esc(v)}" style="border:none;cursor:pointer;font-family:inherit">복사</button>`:''}${hidden?' <span class="chip">내 기기에서만</span>':''}</div></div>`;
+          }).join('')}
+          ${b.breakdown?`<div class="muted" style="margin-top:6px">${esc(b.breakdown)}</div>`:''}
+          ${b.channel?`<div class="muted" style="margin-top:6px">예약처 ${esc(b.channel)}</div>`:''}
+          ${!b.docSubmitted?'<div style="margin-top:12px"><span class="chip red">확인서 미제출</span></div>':''}
+        </div>
+        ${b.note?`<div class="note">${esc(b.note)}</div>`:''}
+        ${(b.map||(b.doc && hasSecrets()))?`<div class="btn-row" style="padding-top:16px">
+          ${b.map?`<a class="btn" href="${b.map}" target="_blank" rel="noopener">지도</a>`:''}
+          ${(b.doc && hasSecrets())?`<a class="btn" href="${b.doc}" target="_blank" rel="noopener">확인서 열기</a>`:''}
+        </div>`:''}
       </div>
-      ${b.breakdown?`<div class="muted" style="margin-top:6px">${esc(b.breakdown)}</div>`:''}
-      ${b.channel?`<div class="muted" style="margin-top:6px">예약처 ${esc(b.channel)}</div>`:''}
-      ${!b.docSubmitted?'<div style="margin-top:12px"><span class="chip red">확인서 미제출</span></div>':''}
-    </div>
-    ${b.note?`<div class="note">${esc(b.note)}</div>`:''}
-    ${(b.map||(b.doc && hasSecrets()))?`<div class="btn-row">
-      ${b.map?`<a class="btn" href="${b.map}" target="_blank" rel="noopener">지도</a>`:''}
-      ${(b.doc && hasSecrets())?`<a class="btn" href="${b.doc}" target="_blank" rel="noopener">확인서 열기</a>`:''}
-    </div>`:''}
     </div>`);
+    card.querySelector('.bk-head').addEventListener('click',()=>{ state[key]=!state[key]; save(); card.classList.toggle('open'); });
     root.appendChild(card);
   });
 
   root.appendChild(el('<div class="sec-title">남은 예약</div>'));
-  root.appendChild(el('<div class="sec-desc">우선순위 순입니다. 완료하면 눌러서 체크하세요.</div>'));
+  root.appendChild(el('<div class="sec-desc">우선순위 순입니다. 줄을 누르면 설명이 열리고, 오른쪽 박스로 완료 표시를 해요.</div>'));
   const c = el('<div class="card"></div>');
   TRIP.todos.forEach(t=>{
-    c.appendChild(el(`
-      <div class="chk ${state[t.id]?'on':''}" data-id="${t.id}">
-        <div class="rank">${t.rank}</div>
-        <div class="box">${checkSvg()}</div>
-        <div class="ct"><b>${esc(t.title)}</b><small>${esc(t.when)}${t.why?' · '+esc(t.why):''}</small></div>
-        ${t.urgent && !state[t.id] ?'<span class="chip red">최우선</span>':''}
-      </div>`));
+    const okey='td.'+t.id;
+    const node = el(`
+      <div class="td ${state[t.id]?'done':''} ${state[okey]?'open':''}">
+        <div class="td-head">
+          ${icon(t.type)}
+          <div class="tt"><b>${esc(t.title)}</b><small>${esc(t.when)} · ${TYPE_LABEL[t.type]||''}${t.urgent && !state[t.id]?' · <span class="chip red" style="padding:2px 6px;font-size:11px">최우선</span>':''}</small></div>
+          <div class="box" data-id="${t.id}">${checkSvg()}</div>
+        </div>
+        ${t.why?`<div class="td-body">${esc(t.why)}</div>`:''}
+      </div>`);
+    node.querySelector('.td-head').addEventListener('click',e=>{
+      if(e.target.closest('.box')) return;
+      if(!t.why) return;
+      state[okey]=!state[okey]; save(); node.classList.toggle('open');
+    });
+    node.querySelector('.box').addEventListener('click',e=>{ e.stopPropagation(); toggle(t.id); });
+    c.appendChild(node);
   });
   root.appendChild(c);
 
@@ -621,6 +693,7 @@ function renderBook(){
   TRIP.munichCandidates.forEach(x=>{
     m.appendChild(el(`
       <div class="row">
+        ${icon('stay',true)}
         <div class="rt"><b>${esc(x.name)}${x.rank?` <span class="chip blue">${esc(x.rank)}</span>`:''}</b><small>${esc(x.note)}</small></div>
         <div class="rv">${x.rating? x.rating.toFixed(1) : '—'}</div>
       </div>`));
@@ -629,7 +702,7 @@ function renderBook(){
   root.appendChild(m);
 
   root.appendChild(el('<div class="sec-title">받아야 할 자료</div>'));
-  root.appendChild(el('<div class="sec-desc">확인서를 ./docs 에 넣고 체크하세요.</div>'));
+  root.appendChild(el('<div class="sec-desc">확인서를 받으면 docs 에 넣고 체크하세요.</div>'));
   const d = el('<div class="card"></div>');
   TRIP.docs.forEach(x=>{
     if(x.done){
