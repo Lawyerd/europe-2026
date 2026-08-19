@@ -8,16 +8,12 @@
 
 ## 개인 정보 분리
 
-예약번호, 체크인 PIN, 항공권번호는 저장소에 올리지 않는다.
-`private.js`(gitignore 대상)에 두고, 파일이 있는 기기에서만 화면에 표시된다.
+예약번호, 체크인 PIN, 확인서 PDF, 동행 모집글은 이 저장소에 없다.
+비공개 저장소 `europe-2026-private` 에 두고, 로컬에서는 심볼릭 링크로 연결해 쓴다.
+링크가 없어도 대시보드는 정상 동작하며, 해당 값만 "비공개"로 표시된다.
 
-```js
-// private.js
-const SECRETS = {
-  "tw.res": "...", "ke.res": "...", "aao.res": "...", "aao.pin": "..."
-};
+```bash
+git clone https://github.com/Lawyerd/europe-2026.git
+git clone https://github.com/Lawyerd/europe-2026-private.git
+bash europe-2026-private/link.sh
 ```
-
-예약 확인서 PDF도 `docs/`에 두되 커밋하지 않는다.
-
-`CLAUDE.md`(작업 지침 · 예약번호와 개인 정보 포함)도 로컬에만 둔다.

@@ -14,35 +14,59 @@ Claude와의 대화가 길어지면서 확정 정보와 미확정 정보가 흩�
 
 ---
 
-## 파일 구조
+## 저장소 구조 — 공개 + 비공개 두 개
+
+| 저장소 | 공개 여부 | 내용 |
+|---|---|---|
+| https://github.com/Lawyerd/europe-2026 | **공개** (GitHub Pages 배포) | `index.html`, `README.md`, `CLAUDE.md` |
+| https://github.com/Lawyerd/europe-2026-private | **비공개** | `private.js`, `docs/`, `notes/`, `link.sh` |
+
+- 배포 주소: https://lawyerd.github.io/europe-2026/
+- GitHub Pages는 저장소가 비공개여도 **사이트는 공개**다. 그래서 개인 자료는 아예 다른 저장소에 둔다. 두 저장소를 합치려 하지 말 것.
 
 ```
-europe-2026/
-├── index.html                    대시보드 본체 (커밋함)
-├── private.js                    예약번호·PIN 등 개인 정보 (커밋 안 함)
-├── docs/                         예약 확인서 PDF (커밋 안 함)
+europe-2026/                      ← 공개 저장소
+├── index.html                    대시보드 본체
+├── README.md
+├── CLAUDE.md                     이 파일
+├── private.js  → (심볼릭 링크)   예약번호·PIN            ┐
+├── docs/       → (심볼릭 링크)   예약 확인서 PDF         ├ 실체는 europe-2026-private 에 있음
+└── notes/      → (심볼릭 링크)   유랑 모집글             ┘  .gitignore 로 무시됨
+
+europe-2026-private/              ← 비공개 저장소
+├── private.js
+├── docs/
 │   ├── KE8922_리스본-인천_e티켓.pdf
 │   └── a&o슈투트가르트_예약확인서.pdf
-├── notes/유랑-동행-모집글.md      게시용 + 원문 (커밋 안 함)
-├── README.md
-└── CLAUDE.md                     이 파일 (커밋함)
+├── notes/유랑-동행-모집글.md      게시용 + 원문
+└── link.sh                       공개 저장소에 심볼릭 링크를 거는 스크립트
 ```
 
-- 저장소: https://github.com/Lawyerd/europe-2026
-- 배포 주소: https://lawyerd.github.io/europe-2026/
+### 새 환경에서 시작할 때 (다른 PC, Claude Code 웹·모바일)
 
-### 다른 PC에서 시작할 때
+두 저장소를 **같은 부모 폴더**에 나란히 clone 하고 `link.sh` 를 한 번 실행한다.
 
 ```bash
 git clone https://github.com/Lawyerd/europe-2026.git
+git clone https://github.com/Lawyerd/europe-2026-private.git
+bash europe-2026-private/link.sh
 ```
 
-`private.js`, `docs/`의 PDF, `notes/`는 저장소에 없다. 개인 정보라 의도적으로 제외했다.
-모집글은 나이·성별과 오픈채팅 링크가 들어 있어 공개 저장소에 두지 않는다. 다른 PC로 옮길 때는 직접 복사한다.
-예약번호와 PIN을 그 기기에서도 보려면 아래 파일을 직접 만든다. 없어도 대시보드는 정상 동작하며, 해당 값만 "비공개"로 표시된다.
+이러면 공개 저장소 안에 `private.js` / `docs` / `notes` 링크가 생기고, `index.html` 을 열면 예약번호·PIN까지 보인다.
+비공개 저장소를 clone 하지 않아도 대시보드는 정상 동작하며, 해당 값만 "비공개 · 내 기기에서만"으로 표시된다.
+
+**Claude Code 웹·모바일에서**: 공개 저장소를 연결해 세션을 열면 이 파일(CLAUDE.md)이 먼저 읽힌다.
+예약번호·PIN·확인서가 필요한 작업이면 위 명령으로 비공개 저장소도 받아서 시작할 것.
+
+### 커밋은 어디에?
+
+- 대시보드 수정(`index.html`, `CLAUDE.md`, `README.md`) → **공개 저장소**
+- 새 확인서 PDF, `private.js` 값 추가, 모집글 수정 → **비공개 저장소** (`cd europe-2026-private && git add . && git commit && git push`)
+- 공개 저장소에서 `git status` 에 `private.js`/`docs`/`notes` 가 뜨면 뭔가 잘못된 것. 커밋하지 말고 `.gitignore` 를 확인할 것.
+
+### private.js 형식
 
 ```js
-// private.js  — 값은 Booking.com 앱 / 항공사 앱 / 확인서 PDF에서 가져온다
 const SECRETS = {
   "tw.res":  "",   // 티웨이 TW403 예약번호
   "tw.tkt":  "",   // 항공권번호
@@ -196,7 +220,7 @@ const SECRETS = {
 - [ ] 도루 밸리 투어 바우처, 신트라 티켓
 - [ ] 기차표 (DB, CP) 예약 확인 링크 또는 PDF
 
-받은 파일은 `docs/`에 보관한다(커밋하지 않는다). 대시보드에서는 `private.js`가 있는 기기에서만 해당 링크가 노출된다.
+받은 파일은 `docs/`에 넣고 **비공개 저장소에서** 커밋한다. 대시보드에서는 `private.js`가 있는 기기에서만 해당 링크가 노출된다.
 
 새 예약이 생겼다고 사용자가 말하면 → **"확인서 PDF나 링크 주시면 정확한 정보로 반영하겠습니다"라고 먼저 요청한다.** 구두로만 알려준 정보는 `※ 확인서 미제출` 표시를 남긴다.
 
@@ -206,10 +230,10 @@ const SECRETS = {
 
 ### 3. 개인 정보는 저장소에 올리지 않을 것 ⭐
 
-저장소가 **공개**이므로 아래는 절대 커밋하지 않는다. `.gitignore`에 등록되어 있다.
+공개 저장소에는 아래를 절대 커밋하지 않는다. 실체는 비공개 저장소 `europe-2026-private` 에 있고, 공개 저장소 쪽은 `.gitignore` 로 막혀 있다.
 
 - `private.js` — 예약번호, PIN, 항공권번호
-- `docs/*.pdf` — 예약 확인서 원본
+- `docs/` — 예약 확인서 원본
 - `notes/` — 유랑 모집글 (나이·성별·오픈채팅 링크)
 - 실명, 이메일 주소
 
@@ -250,16 +274,14 @@ grep -nE "예약번호값|PIN값|항공권번호" index.html README.md notes/*.m
 
 ---
 
-## 현재 상태 (2026-08-18 기준)
+## 현재 상태 (2026-08-19 기준)
 
 - [x] 항공권 예매 완료 (인·아웃 모두), 확인서 반영 완료
 - [x] 슈투트가르트 숙소 예약 완료, 확인서 반영 완료
 - [x] 대시보드 `index.html` 제작 완료
-- [x] 개인 정보 `private.js` 분리, GitHub 저장소 푸시
+- [x] 개인 정보 `private.js` 분리
 - [x] 유랑 동행 모집글 확정본 작성
-- [ ] **GitHub 저장소를 Public으로 전환 + Pages 활성화** ← 사용자가 직접 눌러야 함
-      1. Settings → Danger Zone → Change repository visibility → Public
-      2. Settings → Pages → Deploy from a branch → main / (root) → Save
-      3. https://lawyerd.github.io/europe-2026/
+- [x] 공개 저장소 Public 전환 + GitHub Pages 배포 완료 → https://lawyerd.github.io/europe-2026/
+- [x] 비공개 저장소 `europe-2026-private` 생성, 개인 자료 이전, 심볼릭 링크 구조로 전환 (2026-08-19)
 - [ ] 뮌헨 숙소 예약 ← **다음 작업, 최우선**
 - [ ] 나머지 예약 진행

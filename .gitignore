@@ -1,6 +1,7 @@
-# 개인 정보 — 절대 커밋하지 않습니다
+# 개인 정보 — 절대 커밋하지 않습니다.
+# 실제 파일은 비공개 저장소 europe-2026-private 에 있고, 여기엔 심볼릭 링크만 둡니다.
 private.js
-docs/*.pdf
-notes/
+docs
+notes
 
 .DS_Store
