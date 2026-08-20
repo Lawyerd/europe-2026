@@ -248,6 +248,557 @@ const TRIP = {
   ],
   munichRule: "Wombat's 중앙역으로 확정했습니다(2026-08-19). 비교 당시 3박 기준: Euro Youth 10인실 ₩59만 / Wombat's Werksviertel ₩63만 / Jaeger's ₩78~91만 / Wombat's 중앙역 ₩83~87만. 단독 숙소는 축제장 1.5km 내 싱글룸 ₩133만부터.",
 
+  // ── 맛집 (조사 시점 스냅샷 — foodMeta.updated 참고) ────────
+  foodMeta: { updated: "2026-08-21", note: "평점·리뷰 수는 조사 시점 구글맵 기준이에요. 방문 전 최신 영업시간을 확인하세요." },
+  food: [
+    {
+      "city": "슈투트가르트",
+      "name": "Alte Kanzlei",
+      "name_ko": "알테 칸츨라이",
+      "cat": "슈바벤전통",
+      "rating": 4.5,
+      "reviews": 3672,
+      "price": "€€€",
+      "area": "쉴러광장(구시가), Hbf 도보 12분",
+      "menu": "츠비벨로스트브라텐, 마울타셴",
+      "note": "16세기 건물의 슈바벤 전통 요리 대표 식당. 토요일 9~23시 브레이크 없이 영업 — 19:17 기차 전 이른 저녁(17시대)에 적합.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Alte%20Kanzlei%20Stuttgart"
+    },
+    {
+      "city": "슈투트가르트",
+      "name": "Carls Brauhaus",
+      "name_ko": "칼스 브라우하우스",
+      "cat": "슈바벤전통",
+      "rating": 4.5,
+      "reviews": 10607,
+      "price": "€€",
+      "area": "슐로스광장 앞, Hbf 도보 8분",
+      "menu": "슈바인학세, 린젠 미트 슈페츨레",
+      "note": "슐로스광장 전망의 대형 브루어리 식당. 역에서 가장 가까운 슈바벤 요리 — 기차 전 저녁으로 무난.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Carls%20Brauhaus%20Stuttgart"
+    },
+    {
+      "city": "슈투트가르트",
+      "name": "Markthalle Stuttgart",
+      "name_ko": "마르크트할레",
+      "cat": "시장·간편",
+      "rating": 4.6,
+      "reviews": 9784,
+      "price": "€€",
+      "area": "구시가, Hbf 도보 14분",
+      "menu": "매대 델리·타파스, 시장 안 간이식사",
+      "note": "1914년 아르누보 실내시장. 토요일 7~17시(일 휴무) — 9/19 메세 가기 전 오전이나 점심에만 가능.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Markthalle%20Stuttgart"
+    },
+    {
+      "city": "슈투트가르트",
+      "name": "Mela Kaffee & Cafe",
+      "name_ko": "멜라 카페",
+      "cat": "카페·디저트",
+      "rating": 4.6,
+      "reviews": 2479,
+      "price": "€€",
+      "area": "쾨니히 거리 초입, Hbf 도보 3분",
+      "menu": "브런치 플레이트, 페이스트리·커피",
+      "note": "역에서 가장 가까운 인기 브런치 카페. 주말 오전엔 대기가 흔해 이른 방문 권장.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Mela%20Kaffee%20Stuttgart"
+    },
+    {
+      "city": "슈투트가르트",
+      "name": "Treiber Bäckerei",
+      "name_ko": "트라이버 베이커리",
+      "cat": "카페·디저트",
+      "rating": 4.0,
+      "reviews": 404,
+      "price": "€",
+      "area": "노르트반호프 인근, a&o 숙소 도보 10분",
+      "menu": "브레첼·크루아상, 독일식 조식 세트",
+      "note": "숙소권에서 제일 가까운 정통 베이커리 조식. 토요일 6:30~14:00 — 체크아웃 전 아침에 적합.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Treiber%20Spezialit%C3%A4ten%20B%C3%A4ckerei%20Stuttgart"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Augustiner-Festhalle (Oktoberfest)",
+      "name_ko": "아우구스티너 페스트할레",
+      "cat": "축제텐트",
+      "rating": null,
+      "reviews": null,
+      "price": "€€",
+      "area": "테레지엔비제 축제장 내",
+      "menu": "나무통 숙성 아우구스티너 마스(1L), 통닭구이",
+      "note": "현지인 비율이 가장 높은 전통파 텐트. 나무통에서 따라주는 맥주가 가장 부드럽다는 평. 혼자면 평일·낮 워크인으로 합석 요청이 현실적.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Augustiner-Festhalle%20Theresienwiese%20Munich"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Hofbräu-Festzelt (Oktoberfest)",
+      "name_ko": "호프브로이 페스트첼트",
+      "cat": "축제텐트",
+      "rating": null,
+      "reviews": null,
+      "price": "€€",
+      "area": "테레지엔비제 축제장 내",
+      "menu": "호프브로이 마스(1L), 브레첼",
+      "note": "국제 관광객 파티 텐트(약 1만 석). 14개 대형 텐트 중 유일하게 스탠딩 구역에서 좌석 없이 주문 가능 — 예약 없는 혼자 방문자에게 가장 확실. 개막 주말 저녁은 입장 제한 잦으니 오전 일찍.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Hofbr%C3%A4u-Festzelt%20Theresienwiese%20Munich"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Hacker-Festzelt (Oktoberfest)",
+      "name_ko": "하커 페스트첼트",
+      "cat": "축제텐트",
+      "rating": null,
+      "reviews": null,
+      "price": "€€",
+      "area": "테레지엔비제 축제장 내 (정문 쪽)",
+      "menu": "하커-프쇼르 마스(1L), 오리구이",
+      "note": "'바이에른의 하늘' 구름 천장 벽화 — 14개 텐트 중 가장 예뻐 사진 찍기 최고. 저녁엔 밴드 공연. 인기 최상위라 개막 주말엔 오전 확보 필수.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Hacker-Festzelt%20Theresienwiese%20Munich"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Ochsenbraterei (Oktoberfest)",
+      "name_ko": "옥센브라터라이",
+      "cat": "축제텐트",
+      "rating": null,
+      "reviews": null,
+      "price": "€€",
+      "area": "테레지엔비제 축제장 내",
+      "menu": "통소 로스트(옥센브라텐), 옥스 브라트부어스트",
+      "note": "1881년부터 소 통구이를 하는 음식 강한 텐트. 점심(12~15시)엔 가족적 분위기라 혼자 식사 겸 방문에 최적.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Ochsenbraterei%20Theresienwiese%20Munich"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Hofbräuhaus München",
+      "name_ko": "호프브로이하우스",
+      "cat": "바이에른전통",
+      "rating": 4.3,
+      "reviews": 106430,
+      "price": "€€",
+      "area": "마리엔광장 도보 5분",
+      "menu": "슈바인학세, 호프브로이 오리지널 1L",
+      "note": "1589년 개업, 세계에서 가장 유명한 비어홀. 라이브 브라스 밴드, 합석이 기본이라 혼자 가도 자연스러움. 식사 시간대는 자리 찾기에 시간 소요.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Hofbr%C3%A4uhaus%20M%C3%BCnchen"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Augustiner-Keller",
+      "name_ko": "아우구스티너 켈러",
+      "cat": "바이에른전통",
+      "rating": 4.4,
+      "reviews": 39505,
+      "price": "€€",
+      "area": "숙소(Wombat's) 도보 약 10분",
+      "menu": "슈바인학세, 나무통 아우구스티너 에델슈토프",
+      "note": "밤나무 그늘 아래 5천 석 비어가든. 중앙역 옆이라 숙소에서 가장 가까운 정통 맥주 경험 — 도착 첫날 저녁으로 최적. 셀프 구역은 웨이팅 없이.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Augustiner-Keller%20Munich"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Augustiner Bräustuben",
+      "name_ko": "아우구스티너 브로이슈투벤",
+      "cat": "바이에른전통",
+      "rating": 4.3,
+      "reviews": 17507,
+      "price": "€",
+      "area": "양조장 직영 · 테레지엔비제 도보 15분",
+      "menu": "슈바인학세, 카이저슈마른",
+      "note": "실제 양조장 안 식당이라 저렴하고 현지인 많음. 학세 맛집. 축제장에서 가까워 옥토버페스트 전후 식사 동선에 좋음. 저녁 피크엔 웨이팅.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Augustiner%20Br%C3%A4ustuben%20Munich"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Wirtshaus in der Au",
+      "name_ko": "비어츠하우스 인 데어 아우",
+      "cat": "바이에른전통",
+      "rating": 4.5,
+      "reviews": 5933,
+      "price": "€€",
+      "area": "이자르 강 건너, 마리엔광장에서 트램 10분",
+      "menu": "크뇌델 트리오, 오리구이",
+      "note": "1901년부터 이어온 크뇌델 명가 — 뮌헨 크뇌델 1위로 자주 꼽힘. 조용히 제대로 된 바이에른 식사를 하고 싶은 날. 저녁은 온라인 예약 권장.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Wirtshaus%20in%20der%20Au%20Munich"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Schneider Bräuhaus",
+      "name_ko": "슈나이더 브로이하우스",
+      "cat": "바이에른전통",
+      "rating": 4.4,
+      "reviews": 16142,
+      "price": "€€",
+      "area": "마리엔광장 도보 3분",
+      "menu": "바이스부어스트 조식(정오 전 한정), 슈나이더 바이세",
+      "note": "뮌헨 최고의 바이스부어스트 조식 — 흰소시지+브레첼+밀맥주 전통식은 12시 전에만. 옥토버페스트 가기 전 아침 코스로 최적. 아침엔 워크인 무난.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Schneider%20Br%C3%A4uhaus%20M%C3%BCnchen"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Haxnbauer im Scholastikahaus",
+      "name_ko": "학센바우어",
+      "cat": "바이에른전통",
+      "rating": 4.4,
+      "reviews": 7791,
+      "price": "€€€",
+      "area": "마리엔광장 도보 4분",
+      "menu": "슈바인학세(반쪽 주문 가능), 송아지 학세",
+      "note": "장작불 회전구이 학세 전문점 — 창가에서 굽는 모습이 사진거리. 한국 블로그 '뮌헨 학세' 최상위 단골. 혼자서 반쪽(halbe) 주문 가능한 게 장점.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Haxnbauer%20M%C3%BCnchen"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Schmalznudel – Café Frischhut",
+      "name_ko": "슈말츠누델 (카페 프리슈후트)",
+      "cat": "시장·간편",
+      "rating": 4.5,
+      "reviews": 3221,
+      "price": "€",
+      "area": "빅투알리엔 시장 바로 옆",
+      "menu": "슈말츠누델(갓 튀긴 도넛) + 커피",
+      "note": "1973년부터 튀김 페이스트리만 파는 현지인 컬트 카페. 2~3유로대 — 시장 구경 겸 아침·간식. 회전 빨라 줄 서도 금방.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Schmalznudel%20Cafe%20Frischhut%20Munich"
+    },
+    {
+      "city": "뮌헨",
+      "name": "Vinzenzmurr (Bahnhofplatz)",
+      "name_ko": "빈첸츠무어",
+      "cat": "시장·간편",
+      "rating": 4.2,
+      "reviews": null,
+      "price": "€",
+      "area": "중앙역 앞, 숙소 도보 3분",
+      "menu": "레버케제젬멜(€4 안팎) + 달콤한 겨자",
+      "note": "정육점 체인의 바이에른식 패스트푸드. 따뜻한 레버케제 샌드위치 — 이동 날·아침 대용 최적.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Vinzenzmurr%20Bahnhofplatz%20Munich"
+    },
+    {
+      "city": "포르투",
+      "name": "Café Santiago",
+      "name_ko": "카페 산티아고",
+      "cat": "프란세지냐",
+      "rating": 4.4,
+      "reviews": 17901,
+      "price": "€€",
+      "area": "볼량 시장 근처",
+      "menu": "프란세지냐 + 감자튀김",
+      "note": "1959년부터 이어진 프란세지냐 원조급. 양이 많아 2인 1개도 충분. 주말 웨이팅 심함 — 오픈 직후나 14:30 이후. 옆 분점(Santiago F)이 덜 붐빔.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Santiago%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "Lado B Café",
+      "name_ko": "라도 비 카페",
+      "cat": "프란세지냐",
+      "rating": 4.5,
+      "reviews": 4414,
+      "price": "€€",
+      "area": "카페 산티아고 옆 골목",
+      "menu": "프란세지냐, 채식 프란세지냐",
+      "note": "산티아고보다 소스가 진하고 덜 짜다는 평. 웨이팅이 짧은 편이라 대안으로 좋음.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Lado%20B%20Caf%C3%A9%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "Brasão Cervejaria Coliseu",
+      "name_ko": "브라상 세르베자리아",
+      "cat": "프란세지냐",
+      "rating": 4.7,
+      "reviews": 5400,
+      "price": "€€",
+      "area": "코리세우 극장 옆, 볼량·렐루 도보권",
+      "menu": "프란세지냐, 스테이크",
+      "note": "세련된 분위기의 고급형 프란세지냐. 포르투 상위권 평점 — 저녁은 예약 필수.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Bras%C3%A3o%20Coliseu%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "Casa Guedes Tradicional",
+      "name_ko": "카사 게데스",
+      "cat": "시장·간편",
+      "rating": 4.5,
+      "reviews": 19276,
+      "price": "€",
+      "area": "포베이루스 광장, 볼량 도보 5분",
+      "menu": "산데스 페르닐(돼지 뒷다리 샌드위치) + 치즈 추가",
+      "note": "포르투 간편 점심의 왕. 그린 와인과 궁합. 피크엔 줄이 광장까지 — 11시대나 늦은 오후 추천.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Casa%20Guedes%20Tradicional%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "Conga - Casa das Bifanas",
+      "name_ko": "콩가",
+      "cat": "시장·간편",
+      "rating": 4.4,
+      "reviews": 11457,
+      "price": "€",
+      "area": "볼량 시장 도보 3분",
+      "menu": "비파나 2개 + 생맥주",
+      "note": "1976년부터 비파나 한 우물. 개당 €3~4, 맥주까지 €10 이하 한 끼. 회전 빠르고 합석 문화.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Conga%20Casa%20das%20Bifanas%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "O Buraco",
+      "name_ko": "오 부라쿠",
+      "cat": "해산물·전통",
+      "rating": 4.4,
+      "reviews": 3393,
+      "price": "€",
+      "area": "볼량 시장 뒤 골목",
+      "menu": "정어리구이, 오리밥, 트리파스",
+      "note": "1인 €10~15로 전통식 정식이 되는 가성비 타스카. 평일 점심 현지인 만석 — 12시 전 도착. 일요일 휴무.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=O%20Buraco%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "Adega São Nicolau",
+      "name_ko": "아데가 상 니콜라우",
+      "cat": "해산물·전통",
+      "rating": 4.3,
+      "reviews": 3879,
+      "price": "€€",
+      "area": "히베이라 골목 안",
+      "menu": "문어구이(폴보), 바칼랴우",
+      "note": "히베이라 한복판인데 관광지 물가가 아닌 진짜 전통 식당. 좌석이 적어 저녁은 예약 강력 추천.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Adega%20S%C3%A3o%20Nicolau%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "Taberninha do Manel",
+      "name_ko": "타베르니냐 두 마넬",
+      "cat": "해산물·전통",
+      "rating": 4.3,
+      "reviews": 5141,
+      "price": "€€",
+      "area": "가이아 강변, 동루이스 다리 도보 5분",
+      "menu": "바칼랴우, 그릴 요리 + 도루강 뷰",
+      "note": "가이아 셀러 투어 후 저녁 코스로 최적 — 테라스에서 히베이라 야경. 야외석은 2~3일 전 예약 권장.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Taberninha%20do%20Manel%20Vila%20Nova%20de%20Gaia"
+    },
+    {
+      "city": "포르투",
+      "name": "Manteigaria (Clérigos)",
+      "name_ko": "만테이가리아 (클레리구스점)",
+      "cat": "카페·디저트",
+      "rating": 4.8,
+      "reviews": 3200,
+      "price": "€",
+      "area": "클레리구스 탑 아래, 렐루 도보 2분",
+      "menu": "파스텔 드 나타 + 에스프레소",
+      "note": "오븐에서 바로 나온 따뜻한 나타. 렐루 서점 일정과 묶기 좋음. 매일 08~24시, 줄은 빨리 빠짐.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Manteigaria%20Cl%C3%A9rigos%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "Majestic Café",
+      "name_ko": "마제스틱 카페",
+      "cat": "카페·디저트",
+      "rating": 4.1,
+      "reviews": 23871,
+      "price": "€€€",
+      "area": "산타 카타리나 거리, 볼량 도보 3분",
+      "menu": "프렌치토스트(하바네자), 커피",
+      "note": "1922년 아르누보 인테리어 — 맛보다 공간을 위해 가는 곳. 커피 €5+ 관광지 가격, 낮엔 웨이팅.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Majestic%20Caf%C3%A9%20Porto"
+    },
+    {
+      "city": "포르투",
+      "name": "Cervejaria Gazela",
+      "name_ko": "세르베자리아 가젤라",
+      "cat": "시장·간편",
+      "rating": 4.6,
+      "reviews": 7097,
+      "price": "€",
+      "area": "바탈랴 광장 근처, 상 벤투 역 도보 5분",
+      "menu": "카쇼히뉴(매콤 치즈 핫도그) + 생맥주",
+      "note": "앤서니 부르댕 방문 맛집. 바삭한 바게트에 소시지·치즈·매운 소스. 월~토 12:00~22:30, 일 휴무.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Cervejaria%20Gazela%20Porto"
+    },
+    {
+      "city": "리스본",
+      "name": "Pastéis de Belém",
+      "name_ko": "파스테이스 드 벨렝",
+      "cat": "빵·에그타르트",
+      "rating": 4.6,
+      "reviews": 62648,
+      "price": "€",
+      "area": "벨렝, 제로니무스 수도원 옆",
+      "menu": "파스텔 드 벨렝(원조 나타) + 비카 커피",
+      "note": "1837년 원조, 수도원 비밀 레시피. 테이크아웃 줄과 좌석 줄이 다름 — 내부 좌석 줄이 보통 더 빠름. 오전 방문 권장.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Past%C3%A9is%20de%20Bel%C3%A9m%20Lisbon"
+    },
+    {
+      "city": "리스본",
+      "name": "Manteigaria (Chiado)",
+      "name_ko": "만테이가리아 (시아두점)",
+      "cat": "빵·에그타르트",
+      "rating": 4.8,
+      "reviews": 11179,
+      "price": "€",
+      "area": "시아두, 카몽이스 광장",
+      "menu": "파스텔 드 나타 (개당 €1.4~1.5)",
+      "note": "벨렝보다 낫다는 평도 많은 나타 맛집. 줄 짧고 회전 빠름 — 벨렝 원조와 비교 시식 추천.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Manteigaria%20Chiado%20Lisbon"
+    },
+    {
+      "city": "리스본",
+      "name": "Cervejaria Ramiro",
+      "name_ko": "세르베자리아 하미루",
+      "cat": "해산물·전통",
+      "rating": 4.4,
+      "reviews": 20323,
+      "price": "€€€",
+      "area": "바이샤에서 도보 15분",
+      "menu": "감바스 알 아히요, 타이거새우, 마무리로 프레구",
+      "note": "부르댕이 다녀간 리스본 해산물 성지. 웨이팅 김 — 오픈 직후(12시) 또는 늦은 시간. 온라인 예약 가능.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Cervejaria%20Ramiro%20Lisbon"
+    },
+    {
+      "city": "리스본",
+      "name": "Uma Marisqueira",
+      "name_ko": "우마 마리스케이라",
+      "cat": "해산물·전통",
+      "rating": 4.6,
+      "reviews": null,
+      "price": "€€",
+      "area": "바이샤, 호시우 근처",
+      "menu": "아로스 드 마리스쿠(해물밥) — 2인분 기본",
+      "note": "한국 여행자 사이 '리스본 해물밥' 대표. 좁고 항상 만석, 재료 소진 시 조기 마감 — 12시 오픈 직후 권장. 리뷰 수 미검증.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Uma%20Marisqueira%20Lisbon"
+    },
+    {
+      "city": "리스본",
+      "name": "O Trevo",
+      "name_ko": "오 트레보",
+      "cat": "시장·간편",
+      "rating": 4.5,
+      "reviews": 3551,
+      "price": "€",
+      "area": "카몽이스 광장 모퉁이",
+      "menu": "비파나(약 €3) + 생맥주",
+      "note": "부르댕이 극찬한 비파나집. 서서 먹는 로컬 분위기. 만테이가리아 바로 옆이라 코스로 묶기 좋음.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=O%20Trevo%20Lisbon"
+    },
+    {
+      "city": "리스본",
+      "name": "A Ginjinha",
+      "name_ko": "아 진지냐",
+      "cat": "기타",
+      "rating": 4.6,
+      "reviews": 5744,
+      "price": "€",
+      "area": "호시우 광장 옆",
+      "menu": "진지냐 한 잔(체리 리큐르, 약 €1.5)",
+      "note": "1840년부터 이어진 최고(最古) 진지냐 스탠딩 바. 체리 넣어서(com) 주문. 현금만 가능.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=A%20Ginjinha%20Lisbon"
+    },
+    {
+      "city": "리스본",
+      "name": "Zé da Mouraria",
+      "name_ko": "제 다 모우라리아",
+      "cat": "해산물·전통",
+      "rating": 4.8,
+      "reviews": 3369,
+      "price": "€€",
+      "area": "모우라리아 골목 안 (알파마 북쪽)",
+      "menu": "바칼랴우 아사도(구운 대구), 하프 포션 가능",
+      "note": "현지인 단골 전통 타스카. 점심 위주 영업, 웨이팅 김 — 오픈 전 도착 또는 예약. 1인분이 2인 양.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Z%C3%A9%20da%20Mouraria%20Lisbon"
+    },
+    {
+      "city": "리스본",
+      "name": "Parreirinha de Alfama",
+      "name_ko": "파헤이리냐 드 알파마",
+      "cat": "해산물·전통",
+      "rating": null,
+      "reviews": null,
+      "price": "€€€",
+      "area": "알파마, 파두 박물관 근처",
+      "menu": "파두 공연 + 포르투갈 가정식 코스",
+      "note": "1950년대부터 이어진 정통 파두 하우스. 저녁 공연은 예약 필수, 커버차지·최소주문 조건 사전 확인.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Parreirinha%20de%20Alfama%20Lisbon"
+    },
+    {
+      "city": "리스본",
+      "name": "Time Out Market Lisboa",
+      "name_ko": "타임아웃 마켓",
+      "cat": "시장·간편",
+      "rating": null,
+      "reviews": null,
+      "price": "€€",
+      "area": "카이스 두 소드레 역 앞",
+      "menu": "마리스케이라 아줄(해산물), 만테이가리아 지점(나타)",
+      "note": "26개 맛집을 한 지붕에 모은 푸드홀 — 자리 먼저 잡고 주문. 카드 전용(현금 불가), 1인 €20~40.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Time%20Out%20Market%20Lisboa"
+    },
+    {
+      "city": "리스본",
+      "name": "Ponto Final",
+      "name_ko": "폰투 피날",
+      "cat": "해산물·전통",
+      "rating": 4.6,
+      "reviews": 9061,
+      "price": "€€",
+      "area": "테주강 건너 알마다 — 페리 10분 + 강변 도보 15분",
+      "menu": "문어 샐러드, 구운 생선, 몽크피시 스튜",
+      "note": "부두 위 노란 테이블에서 리스본 스카이라인을 보며 먹는 인생샷 명소. 야외 테이블은 수 주 전 예약 필수. 9/28 알마다 계획과 묶기 좋음.",
+      "kr": false,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Ponto%20Final%20Almada"
+    },
+    {
+      "city": "리스본",
+      "name": "Casa Piriquita",
+      "name_ko": "카사 피리키타 (신트라)",
+      "cat": "카페·디저트",
+      "rating": 4.4,
+      "reviews": 7389,
+      "price": "€",
+      "area": "신트라 구시가 중심 — 신트라 당일치기 때",
+      "menu": "트라베세이루(아몬드 크림 페이스트리), 케이자다",
+      "note": "1862년부터 신트라 명물 트라베세이루 원조. 본점 줄 길면 근처 피리키타 II로. 따뜻할 때가 제일 맛있음.",
+      "kr": true,
+      "gmaps": "https://www.google.com/maps/search/?api=1&query=Casa%20Piriquita%20Sintra"
+    }
+  ],
+
   // ── 리스크 ─────────────────────────────────────────────────
   risks: [
     { t: "날씨", d: "뮌헨은 낮 15~20℃ / 밤 5~10℃로 재킷이 필요하고, 리스본은 낮 25~27℃입니다. 온도차가 크니 레이어링과 방수 재킷을 챙기세요. 포르투는 9월 말부터 비가 시작됩니다." },
@@ -372,6 +923,25 @@ header h1{margin:2px 0 0;font-size:26px;font-weight:800;letter-spacing:-.04em}
 /* 보기 전용: 체크박스는 보이되 조작 불가 느낌 */
 body.readonly .chk .box, body.readonly .td .box{opacity:.45;cursor:default}
 
+/* ── Food tab ───────────────────────────────────────────── */
+.fchips{display:flex;gap:6px;overflow-x:auto;padding:2px 4px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.fchips::-webkit-scrollbar{display:none}
+.fchips .fc{flex:none;font-size:13.5px;font-weight:700;padding:8px 14px;border-radius:99px;background:var(--card);color:var(--t3);border:1px solid var(--line);cursor:pointer;font-family:inherit;letter-spacing:-.02em}
+.fchips .fc.on{background:var(--t1);color:var(--card);border-color:var(--t1)}
+.food-row{border-top:1px solid var(--line);cursor:pointer}
+.food-row:first-child{border-top:none}
+.food-row .fr-head{display:flex;align-items:flex-start;gap:10px;padding:14px 20px}
+.food-row .fr-main{flex:1;min-width:0}
+.food-row .fr-main b{font-size:15.5px;font-weight:700;letter-spacing:-.03em}
+.food-row .fr-main .fr-sub{font-size:13px;color:var(--t3);margin-top:3px;line-height:1.5}
+.food-row .fr-rate{flex:none;text-align:right}
+.food-row .fr-rate b{font-size:15px;font-weight:800;color:var(--t1)}
+.food-row .fr-rate small{display:block;font-size:11.5px;color:var(--t4);margin-top:1px}
+.food-row .fr-body{display:none;padding:0 20px 14px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.food-row.open .fr-body{display:block}
+.food-row .fr-body .btn{margin-top:10px}
+.star{color:#F5A623}
+
 /* ── Chips / Badges ─────────────────────────────────────── */
 .chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:4px 8px;border-radius:var(--r-sm);background:var(--card-sub);color:var(--t2)}
 .chip.blue{background:var(--blue-bg);color:var(--blue)}
@@ -458,6 +1028,7 @@ footer{text-align:center;font-size:12px;color:var(--t4);padding:20px 0 0}
   <main id="tab-home"></main>
   <main id="tab-plan" class="hidden"></main>
   <main id="tab-book" class="hidden"></main>
+  <main id="tab-food" class="hidden"></main>
   <main id="tab-info" class="hidden"></main>
 
   <footer id="foot"></footer>
@@ -790,6 +1361,71 @@ function renderBook(){
   });
 }
 
+/* ── 맛집 ───────────────────────────────────────────────── */
+function renderFood(){
+  const root=$('#tab-food'); root.innerHTML='';
+  const cities=[...new Set(TRIP.food.map(f=>f.city))];
+  if(cities.length===0){
+    root.appendChild(el('<div class="sec-title">맛집</div>'));
+    root.appendChild(el('<div class="card"><div class="card-pad muted">목록을 준비하고 있어요.</div></div>'));
+    return;
+  }
+  let city = state['food.city']; if(!cities.includes(city)) city = cities[0];
+  const cats=[...new Set(TRIP.food.filter(f=>f.city===city).map(f=>f.cat))];
+  let cat = state['food.cat']; if(cat && !cats.includes(cat)) cat = null;
+
+  root.appendChild(el('<div class="sec-title">맛집</div>'));
+  root.appendChild(el(`<div class="sec-desc">${esc(TRIP.foodMeta.note)} (${esc(TRIP.foodMeta.updated)} 조사)</div>`));
+
+  const cityBar=el('<div class="fchips"></div>');
+  cities.forEach(c=>{
+    const color=(TRIP.cities[c]||{}).color;
+    const b=el(`<button class="fc ${c===city?'on':''}">${esc(c)}</button>`);
+    b.addEventListener('click',()=>{ state['food.city']=c; state['food.cat']=null; save(); renderFood(); });
+    cityBar.appendChild(b);
+  });
+  root.appendChild(cityBar);
+
+  const catBar=el('<div class="fchips"></div>');
+  const allBtn=el(`<button class="fc ${!cat?'on':''}">전체</button>`);
+  allBtn.addEventListener('click',()=>{ state['food.cat']=null; save(); renderFood(); });
+  catBar.appendChild(allBtn);
+  cats.forEach(c=>{
+    const b=el(`<button class="fc ${c===cat?'on':''}">${esc(c)}</button>`);
+    b.addEventListener('click',()=>{ state['food.cat']=c; save(); renderFood(); });
+    catBar.appendChild(b);
+  });
+  root.appendChild(catBar);
+
+  const list=TRIP.food.filter(f=>f.city===city && (!cat || f.cat===cat));
+  const card=el('<div class="card"></div>');
+  list.forEach(f=>{
+    const rev = f.reviews!=null ? f.reviews.toLocaleString('ko-KR') : null;
+    const node=el(`
+      <div class="food-row">
+        <div class="fr-head">
+          <div class="fr-main">
+            <b>${esc(f.name_ko)}</b> ${f.kr?'<span class="chip orange" style="font-size:11px;padding:2px 7px">한국인 추천</span>':''}
+            <div class="fr-sub">${esc(f.cat)} · ${esc(f.price||'')} · ${esc(f.area)}</div>
+          </div>
+          <div class="fr-rate">
+            ${f.rating!=null?`<b><span class="star">★</span> ${f.rating.toFixed(1)}</b><small>리뷰 ${rev}</small>`:'<small>평점 미확인</small>'}
+          </div>
+        </div>
+        <div class="fr-body">
+          <div><b style="color:var(--t1)">${esc(f.name)}</b></div>
+          <div style="margin-top:4px">추천 — ${esc(f.menu)}</div>
+          <div style="margin-top:4px">${esc(f.note)}</div>
+          <a class="btn" href="${f.gmaps}" target="_blank" rel="noopener">구글맵에서 열기</a>
+        </div>
+      </div>`);
+    node.querySelector('.fr-head').addEventListener('click',()=>node.classList.toggle('open'));
+    card.appendChild(node);
+  });
+  if(list.length===0) card.appendChild(el('<div class="card-pad muted">이 분류에는 아직 없어요.</div>'));
+  root.appendChild(card);
+}
+
 /* ── 정보 ───────────────────────────────────────────────── */
 function renderInfo(){
   const root=$('#tab-info'); root.innerHTML='';
@@ -836,7 +1472,7 @@ function bindChecks(root){
 }
 
 /* ── 탭 ─────────────────────────────────────────────────── */
-const TABS=[{id:'home',label:'홈'},{id:'plan',label:'일정'},{id:'book',label:'예약'},{id:'info',label:'정보'}];
+const TABS=[{id:'home',label:'홈'},{id:'plan',label:'일정'},{id:'book',label:'예약'},{id:'food',label:'맛집'},{id:'info',label:'정보'}];
 let cur = store.get('trip2026.tab') || 'home';
 function renderNav(){
   const nav=$('#nav'); nav.innerHTML='';
@@ -851,7 +1487,7 @@ function renderNav(){
 function render(){
   document.body.classList.toggle('readonly', !EDITABLE);
   renderHeader();
-  renderHome(); renderPlan(); renderBook(); renderInfo();
+  renderHome(); renderPlan(); renderBook(); renderFood(); renderInfo();
   renderNav();
 }
 render();
