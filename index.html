@@ -135,6 +135,27 @@ const TRIP = {
       channel: "Wombat's 공식 사이트 (직접 예약)",
       doc: "docs/Wombats뮌헨_예약확인메일.pdf",
       cancelDeadline: "2026-09-16T21:15"
+    },
+    {
+      id: "flight-muc-opo",
+      type: "flight",
+      status: "confirmed",
+      docSubmitted: true,
+      title: "뮌헨 → 포르투",
+      sub: "LH1782 · 루프트한자 · A320neo · 직항 · 3시간",
+      date: "2026-09-22",
+      rows: [
+        { k: "출발", v: "08:20  뮌헨(MUC) T2" },
+        { k: "도착", v: "10:20  포르투(OPO)" },
+        { k: "예약번호", sk: "lh.res", copy: true },
+        { k: "운임", v: "Economy Basic · 재예약·환불 불가" },
+        { k: "수하물", v: "위탁 1개 (추가 구매) + 개인 물품 1개" },
+        { k: "결제금액", v: "€299.79" }
+      ],
+      breakdown: "항공권 €264.79 + 위탁 수하물 1개 €35.00 = €299.79 · 2026-08-22 결제",
+      note: "Economy Basic이라 위탁 수하물이 기본 미포함이어서 1개를 추가 구매했고 지불 완료 상태입니다. 기내 반입은 좌석 아래 개인 물품 1개(최대 40×30×15cm)만 포함 — 8kg 기내 캐리어는 미포함이니 큰 짐은 위탁으로 보내야 합니다. 좌석은 미지정, 체크인 때 배정받습니다(사전 선택은 €12부터 유료). 기내식은 다과 수준입니다. 지불한 서비스 변경은 콜센터를 통해서만 가능합니다.",
+      channel: "루프트한자 공식 사이트",
+      doc: "docs/LH_뮌헨-포르투_예약확인서.pdf"
     }
   ],
 
@@ -177,8 +198,8 @@ const TRIP = {
 
     { date: "2026-09-22", dow: "화", city: "이동", label: "뮌헨 → 포르투",
       move: "flight", stay: "포르투",
-      items: ["항공 이동 (아침 직항 vs 밤 직항 미정)", "저녁 — 히베이라 지구, 동 루이스 1세 다리 야경", "동행 합류 (도착 시간 조율 중 — 늦은 점심부터 가능할 수도)"],
-      tip: "동행(9/22~27 포르투·리스본)과 협의 중입니다. 항공편은 동행 도착 시간 확인 후 확정합니다." },
+      items: ["05:45 전후 숙소 출발 → 뮌헨 공항 (S-Bahn 약 45분)", "08:20 뮌헨(MUC) T2 출발 — LH1782", "10:20 포르투(OPO) 도착 → 시내 이동", "늦은 점심 무렵 — 동행 합류 (도착 시간 확인 중)", "저녁 — 히베이라 지구, 동 루이스 1세 다리 야경"],
+      tip: "항공권 확정. 뮌헨 S-Bahn 공항 구간 공사 변수가 있으니 전날 밤 경로와 첫차를 확인하세요. 위탁 1개는 추가 구매분으로 포함, 기내는 개인 물품 1개(40×30×15cm)만 가능합니다. 동행(9/22~27 포르투·리스본)과는 도착 시간을 맞추는 중입니다." },
 
     { date: "2026-09-23", dow: "수", city: "포르투", label: "포르투 시내",
       stay: "포르투",
@@ -217,8 +238,8 @@ const TRIP = {
   todos: [
     { id: "t1",  rank: 1, type: "stay",  title: "뮌헨 숙소 3박 예약", when: "9/19~22", done: true,
       why: "Wombat's 중앙역 6인 QUIET 도미토리, €530.44, 무료취소 요금으로 예약 완료." },
-    { id: "t2",  rank: 2, type: "flight",  title: "뮌헨 → 포르투 항공권", when: "9/22", urgent: true,
-      why: "TAP 직항 또는 경유. 빠를수록 저렴합니다. 숙소가 확정됐으니 이제 가장 급합니다." },
+    { id: "t2",  rank: 2, type: "flight",  title: "뮌헨 → 포르투 항공권", when: "9/22", done: true,
+      why: "LH1782 08:20→10:20 직항, Economy Basic + 위탁 1개, €299.79 결제 완료." },
     { id: "t3",  rank: 3, type: "stay",  title: "포르투 숙소 3박 예약", when: "9/22~25", why: "" },
     { id: "t4",  rank: 4, type: "stay",  title: "리스본 숙소 3박 예약", when: "9/25~28", why: "" },
     { id: "t5",  rank: 5, type: "tour",  title: "도루 밸리 투어 예약", when: "9/24",
@@ -812,7 +833,7 @@ const TRIP = {
     { id: "doc1b", label: "출국편 e-티켓 (TW403)", need: "화면 캡처로 확인. PDF는 미보관", done: true },
     { id: "doc2", label: "a&o 슈투트가르트 예약 확인서", need: "확인 완료", done: true, file: "docs/a&o슈투트가르트_예약확인서.pdf" },
     { id: "doc3", label: "Wombat's 뮌헨 예약 확인 메일", need: "확인 완료", done: true, file: "docs/Wombats뮌헨_예약확인메일.pdf" },
-    { id: "doc4", label: "뮌헨→포르투 항공권 e-티켓", need: "예약 후", done: false },
+    { id: "doc4", label: "뮌헨→포르투 LH1782 예약 확인서", need: "확인 완료", done: true, file: "docs/LH_뮌헨-포르투_예약확인서.pdf" },
     { id: "doc5", label: "포르투 / 리스본 숙소 확인서", need: "예약 후", done: false },
     { id: "doc6", label: "도루 밸리 바우처 · 신트라 티켓", need: "예약 후", done: false },
     { id: "doc7", label: "DB ICE 691 승차권 + 좌석 예약 (9/19)", need: "확인 완료 · PDF 2장", done: true, file: "docs/DB_ICE691_슈투트가르트-뮌헨_승차권.pdf" },
