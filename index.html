@@ -1094,11 +1094,94 @@ function toggle(id){
   state[id] = !state[id]; save(); render();
 }
 
-/* private.js 가 있으면 예약번호·PIN 같은 값을 채웁니다. 없으면 가려서 보여줍니다. */
-const secret = (k)=> (typeof SECRETS !== 'undefined' && SECRETS && SECRETS[k]) ? SECRETS[k] : null;
-const hasSecrets = ()=> typeof SECRETS !== 'undefined' && SECRETS && Object.keys(SECRETS).length > 0;
-/* 공유용 웹(Pages)에서는 보기 전용. private.js 가 있는 내 기기에서만 체크 상태를 바꿀 수 있다. */
-const EDITABLE = hasSecrets();
+/* ── 내 기기 금고 ─────────────────────────────────────────
+   private.js 가 없는 기기(폰 등)에서 비밀값과 확인서 PDF를 한 번 가져와
+   이 브라우저에만 보관합니다. 비밀값은 localStorage, PDF는 IndexedDB.
+   서버로는 아무것도 전송되지 않습니다. */
+const VAULT_KEY='trip2026.vault';
+let vaultSecrets=null;
+try{ vaultSecrets = JSON.parse(store.get(VAULT_KEY)||'null'); }catch(e){ vaultSecrets=null; }
+let vaultDocs = new Set();
+
+function idbOpen(){
+  return new Promise((res,rej)=>{
+    if(!window.indexedDB){ rej(new Error('indexedDB 없음')); return; }
+    const q=indexedDB.open('trip2026-vault',1);
+    q.onupgradeneeded=()=>{ q.result.createObjectStore('docs'); };
+    q.onsuccess=()=>res(q.result);
+    q.onerror=()=>rej(q.error);
+  });
+}
+function idbReq(r){ return new Promise((res,rej)=>{ r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+async function vaultDocPut(path,file){
+  const db=await idbOpen(); const tx=db.transaction('docs','readwrite');
+  tx.objectStore('docs').put({name:file.name,type:file.type||'application/pdf',blob:file,savedAt:Date.now()},path);
+  return new Promise((res,rej)=>{ tx.oncomplete=()=>{ vaultDocs.add(path); res(); }; tx.onerror=()=>rej(tx.error); });
+}
+async function vaultDocGet(path){ const db=await idbOpen(); return idbReq(db.transaction('docs').objectStore('docs').get(path)); }
+async function vaultDocKeys(){ const db=await idbOpen(); return idbReq(db.transaction('docs').objectStore('docs').getAllKeys()); }
+async function vaultDocDel(path){
+  const db=await idbOpen(); const tx=db.transaction('docs','readwrite');
+  tx.objectStore('docs').delete(path);
+  return new Promise((res,rej)=>{ tx.oncomplete=()=>{ vaultDocs.delete(path); res(); }; tx.onerror=()=>rej(tx.error); });
+}
+async function vaultClear(){
+  store.del(VAULT_KEY); vaultSecrets=null;
+  try{
+    const db=await idbOpen(); const tx=db.transaction('docs','readwrite');
+    tx.objectStore('docs').clear();
+    await new Promise(res=>{ tx.oncomplete=res; tx.onerror=res; });
+  }catch(e){}
+  vaultDocs.clear();
+}
+/* private.js 내용을 통째로 붙여넣으면 SECRETS 객체 부분만 뽑아 파싱합니다. */
+function parseSecretsText(txt){
+  const s=txt.indexOf('{'), e2=txt.lastIndexOf('}');
+  if(s<0||e2<=s) throw new Error('형식 오류');
+  const obj=(new Function('"use strict";return ('+txt.slice(s,e2+1)+')'))();
+  if(!obj||typeof obj!=='object') throw new Error('형식 오류');
+  const out={};
+  for(const k in obj){ if(typeof obj[k]==='string'&&obj[k].trim()) out[k]=obj[k].trim(); }
+  if(Object.keys(out).length===0) throw new Error('값 없음');
+  return out;
+}
+/* IndexedDB에 저장한 PDF를 blob URL로 엽니다. 팝업 차단 대비로 창을 먼저 엽니다. */
+function openVaultDoc(path){
+  let w=null; try{ w=window.open('','_blank'); }catch(e){}
+  vaultDocGet(path).then(rec=>{
+    if(!rec){ if(w)w.close(); toast('저장된 파일이 없어요'); return; }
+    const url=URL.createObjectURL(rec.blob);
+    if(w) w.location=url; else location.href=url;
+    setTimeout(()=>URL.revokeObjectURL(url),120000);
+  }).catch(()=>{ if(w)w.close(); toast('파일을 열지 못했어요'); });
+}
+/* 대시보드가 참조하는 확인서 목록 (예약 카드 + 자료 체크리스트) */
+function expectedDocs(){
+  const list=[];
+  const add=(path,label)=>{ if(path&&!list.some(x=>x.path===path)) list.push({path,label}); };
+  TRIP.bookings.forEach(b=>{ add(b.doc, b.title+(b.doc2?' · 승차권':' · 확인서')); add(b.doc2, b.title+' · 좌석 예약서'); });
+  TRIP.docs.forEach(x=>add(x.file, x.label));
+  return list;
+}
+
+/* private.js 가 있으면(심볼릭 링크 환경) 그 값을, 없으면 가져온 값을 씁니다. */
+const localFiles = ()=> typeof SECRETS !== 'undefined' && !!SECRETS;
+const secret = (k)=>{
+  if(typeof SECRETS !== 'undefined' && SECRETS && SECRETS[k]) return SECRETS[k];
+  if(vaultSecrets && vaultSecrets[k]) return vaultSecrets[k];
+  return null;
+};
+const hasSecrets = ()=> (typeof SECRETS !== 'undefined' && SECRETS && Object.keys(SECRETS).length > 0)
+                     || (vaultSecrets && Object.keys(vaultSecrets).length > 0);
+/* 확인서 버튼: 로컬 파일이 있으면 링크, 가져온 PDF가 있으면 blob 열기, 둘 다 없으면 숨김 */
+function docBtn(path,label){
+  if(!path) return '';
+  if(localFiles()) return `<a class="btn" href="${path}" target="_blank" rel="noopener">${label}</a>`;
+  if(vaultDocs.has(path)) return `<button class="btn" data-doc="${esc(path)}">${label}</button>`;
+  return '';
+}
+/* 공유용 웹(Pages)에서는 보기 전용. private.js 또는 가져온 비밀값이 있는 내 기기에서만 편집 가능. */
+let EDITABLE = hasSecrets();
 
 let toastTimer;
 function toast(msg){
@@ -1281,7 +1364,7 @@ function renderBook(){
   root.appendChild(el('<div class="sec-title">확정 예약</div>'));
   root.appendChild(el('<div class="sec-desc">항목을 누르면 상세가 열립니다.</div>'));
   if(!hasSecrets()){
-    root.appendChild(el('<div class="card"><div class="note">예약번호와 PIN은 이 화면에 저장돼 있지 않아요. 내 컴퓨터의 private.js 가 있는 환경에서만 보입니다. 현장에서는 Booking.com 앱이나 항공사 앱에서 확인하세요.</div></div>'));
+    root.appendChild(el('<div class="card"><div class="note">예약번호와 PIN은 이 화면에 저장돼 있지 않아요. private.js 가 있는 기기이거나, 정보 탭에서 "내 기기 데이터"로 가져온 경우에만 보입니다. 현장에서는 Booking.com 앱이나 항공사 앱에서 확인하세요.</div></div>'));
   }
   TRIP.bookings.forEach(b=>{
     const key='bk.'+b.id, open=!!state[key];
@@ -1306,11 +1389,8 @@ function renderBook(){
           ${b.pendingTicket?'<div style="margin-top:12px"><span class="chip orange">승차권 확인 필요</span> <span class="muted">좌석 예약서만 받았어요. 승차권 PDF가 따로 있는지 확인하세요.</span></div>':''}
         </div>
         ${b.note?`<div class="note">${esc(b.note)}</div>`:''}
-        ${(b.map||(b.doc && hasSecrets()))?`<div class="btn-row" style="padding-top:16px">
-          ${b.map?`<a class="btn" href="${b.map}" target="_blank" rel="noopener">지도</a>`:''}
-          ${(b.doc && hasSecrets())?`<a class="btn" href="${b.doc}" target="_blank" rel="noopener">${b.doc2?'승차권':'확인서 열기'}</a>`:''}
-          ${(b.doc2 && hasSecrets())?`<a class="btn" href="${b.doc2}" target="_blank" rel="noopener">좌석 예약서</a>`:''}
-        </div>`:''}
+        ${(()=>{ const btns=(b.map?`<a class="btn" href="${b.map}" target="_blank" rel="noopener">지도</a>`:'')+docBtn(b.doc,b.doc2?'승차권':'확인서 열기')+docBtn(b.doc2,'좌석 예약서');
+          return btns?`<div class="btn-row" style="padding-top:16px">${btns}</div>`:''; })()}
       </div>
     </div>`);
     card.querySelector('.bk-head').addEventListener('click',()=>{ state[key]=!state[key]; save(); card.classList.toggle('open'); });
@@ -1362,7 +1442,7 @@ function renderBook(){
       d.appendChild(el(`
         <div class="row">
           <div class="rt"><b>${esc(x.label)}</b><small>${esc(x.need)}</small></div>
-          <div class="rv">${(x.file && hasSecrets())?`<a class="chip blue" href="${x.file}" target="_blank" rel="noopener" style="text-decoration:none">열기</a>`:'<span class="chip green">확인</span>'}</div>
+          <div class="rv">${(x.file && localFiles())?`<a class="chip blue" href="${x.file}" target="_blank" rel="noopener" style="text-decoration:none">열기</a>`:(x.file && vaultDocs.has(x.file))?`<button class="chip blue" data-doc="${esc(x.file)}" style="border:none;cursor:pointer;font-family:inherit">열기</button>`:'<span class="chip green">확인</span>'}</div>
         </div>`));
     } else {
       d.appendChild(el(`
@@ -1377,6 +1457,9 @@ function renderBook(){
   bindChecks(root);
   root.querySelectorAll('[data-copy]').forEach(b=>{
     b.addEventListener('click',e=>{e.stopPropagation();copy(b.dataset.copy);});
+  });
+  root.querySelectorAll('[data-doc]').forEach(b=>{
+    b.addEventListener('click',e=>{e.stopPropagation();openVaultDoc(b.dataset.doc);});
   });
 }
 
@@ -1474,6 +1557,65 @@ function renderInfo(){
       <div class="btn-row"><a class="btn primary" href="${TRIP.openChat}" target="_blank" rel="noopener">오픈채팅 열기</a></div>
     </div>`));
 
+  /* 내 기기 데이터 — private.js 없는 기기(폰)에서 비밀값·확인서를 가져와 보관 */
+  root.appendChild(el('<div class="sec-title">내 기기 데이터</div>'));
+  if(localFiles()){
+    root.appendChild(el('<div class="card"><div class="note">이 기기는 private.js 를 직접 읽고 있어요. 가져오기가 필요 없습니다.</div></div>'));
+  } else {
+    const nSec = vaultSecrets ? Object.keys(vaultSecrets).length : 0;
+    const card = el(`<div class="card">
+      <div class="card-pad">
+        <div class="kv"><div class="k">비밀값</div><div class="v">${nSec? nSec+'개 가져옴' : '없음'}</div></div>
+        <div class="kv"><div class="k">확인서</div><div class="v">${vaultDocs.size}개 저장됨</div></div>
+      </div>
+      <div class="note">여기서 가져온 값과 파일은 이 브라우저에만 저장되고 어디로도 전송되지 않아요. 내 폰에서만 쓰고, 공용 기기에서는 사용하지 마세요.</div>
+      <div class="btn-row" style="padding-top:16px">
+        <button class="btn" id="vSecBtn">private.js 붙여넣기</button>
+        ${(nSec||vaultDocs.size)?'<button class="btn" id="vClrBtn">모두 지우기</button>':''}
+      </div>
+      <div id="vSecBox" class="hidden" style="padding:0 20px 16px">
+        <textarea id="vSecTa" rows="6" placeholder="private.js 내용 전체를 붙여넣으세요" style="width:100%;box-sizing:border-box;padding:12px;border-radius:12px;border:none;background:var(--card-sub);color:inherit;font-family:inherit;font-size:13px"></textarea>
+        <div class="btn-row" style="padding:8px 0 0"><button class="btn primary" id="vSecSave">저장</button></div>
+      </div>
+      <div id="vDocRows"></div>
+    </div>`);
+    root.appendChild(card);
+
+    const rows = card.querySelector('#vDocRows');
+    expectedDocs().forEach(dc=>{
+      const have = vaultDocs.has(dc.path);
+      const row = el(`<div class="row">
+        <div class="rt"><b>${esc(dc.label)}</b><small>${have?'저장됨 · 눌러서 열기':'없음'}</small></div>
+        <div class="rv">
+          ${have?`<button class="chip" data-doc="${esc(dc.path)}" style="border:none;cursor:pointer;font-family:inherit">열기</button> `:''}
+          <label class="chip ${have?'':'blue'}" style="cursor:pointer">${have?'교체':'추가'}<input type="file" accept="application/pdf,.pdf" hidden></label>
+        </div>
+      </div>`);
+      row.querySelector('input[type=file]').addEventListener('change',e=>{
+        const f=e.target.files[0]; if(!f) return;
+        vaultDocPut(dc.path,f).then(()=>{ toast('저장했어요'); render(); }).catch(()=>toast('저장하지 못했어요'));
+      });
+      const openBtn=row.querySelector('[data-doc]');
+      if(openBtn) openBtn.addEventListener('click',()=>openVaultDoc(dc.path));
+      rows.appendChild(row);
+    });
+
+    $('#vSecBtn').addEventListener('click',()=>{ $('#vSecBox').classList.toggle('hidden'); });
+    $('#vSecSave').addEventListener('click',()=>{
+      try{
+        const parsed = parseSecretsText($('#vSecTa').value);
+        store.set(VAULT_KEY, JSON.stringify(parsed));
+        vaultSecrets = parsed; EDITABLE = hasSecrets();
+        toast(Object.keys(parsed).length+'개 값을 가져왔어요'); render();
+      }catch(e){ toast('내용을 읽지 못했어요. 파일 전체를 붙여넣어 주세요'); }
+    });
+    const clr=$('#vClrBtn');
+    if(clr) clr.addEventListener('click',()=>{
+      if(!confirm('가져온 비밀값과 확인서를 이 기기에서 모두 지울까요?')) return;
+      vaultClear().then(()=>{ EDITABLE = hasSecrets(); render(); toast('지웠어요'); });
+    });
+  }
+
   if(EDITABLE){
     root.appendChild(el('<div class="sec-title">데이터 관리</div>'));
     const reset = el('<div class="card"><div class="btn-row" style="padding:16px 20px"><button class="btn" id="btnReset">체크 상태 초기화</button></div></div>');
@@ -1510,6 +1652,10 @@ function render(){
   renderNav();
 }
 render();
+/* 저장된 확인서 목록을 불러온 뒤 문서 버튼이 뜨도록 다시 그립니다. */
+if(!localFiles() && window.indexedDB){
+  vaultDocKeys().then(keys=>{ vaultDocs=new Set(keys); if(keys.length) render(); }).catch(()=>{});
+}
 </script>
 </body>
 </html>
