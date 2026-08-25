@@ -826,8 +826,36 @@ const TRIP = {
   ],
 
   // ── 리스크 ─────────────────────────────────────────────────
+  // ── 날씨 (기후 평년값 기반 예상) ────────────────────────────
+  weather: {
+    updated: "2026-08-23",
+    note: "기후 평년값과 최근 관측 경향으로 낸 예상입니다. 실시간 예보가 아니니 출발 1주 전에 다시 확인하세요.",
+    cities: [
+      { city: "슈투트가르트", when: "9/18~19", hi: 21, lo: 9, rain: "월 10~12일 · 하루 22%",
+        tip: "도착이 23시라 첫날 밤은 10℃ 안팎입니다. 기내에서 내릴 때 재킷을 꺼내 두세요." },
+      { city: "뮌헨", when: "9/19~22", hi: 20, lo: 5, rain: "월 12일 · 하순 8일",
+        tip: "이번 여행에서 가장 춥습니다. 다만 푄이 불면 낮 25℃까지 올라 하루 안에 15℃가 움직입니다. 벗어서 들 수 있는 구성으로." },
+      { city: "포르투", when: "9/22~25", hi: 23, lo: 14, rain: "월 6~8일 · 하순부터 증가",
+        tip: "아침 러닝(14~15℃)에 최적입니다. 대신 9월 말부터 비가 시작되니 도루 밸리 날은 방수 재킷 필수." },
+      { city: "리스본", when: "9/25~28", hi: 27, lo: 17, rain: "월 4~6일 · 가장 건조",
+        tip: "반팔로 다니는 날씨입니다. 단 신트라는 해발 500m라 시내보다 5℃ 이상 낮고 오전 안개가 잦습니다." }
+    ],
+    highlights: [
+      { t: "9/20 퍼레이드 오전 10시", d: "체감상 가장 추운 시간입니다. 아침 10℃ 안팎에서 몇 시간 서 있게 됩니다." },
+      { t: "9/24 도루 밸리", d: "비 리스크가 가장 큰 날. 08~09시 출발 18~19시 복귀로 하루 종일 야외입니다." },
+      { t: "9/27 신트라", d: "페나 성은 산 위라 안개로 전망이 막힐 수 있습니다. 겉옷을 백팩에 넣어 가세요." },
+      { t: "온도차", d: "뮌헨 새벽 5℃ ↔ 리스본 낮 27℃. 20℃ 넘게 차이 나므로 레이어링이 필수입니다." }
+    ],
+    packing: [
+      "방수 재킷 — 도루 밸리 기준. 뮌헨에서도 유용",
+      "경량 패딩이나 두꺼운 후디 — 뮌헨 밤 5℃용, 압축되는 것",
+      "긴팔 + 반팔 레이어링 — 리스본에서는 반팔만",
+      "얇은 목도리 — 비어가든에 오래 앉을 때 큰 역할"
+    ]
+  },
+
   risks: [
-    { t: "날씨", d: "뮌헨은 낮 15~20℃ / 밤 5~10℃로 재킷이 필요하고, 리스본은 낮 25~27℃입니다. 온도차가 크니 레이어링과 방수 재킷을 챙기세요. 포르투는 9월 말부터 비가 시작됩니다." },
+    { t: "날씨", d: "뮌헨 밤 5℃부터 리스본 낮 27℃까지 폭이 큽니다. 아래 날씨 카드에 도시별 예상과 짐 목록을 정리해 뒀습니다." },
     { t: "독일 철도(DB)", d: "정시율이 낮습니다. 환승과 일정에 여유를 두세요." },
     { t: "소매치기", d: "리스본 28번 트램과 산타주스타 엘리베이터 줄에서 특히 주의가 필요합니다." },
     { t: "숙박비", d: "옥토버페스트 기간 뮌헨은 도미토리도 평시의 3~4배입니다." },
@@ -1545,6 +1573,31 @@ function renderInfo(){
     r.appendChild(el(`<div class="row"><div class="rt"><b>${esc(x.t)}</b><small>${esc(x.d)}</small></div></div>`));
   });
   root.appendChild(r);
+
+  /* 날씨 */
+  root.appendChild(el('<div class="sec-title">날씨</div>'));
+  root.appendChild(el(`<div class="sec-desc">${esc(TRIP.weather.note)} (${esc(TRIP.weather.updated)} 조사)</div>`));
+  const w = el('<div class="card"></div>');
+  TRIP.weather.cities.forEach(c=>{
+    const color=(TRIP.cities[c.city]||{}).color||'#8B95A1';
+    const node = el(`
+      <div class="row">
+        <div class="rt">
+          <b><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${color};margin-right:6px;vertical-align:middle"></span>${esc(c.city)} <span class="muted" style="font-weight:600">${esc(c.when)}</span></b>
+          <small>비 ${esc(c.rain)}<br><span style="opacity:.9">${esc(c.tip)}</span></small>
+        </div>
+        <div class="rv" style="white-space:nowrap"><b>${c.hi}°</b> <span class="muted">/ ${c.lo}°</span></div>
+      </div>`);
+    w.appendChild(node);
+  });
+  root.appendChild(w);
+
+  const wh = el('<div class="card"></div>');
+  TRIP.weather.highlights.forEach(x=>{
+    wh.appendChild(el(`<div class="row"><div class="rt"><b>${esc(x.t)}</b><small>${esc(x.d)}</small></div></div>`));
+  });
+  wh.appendChild(el(`<div class="note">챙길 것<br>${TRIP.weather.packing.map(x=>'· '+esc(x)).join('<br>')}</div>`));
+  root.appendChild(wh);
 
   root.appendChild(el('<div class="sec-title">앵커 이벤트</div>'));
   root.appendChild(el(`
