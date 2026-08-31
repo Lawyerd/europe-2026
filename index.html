@@ -205,6 +205,26 @@ const TRIP = {
       note: "바탈랴 광장 옆 골목 — 동행 숙소(무브 호텔) 도보 1~3분, 상 벤투역 5분, 렐루 7분. 세탁기가 있어 밀린 빨래는 여기서 해결합니다. 얼리 체크인·짐 보관·체크인 방식·9/25 새벽 퇴실은 예약 요청사항으로 문의해 둠 — 호스트 답장 확인 필요. 주차 불가.",
       channel: "Booking.com",
       doc: "docs/LuxuryStyle7_포르투_예약확인서.pdf"
+    },
+    {
+      id: "tour-douro",
+      type: "tour",
+      status: "confirmed",
+      title: "도루 밸리 투어 (로투스)",
+      sub: "LOTUS TOUR PORTO · 한국어 가이드 · 9시간 30분 · 2인",
+      date: "2026-09-24",
+      rows: [
+        { k: "일시", v: "09/24(목) 08:30 출발 → 17:00 포르투 대성당 종료" },
+        { k: "집결", v: "Pilares da Ponte Pênsil 08:30 (소그룹 기준 · 10분 전 도착)" },
+        { k: "예약번호", sk: "lotus.res", copy: true },
+        { k: "현지 연락처", v: "+351 933 158 836" },
+        { k: "결제금액", v: "₩199,000 · 결제 완료" },
+        { k: "현장 지불", v: "€65/인 현금 = 2인 €130 · 카드 불가" }
+      ],
+      breakdown: "마이리얼트립 결제 ₩199,000(2인) · 현장 €65/인 = 와이너리 2곳 시음(7~9잔·올리브오일) + 점심(믹스 바베큐·무제한 와인·디저트) · 미니버스 중그룹으로 진행되면 볼사 궁전 08:00 집결, 현장 지불 €55/인 · 2026-08-31 예약 확정",
+      map: "https://www.google.com/maps/search/?api=1&query=Pilares+da+Ponte+P%C3%AAnsil+Porto",
+      note: "투어 하루 전 그룹 챗으로 미팅 장소 등 상세 안내가 옵니다 — 소그룹(9인승)이면 Pilares da Ponte Pênsil 08:30, 미니버스면 볼사 궁전 08:00이니 안내를 보고 확정하세요. 지각 시 기다리지 않고 환불도 없습니다. 5인 미달 시 취소될 수 있고, 비가 와도 진행합니다. 캐리어 소지 불가. 현장 지불은 현금만 받으니 전날까지 €130을 준비하세요(당일 아침 ATM 금지). 술을 못 마시면 주스로 대체 가능합니다.",
+      channel: "마이리얼트립 (LOTUS TOUR PORTO)"
     }
   ],
 
@@ -257,8 +277,8 @@ const TRIP = {
 
     { date: "2026-09-24", dow: "목", city: "포르투", label: "도루 밸리 당일치기",
       stay: "포르투", stayFixed: true,
-      items: ["08:30 — 동 루이스 다리 앞 집결 (로투스 한국어 투어, 확정 대기 중)", "아마란테 소도시 → 와이너리 2곳 시음 → 산골 바베큐 점심", "17:00 — 포르투 대성당 앞 종료"],
-      tip: "포도 수확철(빈디마) = 1년 중 최고 시즌. 로투스 2인 예약 신청 완료, 판매자 확정 대기 중입니다. 현장 지불 €65/인은 현금만 받으니 전날 €130을 준비하세요." },
+      items: ["08:20 — Pilares da Ponte Pênsil 집결 (로투스 한국어 투어 · 08:30 출발)", "아마란테 소도시 → 와이너리 2곳 시음 → 산골 바베큐 점심 (무제한 와인)", "17:00 — 포르투 대성당 앞 종료"],
+      tip: "포도 수확철(빈디마) = 1년 중 최고 시즌. 로투스 2인 예약 확정(8/31). 투어 하루 전 그룹 챗으로 상세 안내가 오고, 미니버스 진행이면 볼사 궁전 08:00 집결로 바뀝니다. 현장 지불 €65/인은 현금만 받으니 전날 €130을 준비하세요." },
 
     { date: "2026-09-25", dow: "금", city: "이동", label: "포르투 → 리스본",
       move: "train", stay: "리스본",
@@ -295,8 +315,8 @@ const TRIP = {
       why: "Luxury Style 7 (바탈랴, 세탁기·AC) ₩559,305 결제 완료(8/31). 동행 숙소 도보 1~3분." },
     { id: "t4",  rank: 4, type: "stay",  title: "리스본 숙소 3박 예약", when: "9/25~28",
       why: "산타 아폴로니아역 도착 기준 — 알파마·바이샤 쪽이 동선에 맞습니다. 무료취소 조건." },
-    { id: "t5",  rank: 5, type: "tour",  title: "도루 밸리 투어 예약", when: "9/24", urgent: true,
-      why: "로투스 9/24 2인 예약 신청 완료(8/31) — 판매자 확정 대기 중. 확정되면 완료 처리. 현장 €65/인 현금 준비." },
+    { id: "t5",  rank: 5, type: "tour",  title: "도루 밸리 투어 예약", when: "9/24", done: true,
+      why: "로투스 2인 예약 확정(8/31, 마이리얼트립 ₩199,000). 현장 €65/인 현금 — 전날 €130 준비만 남음." },
     { id: "t14", rank: 5.5, type: "ticket", title: "렐루 서점 첫 타임 예약", when: "9/23 09:15", done: true,
       why: "2인 예매 완료(8/31), €31.90. QR은 이메일·비공개 저장소에 보관." },
     { id: "t6",  rank: 6, type: "ticket",  title: "신트라 페나 성 티켓", when: "9/26",
@@ -917,8 +937,10 @@ const TRIP = {
     { id: "doc2", label: "a&o 슈투트가르트 예약 확인서", need: "확인 완료", done: true, file: "docs/a&o슈투트가르트_예약확인서.pdf" },
     { id: "doc3", label: "호텔 암바 뮌헨 체크인 바우처", need: "확인 완료", done: true, file: "docs/HotelAmba_뮌헨_체크인바우처.pdf" },
     { id: "doc4", label: "뮌헨→포르투 LH1782 예약 확인서", need: "확인 완료", done: true, file: "docs/LH_뮌헨-포르투_예약확인서.pdf" },
-    { id: "doc5", label: "포르투 / 리스본 숙소 확인서", need: "예약 후", done: false },
-    { id: "doc6", label: "도루 밸리 바우처 · 신트라 티켓", need: "예약 후", done: false },
+    { id: "doc5", label: "포르투 숙소 확인서 (Luxury Style 7)", need: "확인 완료", done: true, file: "docs/LuxuryStyle7_포르투_예약확인서.pdf" },
+    { id: "doc5b", label: "리스본 숙소 확인서", need: "예약 후", done: false },
+    { id: "doc6", label: "도루 밸리 투어 예약 확인 (로투스)", need: "마이리얼트립 캡처로 확인. PDF는 미보관", done: true },
+    { id: "doc6b", label: "신트라 티켓", need: "예약 후", done: false },
     { id: "doc7", label: "DB ICE 691 승차권 + 좌석 예약 (9/19)", need: "확인 완료 · PDF 2장", done: true, file: "docs/DB_ICE691_슈투트가르트-뮌헨_승차권.pdf" },
     { id: "doc8", label: "기차표 (DB 9/18, CP 9/26)", need: "예약 후", done: false }
   ]
