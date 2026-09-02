@@ -232,8 +232,6 @@ const TRIP = {
   deadlines: [
     { id: "d-cancel", label: "a&o 슈투트가르트 무료취소 마감", date: "2026-09-16T23:59", tone: "red",
       desc: "9/17 00:00부터는 숙박 요금 전액이 청구됩니다." },
-    { id: "d-wom", label: "Wombat's 취소 마감 (호텔 암바로 변경)", date: "2026-09-16T21:15", tone: "red",
-      desc: "이때까지 취소 메일을 보내야 무료입니다. 넘기면 첫날 밤 요금이 청구됩니다." },
     { id: "d-depart", label: "출국", date: "2026-09-18T09:50", tone: "blue",
       desc: "TW403 · 인천공항 제1여객터미널. 3시간 전 도착 권장." },
     { id: "d-cp",     label: "포르투→리스본 기차 예매 오픈", date: "2026-07-27T00:00", tone: "gray", estimate: true,
@@ -306,9 +304,9 @@ const TRIP = {
   // ── 미확정 / 할 일 (우선순위 순) ───────────────────────────
   todos: [
     { id: "t1",  rank: 1, type: "stay",  title: "뮌헨 숙소 3박 예약", when: "9/19~22", done: true,
-      why: "동행 룸쉐어로 변경 — 호텔 암바 2인 1실 ₩1,213,093 결제 완료(2026-08-23). 기존 Wombat\'s 도미토리는 취소 필요." },
-    { id: "t13", rank: 1.5, type: "stay", title: "Wombat\'s 예약 취소 메일 보내기", when: "9/16 21:15까지", urgent: true,
-      why: "호텔 암바로 갈아탔으니 bookmunich@wombats.eu 로 확인번호와 함께 취소 요청. 그 전까지는 무료입니다." },
+      why: "동행 룸쉐어로 변경 — 호텔 암바 2인 1실 ₩1,213,093 결제 완료(2026-08-23)." },
+    { id: "t13", rank: 1.5, type: "stay", title: "Wombat\'s 예약 취소", when: "완료", done: true,
+      why: "9/1 취소 메일 발송 → 9/1 무료 취소 확정 회신 수신. 뮌헨 숙소 정리 끝." },
     { id: "t2",  rank: 2, type: "flight",  title: "뮌헨 → 포르투 항공권", when: "9/22", done: true,
       why: "LH1782 08:20→10:20 직항, Economy Basic + 위탁 1개, €299.79 결제 완료." },
     { id: "t3",  rank: 3, type: "stay",  title: "포르투 숙소 3박 예약", when: "9/22~25", done: true,
