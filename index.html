@@ -972,6 +972,96 @@ const TRIP = {
     { t: "공휴일", d: "여행 기간에는 겹치는 공휴일이 없습니다. 포르투갈 10/5 공화국의 날과 독일 10/3 통일기념일은 모두 귀국 후입니다." }
   ],
 
+  // ── 짐 체크리스트 (정보 탭 · 체크는 기기별 localStorage) ────
+  packing: {
+    updated: "2026-09-13",
+    note: "9/22 포르투 숙소 세탁기가 중간 지점이라 옷은 6일치. 루프트한자(9/22)는 기내 캐리어 없이 40×30×15 개인 가방만, 옥토버페스트는 3L 초과 가방 반입 금지.",
+    groups: [
+      { id: "doc", title: "서류·돈", items: [
+        { id: "passport", t: "여권 (유효기간 6개월+) + 사본·폰 사진" },
+        { id: "etickets", t: "e티켓 캡처 3개 — TW403 · LH1782 · KE8922" },
+        { id: "vault", t: "대시보드 금고에 private.js·확인서 PDF 넣기", note: "정보 탭 내 기기 데이터" },
+        { id: "cards", t: "카드 2장 — 트래블월렛/트래블로그(ATM) + 비자/마스터 신용카드" },
+        { id: "cash", t: "현금 유로 €300~400 (독일은 현금 비중 높음)" },
+        { id: "cash-douro", t: "도루 현장 지불 €130 — 9/23 인출, 따로 봉투" },
+        { id: "coinpurse", t: "동전 지갑 (€1·€2 동전, 팁·화장실·판트)" },
+        { id: "insurance", t: "여행자보험 가입 + 증권 캡처" },
+        { id: "namecards", t: "명함 + AMB 메모(사장님 SUS630 탭) — 9/19 부스 상담" }
+      ]},
+      { id: "bag", title: "가방", items: [
+        { id: "suitcase", t: "위탁 캐리어 1개 (23kg 한도, 3편 공통)" },
+        { id: "daypack", t: "소형 백팩 40×30×15 이내 — 기내 개인 물품 겸 데이팩", note: "LH1782는 이것만 반입 가능" },
+        { id: "crossbag", t: "3L 이하 크로스백 — 옥토버페스트·소매치기 구역용" },
+        { id: "ecobag", t: "접이식 에코백 (시장·기념품·와인)" },
+        { id: "lock", t: "자물쇠 1개 — 9/18 a&o 로커는 자물쇠 지참", note: "캐리어 잠금 겸용" },
+        { id: "zipbags", t: "지퍼백·파우치 (빨래·젖은 옷·와인 분리)" }
+      ]},
+      { id: "cloth", title: "옷 — 5℃(뮌헨 새벽)~27℃(리스본 낮)", items: [
+        { id: "rainjacket", t: "방수 재킷 (도루 비 대비·바람막이)" },
+        { id: "puffer", t: "경량 패딩 또는 두꺼운 후디 (9/20 퍼레이드 오전 10℃)" },
+        { id: "cardigan", t: "얇은 가디건/셔츠 (리스본 저녁)" },
+        { id: "longtee", t: "긴팔 티 2" },
+        { id: "tee", t: "반팔 티 4~5" },
+        { id: "pants", t: "긴바지 2 + 반바지 1" },
+        { id: "underwear", t: "속옷·양말 6일치" },
+        { id: "scarf", t: "얇은 목도리·버프 (비어가든 밤·호카곶·기내)" },
+        { id: "cap", t: "모자(캡) + 선글라스" },
+        { id: "pajama", t: "잠옷 겸 실내복" },
+        { id: "shoes", t: "러닝화 + 편한 워킹화", note: "흰 신발·새 신발 금지 — 옥토버페스트 바닥, 리스본 돌길" },
+        { id: "runwear", t: "러닝복 2세트 + 러닝 양말 (포르투·리스본 아침 러닝)" }
+      ]},
+      { id: "hyg", title: "세면·위생", items: [
+        { id: "towel", t: "퀵드라이 타월 — a&o 수건 미포함, City Inn 후기 불안" },
+        { id: "slippers", t: "슬리퍼 (접이식) — 도미토리·호텔·기내" },
+        { id: "toiletry", t: "칫솔·치약·면도기 (100ml 이하 기내 파우치)" },
+        { id: "shampoo", t: "샴푸·바디워시 소분 (아파트·게스트하우스 대비)" },
+        { id: "sunscreen", t: "선크림 + 립밤 + 보습제" },
+        { id: "detergent", t: "세탁 세제 시트 + 접이식 옷걸이 2 — 9/22 포르투 세탁" },
+        { id: "sanitizer", t: "손세정제·물티슈·휴지 약간" },
+        { id: "earplug", t: "안대·귀마개 — 9/18 4인 도미토리 + 14시간 비행" },
+        { id: "nail", t: "손톱깎이·면봉" }
+      ]},
+      { id: "med", title: "상비약", items: [
+        { id: "painkiller", t: "해열진통제·소화제·지사제·종합감기약" },
+        { id: "hangover", t: "숙취 해소제 — 옥토버페스트 2일 + 도루 시음 9잔" },
+        { id: "motion", t: "멀미약 — 도루 산길·신트라 커브길" },
+        { id: "bandage", t: "밴드·물집 패드·연고 (하루 2만 보)" },
+        { id: "mymeds", t: "평소 복용약 여유분 + 처방전 사진" }
+      ]},
+      { id: "elec", title: "전자기기", items: [
+        { id: "multitap", t: "멀티탭 3구 — 어댑터는 불필요(독일·포르투갈 C/F형 220V)" },
+        { id: "powerbank", t: "보조배터리 (기내 반입만, 위탁 금지) + 케이블 2 + 충전기" },
+        { id: "esim", t: "유럽 통합 이심 설치·활성화 테스트" },
+        { id: "camera", t: "카메라 + 배터리 2 + SD카드 2 + 충전기" },
+        { id: "earphones", t: "이어폰 (유선 백업) + 목베개" },
+        { id: "strap", t: "폰 스트랩 — 28번 트램·호시우 소매치기 대비" },
+        { id: "offline", t: "가이드 탭 전체 펼쳐 보기 → PDF 저장, 오프라인 지도 4도시" }
+      ]},
+      { id: "day", title: "현지 상황별", items: [
+        { id: "gift-fra", t: "9/18 프랑크푸르트 친구 선물 (가벼운 한국 것)" },
+        { id: "amb-kit", t: "9/19 AMB — 명함·볼펜·노트·카탈로그용 에코백" },
+        { id: "wiesn-kit", t: "9/20 옥토버페스트 — 3L 크로스백·현금 €100+·겉옷" },
+        { id: "douro-kit", t: "9/24 도루 — 방수 재킷·선글라스·모자·€130·물·간식" },
+        { id: "wine-wrap", t: "와인 슬리브/뽁뽁이 (도루 와인 위탁용)" },
+        { id: "sintra-kit", t: "9/26 신트라·호카곶 — 바람막이·운동화·물" }
+      ]},
+      { id: "opt", title: "있으면 좋은 것", items: [
+        { id: "bottle", t: "다회용 물병 (독일 수돗물 OK, 포르투갈은 병물)" },
+        { id: "umbrella", t: "접이식 우산 (9월 말 포르투부터 비)" },
+        { id: "ramen", t: "컵라면 2~3 + 고추장 튜브" },
+        { id: "gift-mates", t: "동행·룸메이트용 한국 기념품 소량" },
+        { id: "laundrynet", t: "빨래망 (캐리어 정리용)" }
+      ]},
+      { id: "pre", title: "출발 전 체크 (9/17까지)", items: [
+        { id: "pre-checkin-porto", t: "포르투 Luxury Style 7 온라인 체크인 (9/21까지)" },
+        { id: "pre-checkin-tw", t: "티웨이 온라인 체크인 오픈 시 바로 (좌석 무료 배정)" },
+        { id: "pre-vault", t: "폰 금고에 private.js 최신본 붙여넣기 (리스본·기차 추가분)" },
+        { id: "pre-card", t: "카드사 해외 사용 알림·한도 확인, 이심 활성화" },
+        { id: "pre-cp", t: "동행에게 CP 티켓 캡처·신트라 바우처 받기 (9/24까지)" }
+      ]}
+    ]
+  },
+
   // ── 받아야 할 자료 ─────────────────────────────────────────
   docs: [
     { id: "doc1", label: "귀국편 e-티켓 (KE8922)", need: "확인 완료", done: true, file: "docs/KE8922_리스본-인천_e티켓.pdf" },
@@ -3504,6 +3594,40 @@ function renderGuide(){
 /* ── 정보 ───────────────────────────────────────────────── */
 function renderInfo(){
   const root=$('#tab-info'); root.innerHTML='';
+
+  /* 짐 체크리스트 — 체크 상태는 state['pack.<id>'], 기기별 저장 */
+  if(TRIP.packing && TRIP.packing.groups){
+    const P=TRIP.packing;
+    const all=P.groups.flatMap(g=>g.items.map(i=>'pack.'+i.id));
+    const done=all.filter(k=>state[k]).length;
+    root.appendChild(el('<div class="sec-title">짐 체크리스트</div>'));
+    root.appendChild(el(`<div class="sec-desc">${esc(P.note)} (${esc(P.updated)} 기준)</div>`));
+    const pct=all.length?Math.round(done/all.length*100):0;
+    root.appendChild(el(`
+      <div class="card"><div class="prog">
+        <div class="pt" style="flex:1"><b>${done} / ${all.length} 챙김</b><small>${done===all.length?'다 쌌어요':(pct+'% · 체크는 이 기기에만 저장돼요')}</small>
+          <div style="height:6px;border-radius:99px;background:var(--card-sub);margin-top:10px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--blue);border-radius:99px;transition:width .2s"></div></div>
+        </div>
+      </div></div>`));
+    P.groups.forEach(g=>{
+      const gdone=g.items.filter(i=>state['pack.'+i.id]).length;
+      const card=el(`<div class="card"><div class="note" style="font-weight:700;color:var(--t1)">${esc(g.title)} <span style="font-weight:500;color:var(--t3)">${gdone}/${g.items.length}</span></div></div>`);
+      g.items.forEach(i=>{
+        card.appendChild(el(`
+          <div class="chk ${state['pack.'+i.id]?'on':''}" data-id="pack.${i.id}">
+            <div class="box">${checkSvg()}</div>
+            <div class="ct"><b>${esc(i.t)}</b>${i.note?'<small>'+esc(i.note)+'</small>':''}</div>
+          </div>`));
+      });
+      root.appendChild(card);
+    });
+    bindChecks(root);
+    if(EDITABLE){
+      const pr=el('<div class="card"><div class="btn-row" style="padding:12px 20px"><button class="btn" id="btnPackReset">짐 체크만 초기화</button></div></div>');
+      root.appendChild(pr);
+      pr.querySelector('#btnPackReset').addEventListener('click',()=>{ if(confirm('짐 체크를 모두 지울까요?')){ all.forEach(k=>delete state[k]); save(); render(); toast('짐 체크를 비웠어요'); } });
+    }
+  }
 
   root.appendChild(el('<div class="sec-title">알아둘 것</div>'));
   const r = el('<div class="card"></div>');
