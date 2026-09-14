@@ -286,8 +286,8 @@ const TRIP = {
 
     { date: "2026-09-19", dow: "토", city: "이동", label: "슈투트가르트 → 뮌헨",
       move: "train", stay: "뮌헨", stayFixed: true,
-      items: ["10:00 체크아웃 후 프런트에 짐 보관", "AMB 2026 관람 (전시 마지막 날)", "짐 회수 → 중앙역 (메세에서 S-Bahn 약 30분)", "19:17 ICE 691 출발 (15번 승강장 · 3호차 98번)", "21:15 München Hbf 도착 → 호텔 암바 체크인 (도보 1분)"],
-      tip: "좌석 예약 완료. 슈투트가르트 중앙역은 공사 중이라 ICE 승강장까지 걸어 들어가는 시간 10분을 두세요. 승강장은 당일 앱에서 재확인." },
+      items: ["07:45 체크아웃 → 캐리어 끌고 중앙역 (도보 15분) → 락커 대형 칸 €5 동전", "08:20 S2/S3 → Flughafen/Messe 27분 → 09:00 동쪽 입구 입장 (VVS 2존 1일권 €8.90)", "AMB 2026 관람 — 토요일은 15:00 마감. 오전 1·3홀 공구, 오후 7·10홀 기계 (내 기기에선 가이드 탭 AMB 참고)", "15:50 중앙역 → 이른 저녁 → 16:40 S6/S60 포르쉐 박물관 (저녁권 €12, 18시 폐관)", "18:15 중앙역, 락커 회수 → 18:35 15번 승강장", "19:17 ICE 691 출발 (15번 승강장 · 3호차 98번)", "21:15 München Hbf 도착 → 호텔 암바 체크인 (도보 1분)"],
+      tip: "좌석 예약 완료. 슈투트가르트 중앙역은 공사 중이라 ICE 승강장까지 걸어 들어가는 시간 10분을 두세요. 승강장은 당일 앱에서 재확인. 락커·Garderobe·S-Bahn 모두 동전이 편하니 €1·€2 동전을 전날 확보." },
 
     { date: "2026-09-20", dow: "일", city: "뮌헨", label: "옥토버페스트",
       stay: "뮌헨", stayFixed: true,
@@ -982,11 +982,11 @@ const TRIP = {
         { id: "etickets", t: "e티켓 캡처 3개 — TW403 · LH1782 · KE8922" },
         { id: "vault", t: "대시보드 금고에 private.js·확인서 PDF 넣기", note: "정보 탭 내 기기 데이터" },
         { id: "cards", t: "카드 2장 — 트래블월렛/트래블로그(ATM) + 비자/마스터 신용카드" },
-        { id: "cash", t: "현금 유로 €300~400 (독일은 현금 비중 높음)" },
+        { id: "cash", t: "환전 유로 €100~150만 지참 — 나머지는 현지 은행 ATM", note: "트래블로그·트래블월렛으로 Sparkasse·Multibanco 등 은행 ATM. Euronet 금지, 화면에서 EUR 선택(KRW·DCC 거절). 뮌헨 첫날 €200~300, 독일은 하루 €100 현금" },
         { id: "cash-douro", t: "도루 현장 지불 €130 — 9/23 인출, 따로 봉투" },
         { id: "coinpurse", t: "동전 지갑 (€1·€2 동전, 팁·화장실·판트)" },
         { id: "insurance", t: "여행자보험 가입 + 증권 캡처" },
-        { id: "namecards", t: "명함 + AMB 메모(사장님 SUS630 탭) — 9/19 부스 상담" }
+        { id: "namecards", t: "명함 20~30장 + AMB 메모 — 9/19 부스 상담", note: "상담 메모는 비공개 amb.js(가이드 탭 AMB)에" }
       ]},
       { id: "bag", title: "가방", items: [
         { id: "suitcase", t: "위탁 캐리어 1개 (23kg 한도, 3편 공통)" },
@@ -996,19 +996,23 @@ const TRIP = {
         { id: "lock", t: "자물쇠 1개 — 9/18 a&o 로커는 자물쇠 지참", note: "캐리어 잠금 겸용" },
         { id: "zipbags", t: "지퍼백·파우치 (빨래·젖은 옷·와인 분리)" }
       ]},
-      { id: "cloth", title: "옷 — 5℃(뮌헨 새벽)~27℃(리스본 낮)", items: [
-        { id: "rainjacket", t: "방수 재킷 (도루 비 대비·바람막이)" },
-        { id: "puffer", t: "경량 패딩 또는 두꺼운 후디 (9/20 퍼레이드 오전 10℃)" },
-        { id: "cardigan", t: "얇은 가디건/셔츠 (리스본 저녁)" },
-        { id: "longtee", t: "긴팔 티 2" },
-        { id: "tee", t: "반팔 티 4~5" },
-        { id: "pants", t: "긴바지 2 + 반바지 1" },
+      { id: "cloth", title: "옷 — 5℃(뮌헨 새벽)~27℃(리스본 낮) · 추위 많이 타는 편", items: [
+        { id: "trench", t: "캐멀 트렌치코트", note: "낮 사진용 — 9/19 AMB·9/21 뮌헨·9/23 포르투·9/27 벨렝. 아줄레주 파랑, 칼사다, 회색 석재와 보색. 캐리어 맨 위에 평평하게" },
+        { id: "barbour", t: "바버 (진녹색)", note: "비·바람·추위 담당 — 9/20 옥토버페스트·9/24 도루·9/26 신트라. 라이너/히트텍으로 뮌헨 밤 5℃. 포도밭·숲에선 배경에 묻히니 사진 땐 열거나 벗기. 말아서 캐리어에" },
+        { id: "leather", t: "검정 가죽재킷", note: "밤 담당 — 9/18 친구 저녁·뮌헨 밤 귀가·포르투 야경·리스본 저녁. 비행기 3편 모두 입고 탑승(접으면 주름·부피). 옥토버페스트 텐트·뮌헨 흐린 낮엔 안 입기" },
+        { id: "heattech", t: "히트텍 긴팔 2", note: "셔츠 안에 — 뮌헨 밤 5℃·9/20 퍼레이드 10℃ 대비, 부피 거의 없음" },
+        { id: "hotpack", t: "붙이는 핫팩 6~8개", note: "9/20 퍼레이드 2개(등·배)·뮌헨 밤 귀가·9/18 밤 도착용. 히트텍 위에 붙이기(맨살 금지). 철가루식은 기내·위탁 모두 가능, 유럽 현지엔 없음" },
+        { id: "shirts", t: "와이셔츠 3~4 + 넥타이 3", note: "두꺼운 셔츠 1장은 독일용. 9/22 포르투에서 세탁·다림질" },
+        { id: "knitvest", t: "니트 베스트 2 (셔츠 위)", note: "포레스트 그린 + 캐멀 권장. 버건디는 가디건과 겹침, 회색은 돌·흐린 하늘에 묻힘" },
+        { id: "knit", t: "니트 1 + 가디건 2 + 맨투맨 1", note: "버건디 가디건 구매 완료(9/13) — 아줄레주·도루·뮌헨용. 페나 성 빨강 벽·히베이라 노을엔 네이비 쪽" },
+        { id: "tee", t: "반팔 티 3 (리스본)" },
+        { id: "pants", t: "슬랙스 1 + 청바지 1~2 + 면바지 1 + 반바지 1", note: "청바지 하나는 빼도 됨 — 중간에 세탁 있음" },
         { id: "underwear", t: "속옷·양말 6일치" },
-        { id: "scarf", t: "얇은 목도리·버프 (비어가든 밤·호카곶·기내)" },
+        { id: "scarf", t: "목도리 (퍼레이드·비어가든 밤·호카곶·기내)" },
         { id: "cap", t: "모자(캡) + 선글라스" },
-        { id: "pajama", t: "잠옷 겸 실내복" },
-        { id: "shoes", t: "러닝화 + 편한 워킹화", note: "흰 신발·새 신발 금지 — 옥토버페스트 바닥, 리스본 돌길" },
-        { id: "runwear", t: "러닝복 2세트 + 러닝 양말 (포르투·리스본 아침 러닝)" }
+        { id: "pajama", t: "잠옷 겸 실내복 (맨투맨으로 대체 가능)" },
+        { id: "shoes", t: "구두 + 운동화 + 슬리퍼", note: "구두는 고무창 — 리스본 돌길·옥토버페스트 바닥에 가죽창 미끄러움. 흰 신발·새 신발 금지" },
+        { id: "runwear", t: "러닝 셔츠 1 + 러닝 반바지·양말 (포르투·리스본 아침 러닝)" }
       ]},
       { id: "hyg", title: "세면·위생", items: [
         { id: "towel", t: "퀵드라이 타월 — a&o 수건 미포함, City Inn 후기 불안" },
@@ -1016,7 +1020,7 @@ const TRIP = {
         { id: "toiletry", t: "칫솔·치약·면도기 (100ml 이하 기내 파우치)" },
         { id: "shampoo", t: "샴푸·바디워시 소분 (아파트·게스트하우스 대비)" },
         { id: "sunscreen", t: "선크림 + 립밤 + 보습제" },
-        { id: "detergent", t: "세탁 세제 시트 + 접이식 옷걸이 2 — 9/22 포르투 세탁" },
+        { id: "detergent", t: "집 세제 소분(지퍼백·소분통) + 접이식 옷걸이 2 — 9/22 포르투 세탁", note: "일회용 세제 안 삼. 온라인 체크인 때 호스트에게 세제 비치 여부 질문, 없으면 근처 핑구 도스·콘티넨트에서 €2~3" },
         { id: "sanitizer", t: "손세정제·물티슈·휴지 약간" },
         { id: "earplug", t: "안대·귀마개 — 9/18 4인 도미토리 + 14시간 비행" },
         { id: "nail", t: "손톱깎이·면봉" }
@@ -1055,7 +1059,7 @@ const TRIP = {
       { id: "pre", title: "출발 전 체크 (9/17까지)", items: [
         { id: "pre-checkin-porto", t: "포르투 Luxury Style 7 온라인 체크인 (9/21까지)" },
         { id: "pre-checkin-tw", t: "티웨이 온라인 체크인 오픈 시 바로 (좌석 무료 배정)" },
-        { id: "pre-vault", t: "폰 금고에 private.js 최신본 붙여넣기 (리스본·기차 추가분)" },
+        { id: "pre-vault", t: "폰 금고에 private.js 최신본 + amb.js 붙여넣기", note: "정보 탭 내 기기 데이터. amb.js를 넣어야 폰에서 가이드 탭 AMB가 보임" },
         { id: "pre-card", t: "카드사 해외 사용 알림·한도 확인, 이심 활성화" },
         { id: "pre-cp", t: "동행에게 CP 티켓 캡처·신트라 바우처 받기 (9/24까지)" }
       ]}
@@ -2691,6 +2695,9 @@ TRIP.guide = {
  ]
 };
 /* GUIDE-DATA-END */
+/* AMB 2026 관람 가이드 — 회사 관련 내용이라 데이터는 비공개 저장소의 amb.js(AMB_DATA)에 있다.
+   amb.js 가 있는 기기 또는 금고에 붙여넣은 기기에서만 가이드 탭에 'AMB' 칩이 보인다. */
+TRIP.amb = null;
 </script>
 
 <style>
@@ -2949,6 +2956,7 @@ nav button.on{background:var(--t1);color:var(--card)}
 footer{text-align:center;font-size:12px;color:var(--t4);padding:20px 0 0}
 </style>
 <script src="private.js" onerror="void 0"></script>
+<script src="amb.js" onerror="void 0"></script>
 </head>
 <body>
 <div class="app">
@@ -3040,6 +3048,7 @@ async function vaultDocDel(path){
 }
 async function vaultClear(){
   store.del(VAULT_KEY); vaultSecrets=null;
+  if(!localAmb()){ store.del(AMB_VAULT_KEY); TRIP.amb=null; }
   try{
     const db=await idbOpen(); const tx=db.transaction('docs','readwrite');
     tx.objectStore('docs').clear();
@@ -3095,6 +3104,11 @@ function docBtn(path,label){
 }
 /* 공유용 웹(Pages)에서는 보기 전용. private.js 또는 가져온 비밀값이 있는 내 기기에서만 편집 가능. */
 let EDITABLE = hasSecrets();
+/* AMB 가이드: amb.js(AMB_DATA) → 없으면 금고(localStorage)에 붙여넣은 사본 */
+const AMB_VAULT_KEY='trip2026.amb';
+const localAmb = ()=> typeof AMB_DATA !== 'undefined' && !!AMB_DATA;
+if(localAmb()) TRIP.amb = AMB_DATA;
+else { try{ TRIP.amb = JSON.parse(store.get(AMB_VAULT_KEY)||'null'); }catch(e){ TRIP.amb=null; } }
 
 let toastTimer;
 function toast(msg){
@@ -3252,7 +3266,7 @@ function renderPlan(){
           ${dayGuideLinks(d.date)}
         </div>
       </div>`);
-    node.querySelectorAll('.dguide button').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); openGuideSpot(b.dataset.spot); }));
+    node.querySelectorAll('.dguide button').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); if(b.dataset.amb) openAmb(); else openGuideSpot(b.dataset.spot); }));
     card.appendChild(node);
   });
   root.appendChild(card);
@@ -3436,8 +3450,9 @@ const paras = (t)=> String(t||'').split(/\n\s*\n/).map(p=>'<p>'+esc(p.trim()).re
 function dayGuideLinks(iso){
   const md=fmtMDshort(iso);
   const list=G().spots.filter(s=>(s.visit||'').split(',').map(x=>x.trim()).includes(md));
-  if(!list.length) return '';
-  return '<div class="dguide">가이드 '+list.map(s=>'<button data-spot="'+esc(s.id)+'">'+esc(s.name)+'</button>').join('')+'</div>';
+  const amb=(TRIP.amb&&TRIP.amb.visit===md)?'<button data-amb="1">'+esc(TRIP.amb.shortName||'AMB')+' 관람 가이드</button>':'';
+  if(!list.length&&!amb) return '';
+  return '<div class="dguide">가이드 '+amb+list.map(s=>'<button data-spot="'+esc(s.id)+'">'+esc(s.name)+'</button>').join('')+'</div>';
 }
 function openGuideSpot(id){
   const s=G().spots.find(x=>x.id===id); if(!s) return;
@@ -3530,6 +3545,88 @@ function keywordsHTML(list){
 function etiquetteHTML(list){
   return '<div class="gbg">'+list.map(e=>'<h3>'+esc(e.title)+'</h3><ul>'+e.items.map(li=>'<li>'+esc(li)+'</li>').join('')+'</ul>').join('')+'</div>';
 }
+/* ── AMB 2026 관람 가이드 (가이드 탭의 'AMB' 칩) ─────────────── */
+function openAmb(){
+  state['guide.city']='amb'; state['guide.sub']='plan'; save();
+  cur='guide'; store.set('trip2026.tab',cur); render(); window.scrollTo(0,0);
+}
+function ambBoothNode(b){
+  const A=TRIP.amb; const openKey='amb.open.'+b.id, wantKey='amb.want.'+b.id;
+  const isOpen=!!state[openKey]||document.body.classList.contains('guide-all');
+  const cat=(A.cats||[]).find(c=>c.id===b.cat);
+  const node=el('<div class="gs '+(isOpen?'open':'')+'" data-amb-booth="'+esc(b.id)+'">'
+    +'<div class="gs-head"><div class="gs-main"><b>'+esc(b.name)+'</b>'
+    +'<div class="gs-sub">'+esc(b.hall)+'홀 · <b style="font-size:13px">'+esc(b.booth)+'</b>'+(b.tag?' · '+esc(b.tag):'')+'</div>'
+    +'<div class="gs-badges">'+(b.prio===1?'<span class="chip blue">1순위</span>':b.prio===2?'<span class="chip">2순위</span>':'<span class="chip">시간 되면</span>')+(cat?'<span class="chip">'+esc(cat.name)+'</span>':'')+(b.kr?'<span class="chip green">한국</span>':'')+'</div>'
+    +'</div><button class="want '+(state[wantKey]?'on':'')+'" title="꼭 가기"><svg viewBox="0 0 24 24"><path d="M12 3l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.4 6.3 20.5l1.2-6.4L2.8 9.7l6.4-.8z"/></svg></button></div>'
+    +'<div class="gs-body"></div></div>');
+  const body=node.querySelector('.gs-body');
+  const fill=()=>{ if(body.dataset.filled) return; body.dataset.filled='1';
+    body.innerHTML=(b.why?'<p><b style="color:var(--t1)">'+esc(b.why)+'</b></p>':'')
+      +(b.show?'<h4>이번 AMB에서 보이는 것</h4>'+paras(b.show):'')
+      +(b.vs?'<h4>우리 기계와 비교</h4>'+paras(b.vs):'')
+      +(b.ask&&b.ask.length?'<h4>물어볼 것</h4><ul class="tri">'+b.ask.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>':'')
+      +(b.note?'<p class="muted" style="font-size:13px">'+esc(b.note)+'</p>':'')
+      +'<div class="btnrow">'+(b.web?'<a class="btn" href="'+esc(/^https?:/.test(b.web)?b.web:'https://'+b.web)+'" target="_blank" rel="noopener">웹사이트</a>':'')+(b.src?'<a class="btn" href="'+esc(b.src)+'" target="_blank" rel="noopener">출처</a>':'')+'</div>'; };
+  if(isOpen) fill();
+  node.querySelector('.gs-head').addEventListener('click',e=>{
+    if(e.target.closest('.want')) return;
+    if(document.body.classList.contains('guide-all')) return;
+    state[openKey]=!state[openKey]; save(); node.classList.toggle('open'); if(node.classList.contains('open')) fill();
+  });
+  node.querySelector('.want').addEventListener('click',()=>{
+    if(!EDITABLE){ toast('보기 전용이에요'); return; }
+    state[wantKey]=!state[wantKey]; save(); node.querySelector('.want').classList.toggle('on', !!state[wantKey]);
+    toast(state[wantKey]?'꼭 갈 부스에 담았어요':'담기를 취소했어요');
+  });
+  return node;
+}
+function ambPlanHTML(A){
+  const rows=(A.plan||[]).map(x=>'<div class="kv"><div class="k">'+esc(x.t)+'</div><div class="v"><span style="font-weight:700">'+esc(x.h)+'</span>'+(x.d?'<div style="font-weight:500;color:var(--t2);font-size:13.5px;margin-top:2px;line-height:1.55">'+esc(x.d)+'</div>':'')+'</div></div>').join('');
+  const halls=(A.halls||[]).map(h=>'<div class="kv"><div class="k">'+esc(h.id)+'홀</div><div class="v"><span style="font-weight:700">'+esc(h.name)+'</span><div style="font-weight:500;color:var(--t2);font-size:13.5px">'+esc(h.what)+'</div></div></div>').join('');
+  return '<div class="card"><div class="card-pad">'+(A.hours?'<div class="kv"><div class="k">개장</div><div class="v warn">'+esc(A.hours)+'</div></div>':'')+(A.venue?'<div class="kv"><div class="k">장소</div><div class="v">'+esc(A.venue)+'</div></div>':'')+'</div></div>'
+    +'<div class="sec-title" style="font-size:17px;margin-top:4px">시간표</div><div class="card"><div class="card-pad">'+rows+'</div></div>'
+    +'<div class="sec-title" style="font-size:17px;margin-top:4px">홀 배치</div>'+(A.layout?'<div class="gcity">'+esc(A.layout)+'</div>':'')+'<div class="card"><div class="card-pad">'+halls
+    +'<div class="btnrow" style="display:flex;gap:8px;margin-top:10px">'+(A.mapUrl?'<a class="btn" href="'+esc(A.mapUrl)+'" target="_blank" rel="noopener">전시장 지도 PDF</a>':'')+(A.indexUrl?'<a class="btn" href="'+esc(A.indexUrl)+'" target="_blank" rel="noopener">출품사 검색</a>':'')+'</div></div></div>';
+}
+function renderAmb(root, sub, all){
+  const A=TRIP.amb; if(!A){ root.appendChild(el('<div class="card"><div class="card-pad muted">AMB 가이드를 준비하고 있어요.</div></div>')); return; }
+  const subs=[{id:'plan',name:'동선'},{id:'booths',name:'부스'},{id:'insight',name:'인사이트'},{id:'practical',name:'실용'}];
+  if(!all){
+    if(!subs.some(s=>s.id===sub)) sub='plan';
+    const sb=el('<div class="gsub"></div>');
+    subs.forEach(s=>{ const b=el('<button class="fc '+(s.id===sub?'on':'')+'">'+esc(s.name)+'</button>'); b.addEventListener('click',()=>{ state['guide.sub']=s.id; save(); renderGuide(); }); sb.appendChild(b); });
+    root.appendChild(sb);
+  }
+  if(A.intro&&(all||sub==='plan')) root.appendChild(el('<div class="gcity">'+esc(A.intro)+'</div>'));
+  if(all||sub==='plan'){ if(all) root.appendChild(el('<div class="gall-title" style="font-size:18px;page-break-before:auto">동선</div>')); root.appendChild(el('<div>'+ambPlanHTML(A)+'</div>')); }
+  if(all||sub==='booths'){
+    if(all) root.appendChild(el('<div class="gall-title" style="font-size:18px;page-break-before:auto">부스</div>'));
+    let cat=state['amb.cat']||'all';
+    if(!all){
+      const bar=el('<div class="gsub" style="padding-top:0"></div>');
+      [{id:'all',name:'전체'},{id:'want',name:'꼭 가기'}].concat(A.cats||[]).forEach(c=>{ const b=el('<button class="fc '+(c.id===cat?'on':'')+'" style="font-size:12.5px;padding:6px 10px">'+esc(c.name)+'</button>'); b.addEventListener('click',()=>{ state['amb.cat']=c.id; save(); renderGuide(); }); bar.appendChild(b); });
+      root.appendChild(bar);
+    } else cat='all';
+    let list=(A.booths||[]).slice();
+    if(cat==='want') list=list.filter(b=>state['amb.want.'+b.id]); else if(cat!=='all') list=list.filter(b=>b.cat===cat);
+    list.sort((a,b)=>(a.prio||9)-(b.prio||9)||String(a.booth).localeCompare(String(b.booth)));
+    const card=el('<div class="card"></div>');
+    if(!list.length) card.appendChild(el('<div class="card-pad muted">'+(cat==='want'?'별표를 눌러 꼭 갈 부스를 담아두세요.':'해당 부스가 없어요.')+'</div>'));
+    list.forEach(b=>card.appendChild(ambBoothNode(b)));
+    root.appendChild(card);
+  }
+  if(all||sub==='insight'){
+    (A.insights||[]).forEach(b=>{ root.appendChild(el('<div class="gall-title" style="font-size:18px;page-break-before:auto">'+esc(b.title)+'</div>')); root.appendChild(el('<div class="card">'+bgSectionHTML(b)+'</div>')); });
+    if(!(A.insights||[]).length) root.appendChild(el('<div class="card"><div class="card-pad muted">조사 결과를 정리하는 중이에요.</div></div>'));
+  }
+  if(all||sub==='practical'){
+    if(all) root.appendChild(el('<div class="gall-title" style="font-size:18px;page-break-before:auto">실용</div>'));
+    root.appendChild(el('<div class="card">'+etiquetteHTML(A.practical||[])+'</div>'));
+    if(A.sources&&A.sources.length) root.appendChild(el('<div class="gbg" style="padding:0 4px"><p class="muted" style="font-size:12.5px">출처: '+A.sources.map(u=>'<a href="'+esc(u)+'" target="_blank" rel="noopener" style="color:var(--blue)">'+esc(u.replace(/^https?:\/\/(www\.)?/,'').split('/')[0])+'</a>').join(' · ')+'</p></div>'));
+  }
+}
+
 function renderGuide(){
   const root=$('#tab-guide'); root.innerHTML='';
   const g=G(); const all=document.body.classList.contains('guide-all');
@@ -3546,22 +3643,25 @@ function renderGuide(){
       if(c.intro) root.appendChild(el('<div class="gcity">'+esc(c.intro)+'</div>'));
       const card=el('<div class="card"></div>'); g.spots.filter(s=>s.city===c.id).forEach(s=>card.appendChild(spotNode(s))); root.appendChild(card);
     });
+    if(TRIP.amb){ root.appendChild(el('<div class="gall-title">'+esc(TRIP.amb.name||'AMB')+'</div>')); renderAmb(root,'plan',true); }
     g.background.forEach(b=>{ root.appendChild(el('<div class="gall-title">'+esc(b.title)+'</div>')); root.appendChild(el('<div class="card">'+bgSectionHTML(b)+'</div>')); });
     if(g.keywords.length){ root.appendChild(el('<div class="gall-title">문화 키워드</div>')); root.appendChild(el('<div class="card">'+keywordsHTML(g.keywords)+'</div>')); }
     if(g.etiquette.length){ root.appendChild(el('<div class="gall-title">에티켓 · 실용</div>')); root.appendChild(el('<div class="card">'+etiquetteHTML(g.etiquette)+'</div>')); }
     return;
   }
 
-  const cityIds=g.cities.map(c=>c.id).concat(['bg']);
+  const extra=(TRIP.amb?[{id:'amb',name:TRIP.amb.shortName||'AMB'}]:[]).concat([{id:'bg',name:'배경지식'}]);
+  const cityIds=g.cities.map(c=>c.id).concat(extra.map(x=>x.id));
   let city=state['guide.city']; if(!cityIds.includes(city)) city=g.cities[0].id;
   const bar=el('<div class="fchips"></div>');
-  g.cities.concat([{id:'bg',name:'배경지식'}]).forEach(c=>{
+  g.cities.concat(extra).forEach(c=>{
     const b=el('<button class="fc '+(c.id===city?'on':'')+'">'+esc(c.name)+'</button>');
     b.addEventListener('click',()=>{ state['guide.city']=c.id; state['guide.sub']=null; save(); renderGuide(); });
     bar.appendChild(b);
   });
   root.appendChild(bar);
 
+  if(city==='amb'){ renderAmb(root, state['guide.sub'], false); return; }
   if(city==='bg'){
     const subs=g.background.map(b=>({id:b.id,name:b.title})).concat(g.keywords.length?[{id:'kw',name:'문화 키워드'}]:[]).concat(g.etiquette.length?[{id:'et',name:'에티켓 · 실용'}]:[]);
     let sub=state['guide.sub']; if(!subs.some(s=>s.id===sub)) sub=subs[0]&&subs[0].id;
@@ -3689,14 +3789,15 @@ function renderInfo(){
       <div class="card-pad">
         <div class="kv"><div class="k">비밀값</div><div class="v">${nSec? nSec+'개 가져옴' : '없음'}</div></div>
         <div class="kv"><div class="k">확인서</div><div class="v">${vaultDocs.size}개 저장됨</div></div>
+        <div class="kv"><div class="k">AMB 가이드</div><div class="v">${TRIP.amb?'가져옴':'없음'}</div></div>
       </div>
       <div class="note">여기서 가져온 값과 파일은 이 브라우저에만 저장되고 어디로도 전송되지 않아요. 내 폰에서만 쓰고, 공용 기기에서는 사용하지 마세요.</div>
       <div class="btn-row" style="padding-top:16px">
-        <button class="btn" id="vSecBtn">private.js 붙여넣기</button>
-        ${(nSec||vaultDocs.size)?'<button class="btn" id="vClrBtn">모두 지우기</button>':''}
+        <button class="btn" id="vSecBtn">private.js · amb.js 붙여넣기</button>
+        ${(nSec||vaultDocs.size||TRIP.amb)?'<button class="btn" id="vClrBtn">모두 지우기</button>':''}
       </div>
       <div id="vSecBox" class="hidden" style="padding:0 20px 16px">
-        <textarea id="vSecTa" rows="6" placeholder="private.js 내용 전체를 붙여넣으세요" style="width:100%;box-sizing:border-box;padding:12px;border-radius:12px;border:none;background:var(--card-sub);color:inherit;font-family:inherit;font-size:13px"></textarea>
+        <textarea id="vSecTa" rows="6" placeholder="private.js 또는 amb.js 내용 전체를 붙여넣으세요 (한 번에 하나씩)" style="width:100%;box-sizing:border-box;padding:12px;border-radius:12px;border:none;background:var(--card-sub);color:inherit;font-family:inherit;font-size:13px"></textarea>
         <div class="btn-row" style="padding:8px 0 0"><button class="btn primary" id="vSecSave">저장</button></div>
       </div>
       <div id="vDocRows"></div>
@@ -3724,8 +3825,19 @@ function renderInfo(){
 
     $('#vSecBtn').addEventListener('click',()=>{ $('#vSecBox').classList.toggle('hidden'); });
     $('#vSecSave').addEventListener('click',()=>{
+      const raw=$('#vSecTa').value||'';
+      if(/AMB_DATA/.test(raw)){
+        try{
+          const st=raw.indexOf('{'), en=raw.lastIndexOf('}');
+          const obj=(new Function('"use strict";return ('+raw.slice(st,en+1)+')'))();
+          if(!obj||!obj.booths) throw new Error('형식 오류');
+          store.set(AMB_VAULT_KEY, JSON.stringify(obj)); TRIP.amb=obj;
+          toast('AMB 가이드를 가져왔어요 (부스 '+obj.booths.length+'곳)'); render();
+        }catch(e){ toast('amb.js 내용을 읽지 못했어요. 파일 전체를 붙여넣어 주세요'); }
+        return;
+      }
       try{
-        const parsed = parseSecretsText($('#vSecTa').value);
+        const parsed = parseSecretsText(raw);
         store.set(VAULT_KEY, JSON.stringify(parsed));
         vaultSecrets = parsed; EDITABLE = hasSecrets();
         toast(Object.keys(parsed).length+'개 값을 가져왔어요'); render();
