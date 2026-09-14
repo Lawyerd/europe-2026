@@ -1082,6 +1082,25 @@ const TRIP = {
     { id: "doc9", label: "DB 9/18 승차권", need: "당일 Flexpreis 구매", done: false }
   ]
 };
+
+/* 하루 동선 — 일정 탭에서 지도로 표시. stops 순서가 걷는 순서. lat/lng는 구글맵 기준(2026-09-14 수기 입력, 현장에서 앱 재확인).
+   walk를 적으면 그 값을, 없으면 직선거리×1.3, 시속 4km로 도보 시간을 추정합니다. */
+TRIP.routes = {
+  "2026-09-25": {
+    mode: "walking",
+    note: "체크인 후 오르막을 먼저 올라 성에서 시작해 알파마를 내려오는 순서예요. 대성당→성 순서보다 오르막이 한 번뿐이라 덜 힘들어요. 28번 트램은 마르팅 모니즈가 기점이라 원하면 숙소 앞에서 타고 포르타스 두 솔에서 내려도 됩니다.",
+    stops: [
+      { t: "12:30", name: "산타 아폴로니아역", lat: 38.7140, lng: -9.1225, d: "AP 128 도착. 캐리어 끌고 도보 15분 또는 택시 5분" },
+      { t: "13:00", name: "City Inn 체크인", lat: 38.7168, lng: -9.1345, d: "Rua dos Cavaleiros 113. 도착 13~14시 통보됨. 짐 풀고 14:30 출발", stay: "1시간 30분" },
+      { t: "14:45", name: "상 조르즈 성", lat: 38.7139, lng: -9.1335, d: "성벽 전망대 — 리스본 전경. €17, 온라인 예매 가능", stay: "1시간" },
+      { t: "16:00", name: "포르타스 두 솔 · 산타 루지아 전망대", lat: 38.7123, lng: -9.1298, d: "알파마 지붕 위로 강. 아줄레주 패널 사진", stay: "20분" },
+      { t: "16:30", name: "알파마 골목", lat: 38.7107, lng: -9.1283, d: "샤파리스 드 덴트루 광장까지 내리막. 파두 박물관 앞", stay: "45분" },
+      { t: "17:30", name: "리스본 대성당", lat: 38.7098, lng: -9.1330, d: "12세기 요새형 성당. 내부 €7, 외관만도 충분", stay: "25분" },
+      { t: "18:10", name: "코메르시우 광장", lat: 38.7075, lng: -9.1364, d: "강변 노을. 아우구스타 개선문 통과해 바이샤로", stay: "20분" },
+      { t: "18:40", name: "호시우 · 바이샤 저녁", lat: 38.7140, lng: -9.1394, d: "빈티지 소품샵, 저녁. 숙소까지 도보 7분" }
+    ]
+  }
+};
 </script>
 <script>
 /* GUIDE-DATA-START — 가이드 탭 데이터. scratchpad의 guide-*.js에서 조립되어 들어옵니다. */
@@ -2915,6 +2934,24 @@ body.guide-all .gs .gs-head{cursor:default}
 .day .dlab{font-size:16px;font-weight:700;letter-spacing:-.03em;flex:1}
 .day .dmeta{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
 .day .dbody{display:none;margin-top:12px}
+.route{margin-top:14px;cursor:default}
+.route .rhead{font-size:13px;font-weight:800;color:var(--t1);margin:0 0 8px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.route .rhead .chip{font-size:11px;padding:2px 7px}
+.route .rmap{height:260px;border-radius:16px;overflow:hidden;background:var(--card-sub);position:relative;z-index:0}
+.route .rmap .gal-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t3);padding:20px;text-align:center}
+.route .rnote{font-size:13px;color:var(--t2);line-height:1.55;margin:10px 0 0}
+.route .rstops{list-style:none;margin:10px 0 0;padding:0}
+.route .rstops li{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line);align-items:flex-start}
+.route .rstops li:first-child{border-top:none}
+.route .rstops .rn{width:22px;height:22px;flex:none;border-radius:50%;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.route .rstops .rt{flex:1;min-width:0}
+.route .rstops .rt b{display:block;font-size:14.5px;font-weight:700;letter-spacing:-.02em}
+.route .rstops .rt b span{color:var(--t3);font-weight:600;margin-right:6px}
+.route .rstops .rt small{display:block;font-size:12.5px;color:var(--t3);margin-top:2px;line-height:1.5}
+.route .rstops .rleg{font-size:12px;color:var(--t4);padding:0 0 0 32px;margin-top:-4px}
+.route .btn{margin-top:10px}
+.rmark{width:24px;height:24px;border-radius:50%;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+@media print{.route .rmap{display:none}}
 .day.open .dbody{display:block}
 .day ul{margin:0;padding:0;list-style:none}
 .day li{font-size:14px;color:var(--t2);padding:5px 0 5px 14px;position:relative}
@@ -3233,6 +3270,59 @@ function moveIcon(type){
 }
 
 /* ── 일정 ───────────────────────────────────────────────── */
+/* ── 하루 동선 지도 (Leaflet + CARTO 타일, 키 불필요) ───────────── */
+let leafletP=null;
+function loadLeaflet(){
+  if(window.L) return Promise.resolve(window.L);
+  if(leafletP) return leafletP;
+  leafletP=new Promise((res,rej)=>{
+    const css=document.createElement('link'); css.rel='stylesheet'; css.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(css);
+    const sc=document.createElement('script'); sc.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    sc.onload=()=>res(window.L); sc.onerror=()=>{ leafletP=null; rej(new Error('leaflet')); };
+    document.head.appendChild(sc);
+  });
+  return leafletP;
+}
+function haverKm(a,b){ const R=6371, toR=x=>x*Math.PI/180; const dLat=toR(b.lat-a.lat), dLng=toR(b.lng-a.lng); const h=Math.sin(dLat/2)**2+Math.cos(toR(a.lat))*Math.cos(toR(b.lat))*Math.sin(dLng/2)**2; return 2*R*Math.asin(Math.sqrt(h)); }
+function walkText(a,b){ if(b.walk) return b.walk; const km=haverKm(a,b)*1.3; const min=Math.max(2,Math.round(km/4*60)); return '도보 약 '+min+'분 · '+(km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km'); }
+function gmapsDirUrl(r){
+  const s=r.stops; const p=x=>x.lat+','+x.lng;
+  const wp=s.slice(1,-1).slice(0,9).map(p).join('|');
+  return 'https://www.google.com/maps/dir/?api=1&origin='+p(s[0])+'&destination='+p(s[s.length-1])+(wp?'&waypoints='+encodeURIComponent(wp):'')+'&travelmode='+(r.mode||'walking');
+}
+function routeHTML(d, color){
+  const r=TRIP.routes&&TRIP.routes[d.date]; if(!r||!r.stops||r.stops.length<2) return '';
+  const total=r.stops.slice(1).reduce((acc,x,i)=>acc+haverKm(r.stops[i],x)*1.3,0);
+  const li=r.stops.map((x,i)=>{
+    const leg=i>0?'<div class="rleg">↓ '+esc(walkText(r.stops[i-1],x))+'</div>':'';
+    return leg+'<li><span class="rn" style="background:'+color+'">'+(i+1)+'</span><div class="rt"><b><span>'+esc(x.t||'')+'</span>'+esc(x.name)+(x.stay?' <span class="chip" style="font-size:11px;padding:1px 6px;margin-left:4px">'+esc(x.stay)+'</span>':'')+'</b>'+(x.d?'<small>'+esc(x.d)+'</small>':'')+'</div></li>';
+  }).join('');
+  return '<div class="route" data-route="'+esc(d.date)+'"><div class="rhead">동선 <span class="chip">'+r.stops.length+'곳 · 걷기 약 '+total.toFixed(1)+'km</span></div>'
+    +'<div class="rmap"><div class="gal-note">지도 불러오는 중…</div></div>'
+    +(r.note?'<div class="rnote">'+esc(r.note)+'</div>':'')
+    +'<ul class="rstops">'+li+'</ul>'
+    +'<a class="btn" href="'+esc(gmapsDirUrl(r))+'" target="_blank" rel="noopener">구글맵 길찾기로 열기 (전체 경로)</a></div>';
+}
+const routeMaps={};
+function mountRouteMap(box, date, color){
+  const r=TRIP.routes[date]; const mapEl=box.querySelector('.rmap'); if(!mapEl) return;
+  if(routeMaps[date]){ setTimeout(()=>routeMaps[date].invalidateSize(),50); return; }
+  loadLeaflet().then(L=>{
+    mapEl.innerHTML='';
+    const dark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const map=L.map(mapEl,{scrollWheelZoom:false,attributionControl:true});
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/'+(dark?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+    const pts=r.stops.map(x=>[x.lat,x.lng]);
+    L.polyline(pts,{color:color,weight:4,opacity:.85,dashArray:'1 8',lineCap:'round'}).addTo(map);
+    r.stops.forEach((x,i)=>{
+      L.marker([x.lat,x.lng],{icon:L.divIcon({className:'',html:'<div class="rmark" style="background:'+color+'">'+(i+1)+'</div>',iconSize:[24,24],iconAnchor:[12,12]})}).addTo(map).bindPopup('<b>'+(i+1)+'. '+esc(x.name)+'</b>'+(x.t?'<br>'+esc(x.t):''));
+    });
+    map.fitBounds(pts,{padding:[28,28]});
+    routeMaps[date]=map;
+    setTimeout(()=>map.invalidateSize(),50);
+  }).catch(()=>{ mapEl.innerHTML='<div class="gal-note">지도를 불러오지 못했어요. 인터넷이 연결되면 다시 시도합니다. 아래 버튼으로 구글맵에서 볼 수 있어요.</div>'; });
+}
+
 function renderPlan(){
   const root=$('#tab-plan'); root.innerHTML='';
   root.appendChild(el('<div class="sec-title">전체 일정</div>'));
@@ -3263,10 +3353,13 @@ function renderPlan(){
           <ul>${(d.items||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
           ${d.options?`<div class="opts">${d.options.map(o=>`<div class="o">${esc(o)}</div>`).join('')}</div>`:''}
           ${d.tip?`<div class="tip"><b>참고</b>${esc(d.tip)}</div>`:''}
+          ${routeHTML(d, color)}
           ${dayGuideLinks(d.date)}
         </div>
       </div>`);
     node.querySelectorAll('.dguide button').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); if(b.dataset.amb) openAmb(); else openGuideSpot(b.dataset.spot); }));
+    const rb=node.querySelector('.route');
+    if(rb){ rb.addEventListener('click',e=>e.stopPropagation()); if(isOpen) setTimeout(()=>mountRouteMap(rb,d.date,color),0); }
     card.appendChild(node);
   });
   root.appendChild(card);
@@ -3282,7 +3375,8 @@ function renderPlan(){
     </div></div>`));
 
   root.querySelectorAll('.day').forEach(n=>{
-    n.addEventListener('click',()=>{ const k=n.dataset.day; state[k]=!state[k]; save(); n.classList.toggle('open'); });
+    n.addEventListener('click',()=>{ const k=n.dataset.day; state[k]=!state[k]; save(); n.classList.toggle('open');
+      const rb=n.querySelector('.route'); if(rb&&n.classList.contains('open')){ const date=rb.dataset.route; const color=getComputedStyle(n.querySelector('.dot')).color; mountRouteMap(rb,date,color); } });
   });
 }
 
