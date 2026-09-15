@@ -1083,9 +1083,131 @@ const TRIP = {
   ]
 };
 
-/* 하루 동선 — 일정 탭에서 지도로 표시. stops 순서가 걷는 순서. lat/lng는 구글맵 기준(2026-09-14 수기 입력, 현장에서 앱 재확인).
-   walk를 적으면 그 값을, 없으면 직선거리×1.3, 시속 4km로 도보 시간을 추정합니다. */
+/* 하루 동선 — 일정 탭에서 지도로 표시.
+   stop = {t 시각, name, lat, lng, d 메모, stay 체류, move 이 정차까지 오는 방법, by 이동수단}
+   by를 안 적으면 도보로 보고 직선거리×1.3·시속 4km로 시간을 추정합니다(걷기 합계에도 포함).
+   좌표는 2026-09-14~15 수기 입력. 현장에선 구글맵 버튼으로 재확인하세요.
+   안이 여러 개인 날은 배열로 두고 title을 붙이면 칩으로 전환됩니다. */
 TRIP.routes = {
+
+  "2026-09-18": {
+    mode: "transit",
+    note: "공항에서 중앙역까지는 Flexpreis에 City-Ticket이 포함돼 S-Bahn을 따로 안 끊어도 돼요. 캐리어는 중앙역 코인로커에 넣고 저녁 자리로 가세요. 저녁 장소는 친구가 정하면 좌표를 바꾸면 됩니다.",
+    stops: [
+      { t: "16:50", name: "프랑크푸르트 공항 T3 도착", lat: 49.9820, lng: 8.5560, d: "TW403. 입국심사·수하물에 약 1시간. EES 시행으로 줄이 길 수 있어요", stay: "1시간" },
+      { t: "18:10", name: "프랑크푸르트 중앙역", lat: 50.1070, lng: 8.6638, d: "캐리어는 코인로커에. 친구에게 연락", move: "공항역에서 S8/S9 약 12분", by: "transit" },
+      { t: "19:30", name: "친구와 저녁 (중앙역 근처)", lat: 50.1093, lng: 8.6706, d: "21:30까지. 장소 정해지면 좌표 교체", stay: "2시간" },
+      { t: "21:50", name: "ICE 695 탑승", lat: 50.1070, lng: 8.6638, d: "표는 당일 Flexpreis. 예비 23:20 ICE 777", move: "도보 10분", by: "walk" },
+      { t: "23:11", name: "슈투트가르트 중앙역", lat: 48.7838, lng: 9.1817, d: "공사 중이라 승강장에서 출구까지 여유 있게", move: "ICE 695 약 1시간 20분", by: "train" },
+      { t: "23:35", name: "a&o 슈투트가르트 시티", lat: 48.79307, lng: 9.19098, d: "24시간 리셉션. 체크인 시 사진 신분증", move: "도보 15분 또는 U-Bahn 1정거장" }
+    ]
+  },
+
+  "2026-09-19": {
+    mode: "transit",
+    note: "AMB는 토요일 15:00 마감이라 09:00 개장에 맞춰 들어가는 게 핵심이에요. 캐리어는 아침에 중앙역 락커에 넣어야 저녁에 되돌아오는 동선이 없어요. VVS 2존 1일권 €8.90이면 하루 종일 됩니다.",
+    stops: [
+      { t: "07:45", name: "a&o 체크아웃", lat: 48.79307, lng: 9.19098, d: "10시 한도지만 일찍 나섭니다" },
+      { t: "08:05", name: "중앙역 락커에 캐리어", lat: 48.7838, lng: 9.1817, d: "대형 칸 44×61×93cm €5, 동전만. 만석이면 전시장 Garderobe €3", move: "도보 15분" },
+      { t: "09:00", name: "AMB 2026 · 메세 슈투트가르트", lat: 48.6885, lng: 9.1990, d: "동쪽 입구. 오전 1·3홀 공구, 오후 7·10홀 기계", move: "S2/S3 27분 + 도보 8분", by: "transit", stay: "6시간" },
+      { t: "15:55", name: "중앙역 근처 이른 저녁", lat: 48.7790, lng: 9.1856, d: "춤 베허(Urbanstr. 33) 등 슈바벤 음식. 토요일 영업시간은 당일 확인", move: "S2/S3 27분", by: "transit", stay: "40분" },
+      { t: "17:00", name: "포르쉐 박물관", lat: 48.8347, lng: 9.1519, d: "16시 이후 저녁권 €12, 18시 폐관. 역 바로 앞", move: "S6/S60 약 12분", by: "transit", stay: "1시간" },
+      { t: "18:15", name: "중앙역 · 락커 회수", lat: 48.7838, lng: 9.1817, d: "공사 우회 통로로 승강장까지 10분. 18:35 15번 승강장", move: "S6/S60 약 12분", by: "transit" },
+      { t: "19:17", name: "ICE 691 → 뮌헨 21:15", lat: 48.7838, lng: 9.1817, d: "3호차 98번. 검표 시 여권", move: "같은 역", by: "train" }
+    ]
+  },
+
+  "2026-09-20": {
+    mode: "walking",
+    note: "전통 의상 퍼레이드는 10시에 막시밀리아네움에서 출발해 오데온광장·카를광장을 지나 테레지엔비제로 들어갑니다. 좋은 자리를 잡으려면 9시 반에는 도착해야 해요. 오전 10℃ 안팎에서 서 있으니 핫팩과 겉옷 필수. 밤에 축제장에서 숙소까지 걸어올 수 있는 게 이 호텔을 고른 이유입니다.",
+    stops: [
+      { t: "09:00", name: "호텔 암바 출발", lat: 48.1441, lng: 11.5580, d: "3L 이하 크로스백만. 현금 €100+, 겉옷·핫팩" },
+      { t: "09:30", name: "오데온광장 (퍼레이드 관람)", lat: 48.1425, lng: 11.5779, d: "10:00 시작, 여기는 10:20~11:00 통과. 카를광장도 대안", move: "도보 약 22분 · 1.6km", stay: "1시간 30분" },
+      { t: "11:30", name: "마리엔광장", lat: 48.1374, lng: 11.5755, d: "신시청 글로켄슈필. 퍼레이드 뒤를 따라 남쪽으로", stay: "30분" },
+      { t: "12:15", name: "빅투알리엔 시장 점심", lat: 48.1351, lng: 11.5761, d: "축제장 음식보다 싸고 빨라요. 비어가든도 있음", stay: "1시간" },
+      { t: "13:30", name: "테레지엔비제 · 옥토버페스트", lat: 48.1316, lng: 11.5497, d: "텐트는 예약 없이 들어가려면 오후가 그나마 나음. 마스 €14.8~15.9", move: "도보 약 25분 · 1.7km", stay: "5시간" },
+      { t: "19:00", name: "바바리아 동상 계단", lat: 48.1308, lng: 11.5450, d: "축제장 전경이 내려다보이는 자리. 야경", stay: "30분" },
+      { t: "20:00", name: "호텔 암바 복귀", lat: 48.1441, lng: 11.5580, d: "도보 25분. 대중교통이 마비되는 시간대라 걷는 게 빠릅니다" }
+    ]
+  },
+
+  "2026-09-21": [
+    {
+      title: "뮌헨 시내",
+      mode: "walking",
+      note: "축제 다음 날이라 체력을 보고 정하는 날이에요. 시내 안은 전부 도보권이고, BMW 벨트만 지하철로 붙입니다. 레지덴츠는 월요일에도 열지만 님펜부르크까지 넣으면 하루가 빡빡해요.",
+      stops: [
+        { t: "09:30", name: "호텔 암바 출발", lat: 48.1441, lng: 11.5580 },
+        { t: "09:50", name: "마리엔광장 · 신시청", lat: 48.1374, lng: 11.5755, d: "11시 글로켄슈필. 탑 전망대 €6.5", move: "도보 약 17분 · 1.2km", stay: "40분" },
+        { t: "10:45", name: "레지덴츠", lat: 48.1417, lng: 11.5786, d: "비텔스바흐 궁전. €10, 안티콰리움이 핵심", move: "도보 약 9분 · 600m", stay: "1시간 30분" },
+        { t: "12:30", name: "호프가르텐 · 오데온광장", lat: 48.1435, lng: 11.5790, d: "테아티너 교회 노란 파사드", stay: "20분" },
+        { t: "13:00", name: "빅투알리엔 시장 점심", lat: 48.1351, lng: 11.5761, d: "바이스부어스트는 정오 전까지가 원칙", move: "도보 약 14분 · 1.0km", stay: "1시간" },
+        { t: "14:30", name: "영국정원 · 아이스바흐 서퍼", lat: 48.1435, lng: 11.5866, d: "다리 위에서 서핑 구경. 사진 포인트", move: "도보 약 18분 · 1.3km", stay: "30분" },
+        { t: "15:30", name: "중국탑 비어가든", lat: 48.1527, lng: 11.5921, d: "공원 안 비어가든. 잔디밭 산책", move: "도보 약 15분 · 1.1km", stay: "1시간" },
+        { t: "17:00", name: "BMW 벨트 · 박물관", lat: 48.1772, lng: 11.5566, d: "벨트는 무료, 박물관 €17(월요일 휴관 확인). 체력 남으면", move: "U3 약 12분", by: "transit", stay: "1시간 30분" }
+      ]
+    },
+    {
+      title: "뉘른베르크 당일치기",
+      mode: "walking",
+      note: "ICE로 1시간, 30분 간격이라 아침에 표를 사도 됩니다. 바이에른 티켓 €29 또는 Flexpreis. 구시가지가 작아서 반나절이면 충분하고, 저녁은 뮌헨에서 먹을 수 있어요.",
+      stops: [
+        { t: "09:00", name: "뮌헨 중앙역", lat: 48.1402, lng: 11.5600, d: "아침에 바이에른 티켓 또는 Flexpreis 구매" },
+        { t: "10:10", name: "뉘른베르크 중앙역", lat: 49.4455, lng: 11.0823, d: "역 바로 앞이 구시가 성벽", move: "ICE 약 1시간 10분", by: "train" },
+        { t: "10:25", name: "한트베르커호프", lat: 49.4459, lng: 11.0800, d: "성벽 안 중세 공방 골목", move: "도보 3분", stay: "30분" },
+        { t: "11:15", name: "성 로렌츠 교회", lat: 49.4510, lng: 11.0782, d: "고딕 3랑식. 내부 무료", move: "도보 약 8분 · 600m", stay: "30분" },
+        { t: "12:00", name: "중앙광장 · 프라우엔 교회", lat: 49.4542, lng: 11.0775, d: "쇤어 브루넨 황금 고리 돌리기", move: "도보 약 6분 · 400m", stay: "30분" },
+        { t: "12:45", name: "브라트부르스트 점심", lat: 49.4548, lng: 11.0765, d: "브라트부르스트호이슬레 — 손가락 크기 소시지 6·8·12개", stay: "1시간" },
+        { t: "14:00", name: "카이저부르크 (황제성)", lat: 49.4576, lng: 11.0757, d: "구시가 전경. 성 €7, 마당·전망은 무료", move: "도보 약 8분 · 400m", stay: "1시간 30분" },
+        { t: "16:30", name: "뉘른베르크 중앙역 → 뮌헨", lat: 49.4455, lng: 11.0823, d: "30분 간격. 뮌헨 18시 전후 도착", move: "도보 약 15분 · 1.1km" }
+      ]
+    }
+  ],
+
+  "2026-09-22": {
+    mode: "walking",
+    note: "아침은 뮌헨 05:45 출발·08:20 이륙이라 지도는 포르투 도착부터입니다. 얼리 체크인은 보장이 아니라 안 되면 상 벤투역 코인로커에 짐을 맡기세요. 저녁은 동 루이스 다리 위층을 걸어 건너 가이아 쪽에서 노을과 야경을 보는 순서예요.",
+    stops: [
+      { t: "10:20", name: "포르투 공항 (OPO)", lat: 41.2371, lng: -8.6700, d: "LH1782 도착. 위탁 수하물 찾고 지하철 E선" },
+      { t: "11:20", name: "상 벤투역", lat: 41.1456, lng: -8.6104, d: "얼리 체크인 안 되면 여기 코인로커에 짐", move: "지하철 E선 약 35분", by: "transit" },
+      { t: "12:00", name: "Luxury Style 7 (숙소)", lat: 41.1450, lng: -8.6055, d: "승인되면 12~13시 입실, 아니면 15:00. 도착 전날 도어 코드 수신", move: "도보 약 7분 · 500m", stay: "2시간" },
+      { t: "15:00", name: "동행과 늦은 점심", lat: 41.1425, lng: -8.6120, d: "동행은 전날 밤 도착. 숙소에서 도보 5분 거리에 묵어요", stay: "1시간 30분" },
+      { t: "16:45", name: "동 루이스 1세 다리", lat: 41.1400, lng: -8.6093, d: "위층(메트로 D선 옆)을 걸어서 건너요. 고소공포 있으면 아래층", move: "도보 약 10분 · 700m", stay: "30분" },
+      { t: "17:30", name: "세라 두 필라르 수도원 전망대", lat: 41.1375, lng: -8.6060, d: "포르투 전경이 가장 넓게 보이는 곳. 마당은 무료", move: "도보 약 8분 · 400m", stay: "45분" },
+      { t: "18:45", name: "모루 공원 (노을)", lat: 41.1387, lng: -8.6090, d: "다리 건너편 잔디 언덕. 일몰 19:40 전후", move: "도보 약 5분 · 300m", stay: "1시간" },
+      { t: "20:15", name: "히베이라 저녁", lat: 41.1407, lng: -8.6130, d: "강변 야경. 다리 아래층으로 건너오면 바로", move: "도보 약 12분 · 800m" }
+    ]
+  },
+
+  "2026-09-23": {
+    mode: "walking",
+    note: "렐루 09:15 예약이 기준점이라 아침 러닝을 먼저 끝내고 씻고 나가는 순서예요. 렐루·카르무·클레리구스가 한 블록 안이고, 거기서 상 벤투를 지나 볼량까지 완만한 오르막입니다. 가이아 셀러 투어를 오후에 넣을지는 동행과 협의 중.",
+    stops: [
+      { t: "07:30", name: "히베이라 (러닝 시작)", lat: 41.1407, lng: -8.6130, d: "강변 평지. 숙소에서 내리막 10분" },
+      { t: "08:10", name: "폭스 두 도루 (반환점)", lat: 41.1500, lng: -8.6780, d: "강이 바다와 만나는 지점. 왕복 10K, 버스로 돌아와도 됨", move: "러닝 약 5km", by: "run", stay: "10분" },
+      { t: "09:15", name: "렐루 서점", lat: 41.1470, lng: -8.6148, d: "예매 완료(QR 2인, €31.90). 첫 타임이라 사람이 가장 적어요", move: "러닝·버스로 복귀 후 숙소에서 도보", by: "transit", stay: "45분" },
+      { t: "10:15", name: "카르무 성당 · 클레리구스 탑", lat: 41.1470, lng: -8.6155, d: "카르무 측면 아줄레주 벽. 클레리구스 탑 €8, 225계단", move: "도보 2분", stay: "1시간" },
+      { t: "11:30", name: "상 벤투역", lat: 41.1456, lng: -8.6104, d: "2만 장의 아줄레주. 역 안이라 무료", move: "도보 약 7분 · 450m", stay: "30분" },
+      { t: "12:15", name: "알마스 성당", lat: 41.1490, lng: -8.6050, d: "건물 외벽 전체가 파란 아줄레주. 사진 포인트", move: "도보 약 8분 · 550m", stay: "20분" },
+      { t: "12:45", name: "볼량 시장 점심", lat: 41.1497, lng: -8.6068, d: "리모델링 후 재개장. 2층에 먹을 곳", move: "도보 3분", stay: "1시간 15분" },
+      { t: "14:30", name: "산타 카타리나 거리 쇼핑", lat: 41.1470, lng: -8.6040, d: "보행자 거리. 마제스틱 카페도 여기", move: "도보 약 5분 · 350m", stay: "2시간 30분" },
+      { t: "18:00", name: "비토리아 전망대 (노을)", lat: 41.1444, lng: -8.6160, d: "히베이라 지붕과 다리가 한 화면에. 무료", move: "도보 약 15분 · 1.0km", stay: "1시간" }
+    ]
+  },
+
+  "2026-09-24": {
+    mode: "driving",
+    note: "로투스 한국어 투어라 이동은 전부 차량이고 우리가 할 일은 08:20까지 집결하는 것뿐이에요. 코스와 집결 장소는 하루 전 그룹 톡으로 확정 안내가 옵니다. 지도의 와이너리 위치는 일반적인 도루 코스 기준이라 실제와 다를 수 있어요. 현장 지불 €65/인 현금이라 전날 €130을 미리 뽑아 두세요.",
+    stops: [
+      { t: "08:20", name: "Pilares da Ponte Pênsil 집결", lat: 41.1403, lng: -8.6153, d: "10분 전 도착. 지각하면 환불 불가. 미니버스면 볼사 궁전 08:00", stay: "10분" },
+      { t: "09:50", name: "아마란테", lat: 41.2679, lng: -8.0819, d: "타메가 강과 상 곤살루 다리. 커피·화장실 정차", move: "차량 약 1시간 20분", by: "bus", stay: "45분" },
+      { t: "11:30", name: "와이너리 1 · 페주 다 레구아 일대", lat: 41.1622, lng: -7.7890, d: "포도밭 테라스 전망 + 시음. 9월 말이 수확철", move: "차량 약 1시간", by: "bus", stay: "1시간 30분" },
+      { t: "13:15", name: "산골 바베큐 점심", lat: 41.1700, lng: -7.7500, d: "믹스 바베큐 + 무제한 와인 (투어 포함)", move: "차량 약 20분", by: "bus", stay: "1시간 30분" },
+      { t: "15:00", name: "와이너리 2 · 피냥 방면", lat: 41.1893, lng: -7.5430, d: "시음 7~9잔. 도루 강 크루즈가 붙는 경우도 있어요", move: "차량 약 30분", by: "bus", stay: "1시간 30분" },
+      { t: "17:00", name: "포르투 대성당 앞 종료", lat: 41.1430, lng: -8.6115, d: "숙소까지 도보 7분. 시음이 많으니 저녁은 가볍게", move: "차량 약 1시간 30분", by: "bus" }
+    ]
+  },
+
   "2026-09-25": {
     mode: "walking",
     note: "체크인 후 오르막을 먼저 올라 성에서 시작해 알파마를 내려오는 순서예요. 대성당→성 순서보다 오르막이 한 번뿐이라 덜 힘들어요. 28번 트램은 마르팅 모니즈가 기점이라 원하면 숙소 앞에서 타고 포르타스 두 솔에서 내려도 됩니다.",
@@ -1099,7 +1221,55 @@ TRIP.routes = {
       { t: "18:10", name: "코메르시우 광장", lat: 38.7075, lng: -9.1364, d: "강변 노을. 아우구스타 개선문 통과해 바이샤로", stay: "20분" },
       { t: "18:40", name: "호시우 · 바이샤 저녁", lat: 38.7140, lng: -9.1394, d: "빈티지 소품샵, 저녁. 숙소까지 도보 7분" }
     ]
+  },
+
+  "2026-09-26": {
+    mode: "driving",
+    tentative: true,
+    note: "동행이 예약한 마이리얼트립 한국어 투어인데 아직 판매자 확정 대기라, 아래는 이 계열 투어의 일반적인 코스예요. 바우처를 받으면 집결 장소·시간·코스를 실제 값으로 바꾸겠습니다. 신트라는 해발 500m라 리스본보다 5℃ 이상 낮고 오전 안개가 잦으니 겉옷을 챙기세요.",
+    stops: [
+      { t: "08:00", name: "리스본 집결 (장소 미정)", lat: 38.7253, lng: -9.1500, d: "마르퀘스 드 폼발 등 시내 집결이 일반적. 바우처 확인 필요", stay: "20분" },
+      { t: "09:30", name: "페나 궁전", lat: 38.7876, lng: -9.3904, d: "노랑·빨강 낭만주의 궁전. 안개면 전망이 막힐 수 있어요", move: "차량 약 50분", by: "bus", stay: "1시간 30분" },
+      { t: "11:30", name: "신트라 구시가 · 왕궁", lat: 38.7977, lng: -9.3905, d: "굴뚝 두 개가 상징. 케이자다 파는 가게들", move: "차량 약 15분", by: "bus", stay: "1시간" },
+      { t: "13:00", name: "헤갈레이라 별장", lat: 38.7962, lng: -9.3964, d: "입문의 우물. 나선 계단을 내려가는 게 핵심", move: "도보 약 10분 · 700m", stay: "1시간 30분" },
+      { t: "15:30", name: "호카곶 (유라시아 서쪽 끝)", lat: 38.7805, lng: -9.4989, d: "바람이 아주 셉니다. 바람막이 필수", move: "차량 약 30분", by: "bus", stay: "45분" },
+      { t: "17:00", name: "카스카이스", lat: 38.6968, lng: -9.4215, d: "해변 휴양 도시. 커피·산책", move: "차량 약 30분", by: "bus", stay: "1시간" },
+      { t: "19:00", name: "리스본 복귀", lat: 38.7253, lng: -9.1500, d: "숙소까지 지하철 또는 도보", move: "차량 약 40분", by: "bus" }
+    ]
+  },
+
+  "2026-09-27": {
+    mode: "transit",
+    note: "벨렝만 시내에서 떨어져 있어 15E 트램으로 35분 걸립니다. 제로니무스는 시간 슬롯 예약제라 동행과 15:00~15:30 슬롯을 협의 중이에요. 확정되면 순서를 뒤집어 오전에 LX 팩토리를 먼저 갈 수도 있습니다. 벨렝탑은 내부는 건너뛰고 외관만 보기로 했어요.",
+    stops: [
+      { t: "09:00", name: "City Inn 출발", lat: 38.7168, lng: -9.1345, d: "숙소에서 피게이라 광장까지 내리막 7분" },
+      { t: "09:30", name: "피게이라 광장 · 15E 트램", lat: 38.7139, lng: -9.1374, d: "벨렝행 트램 기점. 24시간권 €7.25가 이득", move: "도보 약 7분 · 450m" },
+      { t: "10:15", name: "제로니무스 수도원", lat: 38.6979, lng: -9.2065, d: "마누엘 양식의 정점. €21, 시간 슬롯 예약제. 회랑이 핵심", move: "15E 트램 약 35분", by: "transit", stay: "1시간 30분" },
+      { t: "11:50", name: "파스테이스 드 벨렝", lat: 38.6975, lng: -9.2032, d: "1837년부터 같은 레시피. 안쪽 홀에 앉으면 줄이 빨라요", move: "도보 약 4분 · 250m", stay: "40분" },
+      { t: "12:40", name: "발견기념비", lat: 38.6937, lng: -9.2057, d: "바닥 나침반 모자이크. 전망대 €10", move: "도보 약 7분 · 450m", stay: "30분" },
+      { t: "13:20", name: "벨렝탑", lat: 38.6916, lng: -9.2160, d: "외관만. 강변 산책로로 접근", move: "도보 약 12분 · 800m", stay: "30분" },
+      { t: "15:00", name: "LX 팩토리", lat: 38.7027, lng: -9.1786, d: "옛 방직공장 단지. 레르 데바가르 서점, 4월 25일 다리 바로 아래", move: "15E 트램 약 15분", by: "transit", stay: "2시간" },
+      { t: "17:30", name: "카이스 두 소드레 · 타임아웃 마켓", lat: 38.7071, lng: -9.1455, d: "핑크 스트리트. 마켓은 저녁에 붐빕니다", move: "15E 트램 약 12분", by: "transit", stay: "2시간" },
+      { t: "19:45", name: "숙소 복귀", lat: 38.7168, lng: -9.1345, d: "도보 15분 또는 지하철 그린라인", move: "도보 약 18분 · 1.3km" }
+    ]
+  },
+
+  "2026-09-28": {
+    mode: "walking",
+    note: "혼자 남는 날이에요. 체크아웃 12시 이후 짐 보관이 되는지 아직 확인 중이라, 안 되면 짐 보관 앱(Bounce 등 €5~7)을 쓰세요. 페리로 강 건너 알마다에 가면 리스본 전경을 반대편에서 볼 수 있어요. 22:15 비행기라 20:45까지 탑승수속을 마쳐야 합니다.",
+    stops: [
+      { t: "07:30", name: "코메르시우 광장 (러닝 시작)", lat: 38.7075, lng: -9.1364, d: "테주 강변 평지. 숙소에서 내리막 10분" },
+      { t: "08:15", name: "4월 25일 다리 아래 (반환점)", lat: 38.7043, lng: -9.1750, d: "왕복 8K. 더 뛰면 벨렝까지 편도 6K", move: "러닝 약 4km", by: "run", stay: "10분" },
+      { t: "12:00", name: "City Inn 체크아웃 · 짐 맡기기", lat: 38.7168, lng: -9.1345, d: "보관 가능 여부 확인 중. 안 되면 짐 보관 앱", move: "러닝으로 복귀 후 정리", by: "run", stay: "30분" },
+      { t: "13:00", name: "카이스 두 소드레 페리 터미널", lat: 38.7058, lng: -9.1447, d: "카실랴스행 페리 €1.5, 10분 간격", move: "도보 약 15분 · 1.1km" },
+      { t: "13:30", name: "카실랴스", lat: 38.6889, lng: -9.1497, d: "강 건너편. 해산물 식당 거리", move: "페리 약 10분", by: "ferry", stay: "1시간" },
+      { t: "15:00", name: "크리스투 헤이", lat: 38.6785, lng: -9.1717, d: "리우 예수상의 모델. 전망대 €8에서 리스본 전경과 다리", move: "버스 101번 약 15분", by: "bus", stay: "1시간 30분" },
+      { t: "17:30", name: "LX 팩토리 또는 시내", lat: 38.7027, lng: -9.1786, d: "27일에 다 못 본 곳. 마지막 저녁", move: "페리 + 트램 약 40분", by: "transit", stay: "1시간" },
+      { t: "19:00", name: "숙소에서 짐 회수", lat: 38.7168, lng: -9.1345, d: "지하철 그린라인 → 알라메다 환승 → 레드라인", move: "트램·지하철 약 30분", by: "transit" },
+      { t: "19:45", name: "리스본 공항 T1", lat: 38.7742, lng: -9.1342, d: "KE8922. 20:45까지 탑승수속, 22:15 출발", move: "지하철 약 30분", by: "transit" }
+    ]
   }
+
 };
 </script>
 <script>
@@ -2949,6 +3119,7 @@ body.guide-all .gs .gs-head{cursor:default}
 .route .rstops .rt b span{color:var(--t3);font-weight:600;margin-right:6px}
 .route .rstops .rt small{display:block;font-size:12.5px;color:var(--t3);margin-top:2px;line-height:1.5}
 .route .rstops .rleg{font-size:12px;color:var(--t4);padding:0 0 0 32px;margin-top:-4px}
+.route .rstops .rleg.t{color:var(--t3);font-weight:600}
 .route .btn{margin-top:10px}
 .rmark{width:24px;height:24px;border-radius:50%;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
 @media print{.route .rmap{display:none}}
@@ -3270,7 +3441,10 @@ function moveIcon(type){
 }
 
 /* ── 일정 ───────────────────────────────────────────────── */
-/* ── 하루 동선 지도 (Leaflet + CARTO 타일, 키 불필요) ───────────── */
+/* ── 하루 동선 지도 (Leaflet + CARTO 타일, 키 불필요) ─────────────
+   데이터: TRIP.routes["YYYY-MM-DD"] = {…} 또는 [{title,…},…] (안이 여러 개면 칩으로 전환)
+   stop = {t,name,lat,lng,d,stay,move,by} — move는 이 정차까지 오는 방법 텍스트,
+   by는 walk(기본)·transit·train·flight·bus·taxi·ferry·run. walk가 아니면 걷기 합계에서 뺍니다. */
 let leafletP=null;
 function loadLeaflet(){
   if(window.L) return Promise.resolve(window.L);
@@ -3284,47 +3458,65 @@ function loadLeaflet(){
   return leafletP;
 }
 function haverKm(a,b){ const R=6371, toR=x=>x*Math.PI/180; const dLat=toR(b.lat-a.lat), dLng=toR(b.lng-a.lng); const h=Math.sin(dLat/2)**2+Math.cos(toR(a.lat))*Math.cos(toR(b.lat))*Math.sin(dLng/2)**2; return 2*R*Math.asin(Math.sqrt(h)); }
-function walkText(a,b){ if(b.walk) return b.walk; const km=haverKm(a,b)*1.3; const min=Math.max(2,Math.round(km/4*60)); return '도보 약 '+min+'분 · '+(km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km'); }
+const isWalkLeg = (x)=> !x.by || x.by==='walk';
+function legText(a,b){
+  if(b.move) return b.move;
+  const km=haverKm(a,b)*1.3; const min=Math.max(2,Math.round(km/4*60));
+  return '도보 약 '+min+'분 · '+(km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km');
+}
+function routeVariants(date){ const r=TRIP.routes&&TRIP.routes[date]; if(!r) return []; return Array.isArray(r)?r:[r]; }
+function walkKm(r){ return r.stops.slice(1).reduce((acc,x,i)=>acc+(isWalkLeg(x)?haverKm(r.stops[i],x)*1.3:0),0); }
 function gmapsDirUrl(r){
   const s=r.stops; const p=x=>x.lat+','+x.lng;
   const wp=s.slice(1,-1).slice(0,9).map(p).join('|');
   return 'https://www.google.com/maps/dir/?api=1&origin='+p(s[0])+'&destination='+p(s[s.length-1])+(wp?'&waypoints='+encodeURIComponent(wp):'')+'&travelmode='+(r.mode||'walking');
 }
 function routeHTML(d, color){
-  const r=TRIP.routes&&TRIP.routes[d.date]; if(!r||!r.stops||r.stops.length<2) return '';
-  const total=r.stops.slice(1).reduce((acc,x,i)=>acc+haverKm(r.stops[i],x)*1.3,0);
+  const vs=routeVariants(d.date); if(!vs.length) return '';
+  let idx=state['route.'+d.date]|0; if(idx>=vs.length) idx=0;
+  const r=vs[idx]; if(!r.stops||r.stops.length<2) return '';
+  const km=walkKm(r);
+  const tabs=vs.length>1?'<div class="gsub" style="padding:0 0 10px">'+vs.map((v,i)=>'<button class="fc '+(i===idx?'on':'')+'" data-rv="'+i+'">'+esc(v.title||('안 '+(i+1)))+'</button>').join('')+'</div>':'';
   const li=r.stops.map((x,i)=>{
-    const leg=i>0?'<div class="rleg">↓ '+esc(walkText(r.stops[i-1],x))+'</div>':'';
+    const leg=i>0?'<div class="rleg'+(isWalkLeg(x)?'':' t')+'">↓ '+esc(legText(r.stops[i-1],x))+'</div>':'';
     return leg+'<li><span class="rn" style="background:'+color+'">'+(i+1)+'</span><div class="rt"><b><span>'+esc(x.t||'')+'</span>'+esc(x.name)+(x.stay?' <span class="chip" style="font-size:11px;padding:1px 6px;margin-left:4px">'+esc(x.stay)+'</span>':'')+'</b>'+(x.d?'<small>'+esc(x.d)+'</small>':'')+'</div></li>';
   }).join('');
-  return '<div class="route" data-route="'+esc(d.date)+'"><div class="rhead">동선 <span class="chip">'+r.stops.length+'곳 · 걷기 약 '+total.toFixed(1)+'km</span></div>'
+  return '<div class="route" data-route="'+esc(d.date)+'" data-rv-idx="'+idx+'"><div class="rhead">동선 <span class="chip">'+r.stops.length+'곳'+(km>0.3?' · 걷기 약 '+km.toFixed(1)+'km':'')+'</span>'+(r.tentative?'<span class="chip orange">확정 대기</span>':'')+'</div>'
+    +tabs
     +'<div class="rmap"><div class="gal-note">지도 불러오는 중…</div></div>'
     +(r.note?'<div class="rnote">'+esc(r.note)+'</div>':'')
     +'<ul class="rstops">'+li+'</ul>'
     +'<a class="btn" href="'+esc(gmapsDirUrl(r))+'" target="_blank" rel="noopener">구글맵 길찾기로 열기 (전체 경로)</a></div>';
 }
-const routeMaps={};
+let routeMaps={};
 function mountRouteMap(box, date, color){
-  const r=TRIP.routes[date]; const mapEl=box.querySelector('.rmap'); if(!mapEl) return;
-  if(routeMaps[date]){ setTimeout(()=>routeMaps[date].invalidateSize(),50); return; }
+  const idx=box.dataset.rvIdx|0, key=date+'#'+idx;
+  const r=routeVariants(date)[idx]; if(!r) return;
+  const mapEl=box.querySelector('.rmap'); if(!mapEl) return;
+  if(routeMaps[key]&&routeMaps[key]._container===mapEl){ setTimeout(()=>routeMaps[key].invalidateSize(),50); return; }
   loadLeaflet().then(L=>{
     mapEl.innerHTML='';
     const dark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
     const map=L.map(mapEl,{scrollWheelZoom:false,attributionControl:true});
     L.tileLayer('https://{s}.basemaps.cartocdn.com/'+(dark?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
     const pts=r.stops.map(x=>[x.lat,x.lng]);
-    L.polyline(pts,{color:color,weight:4,opacity:.85,dashArray:'1 8',lineCap:'round'}).addTo(map);
+    r.stops.forEach((x,i)=>{
+      if(i===0) return;
+      const seg=[[r.stops[i-1].lat,r.stops[i-1].lng],[x.lat,x.lng]];
+      if(isWalkLeg(x)) L.polyline(seg,{color:color,weight:4,opacity:.85,dashArray:'1 8',lineCap:'round'}).addTo(map);
+      else L.polyline(seg,{color:color,weight:2.5,opacity:.45}).addTo(map);
+    });
     r.stops.forEach((x,i)=>{
       L.marker([x.lat,x.lng],{icon:L.divIcon({className:'',html:'<div class="rmark" style="background:'+color+'">'+(i+1)+'</div>',iconSize:[24,24],iconAnchor:[12,12]})}).addTo(map).bindPopup('<b>'+(i+1)+'. '+esc(x.name)+'</b>'+(x.t?'<br>'+esc(x.t):''));
     });
     map.fitBounds(pts,{padding:[28,28]});
-    routeMaps[date]=map;
+    routeMaps[key]=map;
     setTimeout(()=>map.invalidateSize(),50);
   }).catch(()=>{ mapEl.innerHTML='<div class="gal-note">지도를 불러오지 못했어요. 인터넷이 연결되면 다시 시도합니다. 아래 버튼으로 구글맵에서 볼 수 있어요.</div>'; });
 }
 
 function renderPlan(){
-  const root=$('#tab-plan'); root.innerHTML='';
+  const root=$('#tab-plan'); root.innerHTML=''; routeMaps={};
   root.appendChild(el('<div class="sec-title">전체 일정</div>'));
   root.appendChild(el('<div class="sec-desc">날짜를 누르면 상세가 열립니다.</div>'));
   const card = el('<div class="card"></div>');
@@ -3359,7 +3551,11 @@ function renderPlan(){
       </div>`);
     node.querySelectorAll('.dguide button').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); if(b.dataset.amb) openAmb(); else openGuideSpot(b.dataset.spot); }));
     const rb=node.querySelector('.route');
-    if(rb){ rb.addEventListener('click',e=>e.stopPropagation()); if(isOpen) setTimeout(()=>mountRouteMap(rb,d.date,color),0); }
+    if(rb){
+      rb.addEventListener('click',e=>e.stopPropagation());
+      rb.querySelectorAll('[data-rv]').forEach(b=>b.addEventListener('click',()=>{ state['route.'+d.date]=+b.dataset.rv; save(); render(); }));
+      if(isOpen) setTimeout(()=>mountRouteMap(rb,d.date,color),0);
+    }
     card.appendChild(node);
   });
   root.appendChild(card);
